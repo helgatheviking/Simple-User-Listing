@@ -60,7 +60,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			extract(shortcode_atts(array(
 				"role" => '',
-				"number" => '10'
+				"number" => get_option( 'posts_per_page', 10 ),
 			), $atts));
 
 			$role = sanitize_text_field($role);
