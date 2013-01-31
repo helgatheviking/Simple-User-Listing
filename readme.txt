@@ -1,27 +1,26 @@
-# Simple-User-Listing
-
-Contributors: helgatheviking  return
-Donate link: https://inspirepay.com/pay/helgatheviking  return
-Tags: users, authors  return
-Requires at least: 3.4  return
-Tested up to: 3.5  return
-Stable tag: 1.0  return
-License: GPLv2 or later  return
-License URI: http://www.gnu.org/licenses/gpl-2.0.html  return
+=== Simple User Listing  ===
+Contributors: helgatheviking
+Donate link: https://inspirepay.com/pay/helgatheviking
+Tags: users, authors
+Requires at least: 3.4
+Tested up to: 3.5
+Stable tag: 1.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A shortcode for displaying paginated lists of users.
 
-## Description
+== Description ==
 
 Other plugins output paginated lists of users, but I needed to be able to customize and style this list to fit my theme.  So I created this plugin to use templates that can be overridden and customized by theme developers.
 
-## Installation
+== Installation ==
 
 1. Upload the `plugin` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Add the shortcode [userlist] anywhere you wish to display a list of users
 
-## Usage
+== Usage ==
 
 Place this shortcode anywhere you'd like to display a full list of all your blog's users.
 
@@ -41,6 +40,6 @@ The whole reason I wrote this was that other similar plugins had too much contro
 
 [See the Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query)
 
-## Bug Reporting
+== Bug Reporting ==
 
-Please report any issues at: https://github.com/helgatheviking/Simple-User-Listing/issues
+Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
