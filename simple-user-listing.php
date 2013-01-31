@@ -1,11 +1,31 @@
 <?php
 /*
 Plugin Name: Simple User Listing
-Plugin URI: http://kathyisawesome.com
+Plugin URI: http://wordpress.org/extend/plugins/simple-user-listing/
 Description: Create a simple shortcode to list our WordPress users.
 Author: Kathy Darling
 Version: 1.0
 Author URI: http://kathyisawesome.com
+License: GPL2
+
+
+    Copyright 2013  Kathy Darling  (email: kathy.darling@gmail.com)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+
 */
 
 /*
@@ -56,7 +76,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @return string
 		 */
 		function shortcode_callback($atts, $content = null) {
-			global $post, $sul_users, $author;
+			global $post, $sul_users, $user;
 
 			extract(shortcode_atts(array(
 				"role" => '',
@@ -102,15 +122,15 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$sul_users = new WP_User_Query( $args );
 
 			// The authors object.
-			$authors = $sul_users->get_results();
+			$users = $sul_users->get_results();
 
 			do_action( 'simple_user_listing_before_loop' );
 
-			if ( ! empty( $authors ) )	 {
+			if ( ! empty( $users ) )	 {
 				$i = 0;
 				// loop through each author
-				foreach( $authors as $author ){
-					$author->counter = ++$i;
+				foreach( $users as $user ){
+					$user->counter = ++$i;
 					sul_get_template_part( 'content', 'author' );
 				}
 			} else {
