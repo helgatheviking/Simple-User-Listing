@@ -1,4 +1,9 @@
 == Changelog ==
 
+= 1.1 =
+* Add translation .pot
+* Fix "1 posts" error in content-author.php template
+* HTML encode arrows in navigation-author.php template
+
 = 1.0 =
 * Initial release.

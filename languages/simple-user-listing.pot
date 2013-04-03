@@ -1,0 +1,70 @@
+# Copyright (C) 2013 Simple User Listing
+# This file is distributed under the same license as the Simple User Listing package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple User Listing 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-user-listing\n"
+"POT-Creation-Date: 2013-04-03 17:17:20+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: templates/content-author.php:18
+msgid "%s post"
+msgid_plural "%s posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/navigation-author.php:29
+msgid "User navigation"
+msgstr ""
+
+#: templates/navigation-author.php:31
+msgid "Previous"
+msgstr ""
+
+#: templates/navigation-author.php:35
+msgid "Next"
+msgstr ""
+
+#: templates/none-author.php:13
+msgid "No users found"
+msgstr ""
+
+#: templates/search-author.php:13
+msgid "Search authors by name"
+msgstr ""
+
+#: templates/search-author.php:15
+msgid "Search"
+msgstr ""
+
+#: templates/search-author.php:21
+msgid "Search Results for: %s"
+msgstr ""
+
+#: templates/search-author.php:22
+msgid "Back To Author Listing"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Simple User Listing"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/simple-user-listing/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Create a simple shortcode to list our WordPress users."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Kathy Darling"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://kathyisawesome.com"
+msgstr ""
