@@ -28,10 +28,10 @@ $total_pages = ceil($total_authors / $number);
 <nav id="nav-single">
 	<h3 class="assistive-text"><?php _e('User navigation', 'simple-user-listing');?></h3>
 	<?php if ($page != 1) { ?>
-		<span class="nav-previous"><a rel="prev" href="<?php the_permalink() ?>page/<?php echo $page - 1; ?>/"><span class="meta-nav">←</span> <?php _e('Previous', 'simple-user-listing');?></a></span>
+		<span class="nav-previous"><a rel="prev" href="<?php the_permalink() ?>page/<?php echo $page - 1; ?>/"><span class="meta-nav">&larr;</span> <?php _e('Previous', 'simple-user-listing');?></a></span>
 	<?php } ?>
 
 	<?php if ($page < $total_pages ) { ?>
-		<span class="nav-next"><a rel="next" href="<?php the_permalink() ?>page/<?php echo $page + 1; ?>/"><?php _e('Next', 'simple-user-listing');?> <span class="meta-nav">→</span></a></span>
+		<span class="nav-next"><a rel="next" href="<?php the_permalink() ?>page/<?php echo $page + 1; ?>/"><?php _e('Next', 'simple-user-listing');?> <span class="meta-nav">&rarr;</span></a></span>
 	<?php } ?>
 </nav>
