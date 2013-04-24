@@ -18,7 +18,7 @@ $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $total_authors = $sul_users->get_total();
 
 // authors per page from query
-$number = $sul_users->query_vars['number'];
+$number = intval ( $sul_users->query_vars['number'] ) ? intval ( $sul_users->query_vars['number'] ) : 1;
 
 // Calculate the total number of pages for the pagination (use ceil() to always round up)
 $total_pages = ceil($total_authors / $number);
