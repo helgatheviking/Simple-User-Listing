@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.4
 Tested up to: 3.5.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,11 +50,20 @@ The whole reason I wrote this was that other similar plugins had too much contro
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Add the shortcode [userlist] anywhere you wish to display a list of users
 
+== Frequently Asked Questions ==
+
+1. I can't get the search users to work?
+
+The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
+
 == Bug Reporting ==
 
 Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
 
 == Changelog ==
+
+= 1.2.2 =
+* Add FAQ
 
 = 1.2.1 =
 * Fix readme.txt markdown

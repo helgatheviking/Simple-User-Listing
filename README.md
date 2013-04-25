@@ -5,7 +5,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking  return
 Tags: users, authors  return
 Requires at least: 3.4  return
 Tested up to: 3.5  return
-Stable tag: 1.2.1  return
+Stable tag: 1.2.2  return
 License: GPLv2 or later  return
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  return
 
@@ -49,6 +49,12 @@ As of version 1.2 you can now sort the user list by and of the sort parameters s
 The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.  Though you can copy the individual templates into your theme's main directory, probably the easiest thing to do would be to copy the entire `/templates` folder from the plugin and paste it into your theme, renaming the folder to `simple_user_listing`.  Now you can style away as you wish.  It will be similar to template parts for loops, except you will have access to each user's $user object instead of the $post object.
 
 [See the Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query)
+
+## FAQ
+
+1. I can't get the search users to work?
+
+The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
 
 ## Bug Reporting
 
