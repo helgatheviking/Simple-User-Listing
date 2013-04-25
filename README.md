@@ -5,7 +5,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking  return
 Tags: users, authors  return
 Requires at least: 3.4  return
 Tested up to: 3.5  return
-Stable tag: 1.2  return
+Stable tag: 1.2.1  return
 License: GPLv2 or later  return
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  return
 
