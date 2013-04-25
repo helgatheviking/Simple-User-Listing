@@ -90,6 +90,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			extract(shortcode_atts(array(
 				"role" => '',
 				"number" => get_option( 'posts_per_page', 10 ),
+				"orderby" => 'login',
+				"order" => 'ASC'
 			), $atts));
 
 			$role = sanitize_text_field($role);
@@ -114,7 +116,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				// Generate the query based on search field
 				$args2 =
 					array(
-						'search' => '*' . $search . '*'
+						'search' => '*' . $search . '*',
+						'number' => $number,
+						'orderby' => $orderby,
+						'order' => $order
 					);
 			} else {
 				// Generate the query
@@ -123,6 +128,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 						'role' => $role,
 						'offset' => $offset,
 						'number' => $number,
+						'orderby' => $orderby,
+						'order' => $order
 					);
 			}
 
