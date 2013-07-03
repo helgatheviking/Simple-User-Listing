@@ -110,31 +110,23 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// Calculate the offset (i.e. how many users we should skip)
 			$offset = ($page - 1) * $number;
 
-			$args1 = array( 'query_id' => 'simple_user_listing' );
+			$args = array(
+				'query_id' => 'simple_user_listing',
+				'offset' => $offset,
+				'number' => $number,
+				'orderby' => $orderby,
+				'order' => $order
+			);
 
 			if ($search){
 				// Generate the query based on search field
-				$args2 =
-					array(
-						'search' => '*' . $search . '*',
-						'offset' => $offset,
-						'number' => $number,
-						'orderby' => $orderby,
-						'order' => $order
-					);
+				$args['search'] = '*' . $search . '*';
 			} else {
-				// Generate the query
-				$args2 =
-					array(
-						'role' => $role,
-						'offset' => $offset,
-						'number' => $number,
-						'orderby' => $orderby,
-						'order' => $order
-					);
+				// Generate the search based on role
+				$args['role'] = $role;
 			}
 
-			$args = apply_filters( 'sul_user_query_args', array_merge( $args1, $args2 ) );
+			$args = apply_filters( 'sul_user_query_args', $args );
 
 			$sul_users = new WP_User_Query( $args );
 
