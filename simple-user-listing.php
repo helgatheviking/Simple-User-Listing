@@ -117,6 +117,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				$args2 =
 					array(
 						'search' => '*' . $search . '*',
+						'offset' => $offset,
 						'number' => $number,
 						'orderby' => $orderby,
 						'order' => $order
