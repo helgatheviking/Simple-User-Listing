@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<form method="get" id="sul-searchform" action="<?php the_permalink() ?>">
 			<label for="as" class="assistive-text"><?php _e('Search' ,'simple-user-listing');?></label>
 			<input type="text" class="field" name="as" id="sul-s" placeholder="Search Authors" />
-			<input type="submit" class="submit" name="submit" id="sul-searchsubmit" value="Search Authors" />
+			<input type="submit" class="submit" id="sul-searchsubmit" value="Search Authors" />
 		</form>
 	<?php
 	if($search){ ?>
