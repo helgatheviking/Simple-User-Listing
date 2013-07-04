@@ -23,6 +23,8 @@ $number = intval ( $sul_users->query_vars['number'] ) ? intval ( $sul_users->que
 // Calculate the total number of pages for the pagination (use ceil() to always round up)
 $total_pages = ceil($total_authors / $number);
 
+// Only show the navigation if needed
+if ( $total_pages > 1 ) :
 ?>
 
 <nav id="nav-single">
@@ -35,3 +37,5 @@ $total_pages = ceil($total_authors / $number);
 		<span class="nav-next"><a rel="next" href="<?php the_permalink() ?>page/<?php echo $page + 1; ?>/"><?php _e('Next', 'simple-user-listing');?> <span class="meta-nav">&rarr;</span></a></span>
 	<?php } ?>
 </nav>
+
+<?php endif; ?>
