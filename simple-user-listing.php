@@ -57,7 +57,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 	    }
 
 		/**
-		 * Get the plugin path.
+		 * Ready for translations
 		 *
 		 * @access public
 		 * @return none
