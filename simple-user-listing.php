@@ -37,18 +37,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	class Simple_User_Listing {
 
-		/**
-		 * @var string
-		 */
-		var $template_url;
-
-	    public function __construct() {
-
-	    	// Variables
-			$this->template_url			= trailingslashit( apply_filters( 'sul_template_url', 'simple-user-listing' ) );
+	   public function __construct() {
 
 			add_action('plugins_loaded', array( $this, 'load_text_domain' ) );
-
 		   add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 		   add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 		   add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
@@ -77,6 +68,17 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			return $this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
 		}
 
+		/**
+		 * Get the template url
+		 * @since 1.3
+		 * @access public
+		 * @return string
+		 */
+		function template_url() {
+			if ( $this->template_url ) return $this->template_url;
+
+			return $this->template_url = trailingslashit( apply_filters( 'sul_template_url', 'simple-user-listing' ) );
+		}
 
 		/**
 		 * Callback for the shortcode
@@ -203,13 +205,13 @@ function sul_get_template_part( $slug, $name = '' ) {
 
 	// Look in yourtheme/slug-name.php and yourtheme/simple-user-listing/slug-name.php
 	if ( $name )
-		$template = locate_template( array ( "{$slug}-{$name}.php", "{$simple_user_listing->template_url}{$slug}-{$name}.php" ) );
+		$template = locate_template( array ( "{$slug}-{$name}.php", "{$simple_user_listing->template_url()}{$slug}-{$name}.php" ) );
 	if ( !$template && $name && file_exists( $simple_user_listing->plugin_path() . "/templates/{$slug}-{$name}.php" ) )
 		$template = $simple_user_listing->plugin_path() . "/templates/{$slug}-{$name}.php";
 
 	// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/simple_user_listing/slug.php
 	if ( !$template )
-		$template = locate_template( array ( "{$slug}.php", "{$simple_user_listing->template_url}{$slug}.php" ) );
+		$template = locate_template( array ( "{$slug}.php", "{$simple_user_listing->template_url()}{$slug}.php" ) );
 
 	if ( $template )
 		load_template( $template, false );
