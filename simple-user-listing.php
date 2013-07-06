@@ -121,7 +121,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'order' => $order
 			);
 
-			if ($search){
+			if ( $search ){
 				// Generate the query based on search field
 				$args['search'] = '*' . $search . '*';
 			} else {
@@ -176,12 +176,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Add body class
 		 */
 		function body_class( $c ) {
-
 		    if( is_user_listing() ) {
 		        $c[] = 'userlist';
 
 		    }
-
 		    return $c;
 		}
 
