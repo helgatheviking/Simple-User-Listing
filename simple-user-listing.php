@@ -37,6 +37,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	class Simple_User_Listing {
 
+		/* variables */
+		public $plugin_path;
+		public $template_url;
+		public $allowed_search_vars;
+
 	   public function __construct() {
 
 			add_action('plugins_loaded', array( $this, 'load_text_domain' ) );
