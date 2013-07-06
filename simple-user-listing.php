@@ -56,6 +56,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		function load_text_domain() {
 		 load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
+
 		/**
 		 * Get the plugin path.
 		 *
@@ -107,10 +108,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$search = ( isset($_GET["as"]) ) ? sanitize_text_field($_GET["as"]) : false ;
 
 			// Get Query Var for pagination. This already exists in WordPress
-			$page = (get_query_var('paged')) ? get_query_var('paged') : 1;
+			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' )  : 1;
 
 			// Calculate the offset (i.e. how many users we should skip)
-			$offset = ($page - 1) * $number;
+			$offset = ( $page - 1 ) * $number;
 
 			$args = array(
 				'query_id' => 'simple_user_listing',
