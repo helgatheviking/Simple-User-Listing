@@ -44,8 +44,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		   add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 		   add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
 		   add_filter( 'body_class', array( $this, 'body_class' ) );
+		   add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
 
-	    }
+	   }
 
 		/**
 		 * Ready for translations
@@ -79,6 +80,18 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			if ( $this->template_url ) return $this->template_url;
 
 			return $this->template_url = trailingslashit( apply_filters( 'sul_template_url', 'simple-user-listing' ) );
+		}
+
+		/**
+		 * Get Allowed Search Args
+		 * @since 1.3
+		 * @access public
+		 * @return array
+		 */
+		function allowed_search_vars() {
+			if ( $this->allowed_search_vars ) return $this->allowed_search_vars;
+
+			return $this->allowed_search_vars = apply_filters( 'sul_user_allowed_search_vars', array( 'as' ) );
 		}
 
 		/**
@@ -181,6 +194,120 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		    }
 		    return $c;
+		}
+
+		/**
+		 * Register the search query var
+		 * @since 1.3
+		 */
+		function user_query_vars( $query_vars )	{
+			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ){
+				$query_vars[] = $var;
+			}
+			return $query_vars;
+		}
+
+		/**
+		 * Get Total Pages in User Query
+		 * @since 1.3
+		 */
+		public function get_total_user_pages(){
+
+			global $sul_users;
+
+			$total_pages = 1;
+
+			if( $sul_users && ! is_wp_error( $sul_users ) ){
+
+				// Get the total number of authors. Based on this, offset and number
+				// per page, we'll generate our pagination.
+				$total_authors = $sul_users->get_total();
+
+				// authors per page from query
+				$number = intval ( $sul_users->query_vars['number'] ) ? intval ( $sul_users->query_vars['number'] ) : 1;
+
+				// Calculate the total number of pages for the pagination (use ceil() to always round up)
+				$total_pages =  ceil( $total_authors / $number );
+
+			}
+
+			return $total_pages;
+
+		}
+
+		/**
+		 * Get Previous users
+		 * @since 1.3
+		 */
+		public function get_previous_users_url(){
+			global $sul_users;
+
+			// Get Query Var for pagination. This already exists in WordPress
+			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
+			// start with nothing
+			$previous_url = false;
+
+			// there is no previous link on page 1
+			if ( $page > 1 ) {
+
+				// add paging
+				$previous_url = add_query_arg( array( 'paged' => ( $page - 1 ) ), get_permalink() );
+
+				// if this is a search query, preserve the query args
+				if ( isset( $sul_users->query_vars['search'] ) && $sul_users->query_vars['search'] ) {
+
+					// get all the search query variables
+					if( $this->allowed_search_vars() ) foreach ( $this->allowed_search_vars() as $arg ) {
+						$search[$arg] = get_query_var( $arg );
+					}
+
+					if ( ! empty ( $search ) )
+						$previous_url = add_query_arg( $search, $previous_url );
+
+				}
+
+			}
+
+			return $previous_url;
+
+		}
+
+		/**
+		 * Get Next users
+		 * @since 1.3
+		 */
+		public function get_next_users_url(){
+			global $sul_users;
+
+			// Get Query Var for pagination. This already exists in WordPress
+			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
+			// start with nothing
+			$next_url = false;
+
+			// there is no next link on last page
+			if ( $page < $this->get_total_user_pages() ) {
+
+				// add paging
+				$next_url = add_query_arg( array( 'paged' => ( $page + 1 ) ), get_permalink() );
+
+				// if this is a search query, preserve the query args
+				if ( isset( $sul_users->query_vars['search'] ) && $sul_users->query_vars['search'] ) {
+
+					// get all the search query variables
+					if( $this->allowed_search_vars() ) foreach ( (array) $this->allowed_search_vars() as $arg ) {
+						$search[$arg] = get_query_var( $arg );
+					}
+
+					if ( ! empty ( $search ) )
+						$next_url = add_query_arg( $search, $next_url );
+
+				}
+
+			}
+
+			return $next_url;
 		}
 
 	}
