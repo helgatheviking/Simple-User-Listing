@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Simple User Listing package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple User Listing 1.0\n"
+"Project-Id-Version: Simple User Listing 1.2.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-user-listing\n"
-"POT-Creation-Date: 2013-04-03 17:17:20+00:00\n"
+"POT-Creation-Date: 2013-07-06 13:43:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,15 +18,15 @@ msgid_plural "%s posts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/navigation-author.php:29
+#: templates/navigation-author.php:17
 msgid "User navigation"
 msgstr ""
 
-#: templates/navigation-author.php:31
+#: templates/navigation-author.php:20
 msgid "Previous"
 msgstr ""
 
-#: templates/navigation-author.php:35
+#: templates/navigation-author.php:24
 msgid "Next"
 msgstr ""
 
@@ -34,19 +34,23 @@ msgstr ""
 msgid "No users found"
 msgstr ""
 
-#: templates/search-author.php:13
+#: templates/search-author.php:16
 msgid "Search authors by name"
 msgstr ""
 
-#: templates/search-author.php:15
+#: templates/search-author.php:18
 msgid "Search"
 msgstr ""
 
-#: templates/search-author.php:21
+#: templates/search-author.php:19 templates/search-author.php:20
+msgid "Search Authors"
+msgstr ""
+
+#: templates/search-author.php:24
 msgid "Search Results for: %s"
 msgstr ""
 
-#: templates/search-author.php:22
+#: templates/search-author.php:25
 msgid "Back To Author Listing"
 msgstr ""
 #. Plugin Name of the plugin/theme
