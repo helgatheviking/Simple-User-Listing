@@ -258,20 +258,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			if ( $page > 1 ) {
 
 				// add paging
-				$previous_url = add_query_arg( array( 'paged' => ( $page - 1 ) ), get_permalink() );
+				$previous_url = add_query_arg( 'paged', $page - 1, get_permalink() );
 
-				// if this is a search query, preserve the query args
-				if ( isset( $sul_users->query_vars['search'] ) && $sul_users->query_vars['search'] ) {
-
-					// get all the search query variables
-					if( $this->allowed_search_vars() ) foreach ( $this->allowed_search_vars() as $arg ) {
-						$search[$arg] = get_query_var( $arg );
-					}
-
-					if ( ! empty ( $search ) )
-						$previous_url = add_query_arg( $search, $previous_url );
-
-				}
+				// add search params
+				$previous_url = $this->add_search_args( $previous_url );
 
 			}
 
@@ -296,24 +286,31 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			if ( $page < $this->get_total_user_pages() ) {
 
 				// add paging
-				$next_url = add_query_arg( array( 'paged' => ( $page + 1 ) ), get_permalink() );
+				$next_url = add_query_arg( 'paged', $page + 1, get_permalink() );
 
-				// if this is a search query, preserve the query args
-				if ( isset( $sul_users->query_vars['search'] ) && $sul_users->query_vars['search'] ) {
-
-					// get all the search query variables
-					if( $this->allowed_search_vars() ) foreach ( (array) $this->allowed_search_vars() as $arg ) {
-						$search[$arg] = get_query_var( $arg );
-					}
-
-					if ( ! empty ( $search ) )
-						$next_url = add_query_arg( $search, $next_url );
-
-				}
+				// add search params
+				$next_url = $this->add_search_args( $next_url );
 
 			}
 
 			return $next_url;
+		}
+
+
+		public function add_search_args( $url ){
+			global $sul_users;
+
+			// if this is a search query, preserve the query args
+			if ( ! empty( $_GET ) ) {
+
+				// get all the search query variables ( just the ones in the $_GET that we've whitelisted )
+				$search = array_intersect_key( $_GET, array_flip( $this->allowed_search_vars() ) );
+
+				if ( ! empty ( $search ) )
+					$url = add_query_arg( (array)$search, $url );
+
+			}
+			return $url;
 		}
 
 	}
