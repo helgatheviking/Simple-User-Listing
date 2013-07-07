@@ -148,7 +148,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				$args['role'] = $role;
 			}
 
-			$args = apply_filters( 'sul_user_query_args', $args );
+			$args = apply_filters( 'sul_user_query_args', $args, $list_id );
 
 			$sul_users = new WP_User_Query( $args );
 
