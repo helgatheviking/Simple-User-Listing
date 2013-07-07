@@ -109,6 +109,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			global $post, $sul_users, $user;
 
 			extract(shortcode_atts(array(
+				"list_id" => '',
 				"role" => '',
 				"number" => get_option( 'posts_per_page', 10 ),
 				"orderby" => 'login',
