@@ -4,8 +4,8 @@ Contributors: helgatheviking  return
 Donate link: https://inspirepay.com/pay/helgatheviking  return
 Tags: users, authors  return
 Requires at least: 3.4  return
-Tested up to: 3.5  return
-Stable tag: 1.2.2  return
+Tested up to: 3.5.2  return
+Stable tag: 1.3  return
 License: GPLv2 or later  return
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  return
 
@@ -46,7 +46,9 @@ As of version 1.2 you can now sort the user list by and of the sort parameters s
 ```
 ### Templating
 
-The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.  Though you can copy the individual templates into your theme's main directory, probably the easiest thing to do would be to copy the entire `/templates` folder from the plugin and paste it into your theme, renaming the folder to `simple-user-listing`.  Now you can style away as you wish.  It will be similar to template parts for loops, except you will have access to each user's $user object instead of the $post object.
+The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
+
+Copy the files you wish to modify from the `/templates` folder of the plugin and paste them into a `simple-user-listing` folder in your theme.  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's $user object instead of the $post object.
 
 [See the Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query)
 
@@ -55,6 +57,85 @@ The whole reason I wrote this was that other similar plugins had too much contro
 1. I can't get the search users to work?
 
 The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
+
+2. How can I setup custom search? (search by a meta field)
+
+First you need to change your search form.  You can do that by creating a new `search-authors.php` template in the `simple-user-listing` folder of your theme.
+
+For example, if I wanted to search by the meta field "billing_city" I would have my search template look like the following:
+
+```
+<?php
+/**
+ * The Template for displaying Author Search
+ *
+ * Place this file in your theme
+ * yourtheme/simple-user-listing/search-author.php
+ *
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$search = ( get_query_var( 'billing_city' ) ) ? get_query_var( 'billing_city' )  : '';
+
+global $sul_users;
+?>
+
+<div class="author-search">
+  <h2><?php _e('Search authors by city' ,'simple-user-listing');?></h2>
+		<form method="get" id="sul-searchform" action="<?php the_permalink() ?>">
+			<label for="as" class="assistive-text"><?php _e('Search' ,'simple-user-listing');?></label>
+
+<input type="text" class="field" name="billing_city" id="sul-s" placeholder="<?php _e('Search Authors' ,'simple-user-listing');?>" value="<?php echo $search; ?>"/>
+
+			<input type="submit" class="submit" id="sul-searchsubmit" value="<?php _e('Search Authors' ,'simple-user-listing');?>" />
+		</form>
+	<?php
+	if( $search ){ ?>
+		<h2 ><?php printf( __('Search Results for: %s' ,'simple-user-listing'), '<em>' . $search .'</em>' );?></h2>
+		<a href="<?php the_permalink(); ?>"><?php _e('Back To Author Listing' ,'simple-user-listing');?></a>
+	<?php } ?>
+</div><!-- .author-search -->
+```
+
+Next you'll need to modify the shortcode's arguments for `WP_User_Query`.  You can do that by filtering `sul_user_query_args` and then adding your parameters to the Simple User Listing's whitelist by filtering `sul_user_query_args`.
+
+Add the following to your theme's functions.php:
+
+```
+/**
+ * Place this in your theme's functions.php file
+ * Or a site-specific plugin
+ *
+ */
+// Switch the WP_User_Query args to a meta search
+function kia_meta_search( $args ){
+
+  // this $_GET is the name field of the custom input in search-author.php
+	$search = ( isset($_GET['billing_city']) ) ? sanitize_text_field($_GET['billing_city']) : false ;
+
+	if ( $search ){
+		// if your shortcode has a 'role' parameter defined it will be maintained
+		// unless you choose to unset the role parameter by uncommenting the following
+		//	unset( $args['role'] );
+		$args['meta_key'] = 'billing_city';
+		$args['meta_value'] = $search;
+		$args['meta_compare'] = '=';
+	}
+
+	return $args;
+}
+add_filter('sul_user_query_args', 'kia_meta_search');
+
+// Register query var and whitelist with Simple User Listing
+function kia_search_vars( $vars ){
+	$vars[] = 'billing_city';
+	return $vars;
+}
+add_filter('sul_user_allowed_search_vars', 'kia_search_vars');
+```
+
+Now the search will return users that match the entered "billing_city".  You can adjust as needed for more complicated meta queries.
 
 ## Bug Reporting
 

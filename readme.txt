@@ -3,8 +3,8 @@ Contributors: helgatheviking
 Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.4
-Tested up to: 3.5.1
-Stable tag: 1.2.2
+Tested up to: 3.5.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,11 +58,95 @@ Copy the files you wish to modify from the `/templates` folder of the plugin and
 
 The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
 
+2. How can I setup custom search? (search by a meta field)
+
+First you need to change your search form.  You can do that by creating a new `search-authors.php` template in the `simple-user-listing` folder of your theme.
+
+For example, if I wanted to search by the meta field "billing_city" I would have my search template look like the following:
+
+`
+<?php
+/**
+ * The Template for displaying Author Search
+ *
+ * Place this file in your theme
+ * yourtheme/simple-user-listing/search-author.php
+ *
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$search = ( get_query_var( 'billing_city' ) ) ? get_query_var( 'billing_city' )  : '';
+
+global $sul_users;
+?>
+
+<div class="author-search">
+  <h2><?php _e('Search authors by city' ,'simple-user-listing');?></h2>
+		<form method="get" id="sul-searchform" action="<?php the_permalink() ?>">
+			<label for="as" class="assistive-text"><?php _e('Search' ,'simple-user-listing');?></label>
+
+<input type="text" class="field" name="billing_city" id="sul-s" placeholder="<?php _e('Search Authors' ,'simple-user-listing');?>" value="<?php echo $search; ?>"/>
+
+			<input type="submit" class="submit" id="sul-searchsubmit" value="<?php _e('Search Authors' ,'simple-user-listing');?>" />
+		</form>
+	<?php
+	if( $search ){ ?>
+		<h2 ><?php printf( __('Search Results for: %s' ,'simple-user-listing'), '<em>' . $search .'</em>' );?></h2>
+		<a href="<?php the_permalink(); ?>"><?php _e('Back To Author Listing' ,'simple-user-listing');?></a>
+	<?php } ?>
+</div><!-- .author-search -->
+`
+
+Next you'll need to modify the shortcode's arguments for `WP_User_Query`.  You can do that by filtering `sul_user_query_args` and then adding your parameters to the Simple User Listing's whitelist by filtering `sul_user_query_args`.
+
+Add the following to your theme's functions.php:
+
+`
+/**
+ * Place this in your theme's functions.php file
+ * Or a site-specific plugin
+ *
+ */
+// Switch the WP_User_Query args to a meta search
+function kia_meta_search( $args ){
+
+  // this $_GET is the name field of the custom input in search-author.php
+	$search = ( isset($_GET['billing_city']) ) ? sanitize_text_field($_GET['billing_city']) : false ;
+
+	if ( $search ){
+		// if your shortcode has a 'role' parameter defined it will be maintained
+		// unless you choose to unset the role parameter by uncommenting the following
+		//	unset( $args['role'] );
+		$args['meta_key'] = 'billing_city';
+		$args['meta_value'] = $search;
+		$args['meta_compare'] = '=';
+	}
+
+	return $args;
+}
+add_filter('sul_user_query_args', 'kia_meta_search');
+
+// Register query var and whitelist with Simple User Listing
+function kia_search_vars( $vars ){
+	$vars[] = 'billing_city';
+	return $vars;
+}
+add_filter('sul_user_allowed_search_vars', 'kia_search_vars');
+`
+
+Now the search will return users that match the entered "billing_city".  You can adjust as needed for more complicated meta queries.
+
 == Bug Reporting ==
 
 Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
 
 == Changelog ==
+
+= 1.3 =
+* Fix pagination on search
+* Add support for WP_Pagenavi
+* Better support for customizing meta search queries
 
 = 1.2.2 =
 * Add FAQ
