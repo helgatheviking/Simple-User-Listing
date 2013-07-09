@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying No Results
+ * The Template for displaying Author listings
  *
  * Override this template by copying it to yourtheme/authors/navigation-author.php
  *
