@@ -155,7 +155,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// The authors object.
 			$users = $sul_users->get_results();
 
-			do_action( 'simple_user_listing_before_loop' );
+			do_action( 'simple_user_listing_before_loop', $list_id );
 
 			if ( ! empty( $users ) )	 {
 				$i = 0;
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				sul_get_template_part( 'none', 'author' );
 			} //endif
 
-			do_action( 'simple_user_listing_after_loop' );
+			do_action( 'simple_user_listing_after_loop', $list_id );
 
 			// Output the content.
 			$output = ob_get_contents();
@@ -176,9 +176,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// Return only if we're inside a page. This won't list anything on a post or archive page.
 			if ( is_page() ) {
-				do_action( 'simple_user_listing_before_shortcode', $post );
+				do_action( 'simple_user_listing_before_shortcode', $post, $list_id );
 				echo $output;
-				do_action( 'simple_user_listing_after_shortcode', $post );
+				do_action( 'simple_user_listing_after_shortcode', $post, $list_id );
 			}
 		}
 
