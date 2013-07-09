@@ -46,7 +46,7 @@ As of version 1.2 you can now sort the user list by and of the sort parameters s
 ```
 ### Templating
 
-The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.  Though you can copy the individual templates into your theme's main directory, probably the easiest thing to do would be to copy the entire `/templates` folder from the plugin and paste it into your theme, renaming the folder to `simple_user_listing`.  Now you can style away as you wish.  It will be similar to template parts for loops, except you will have access to each user's $user object instead of the $post object.
+The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.  Though you can copy the individual templates into your theme's main directory, probably the easiest thing to do would be to copy the entire `/templates` folder from the plugin and paste it into your theme, renaming the folder to `simple-user-listing`.  Now you can style away as you wish.  It will be similar to template parts for loops, except you will have access to each user's $user object instead of the $post object.
 
 [See the Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query)
 
