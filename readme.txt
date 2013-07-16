@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.4
 Tested up to: 3.5.2
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,11 +54,11 @@ Copy the files you wish to modify from the `/templates` folder of the plugin and
 
 == Frequently Asked Questions ==
 
-1. I can't get the search users to work?
+= I can't get the search users to work? =
 
 The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
 
-2. How can I setup custom search? (search by a meta field)
+= How can I setup custom search? (search by a meta field) =
 
 First you need to change your search form.  You can do that by creating a new `search-authors.php` template in the `simple-user-listing` folder of your theme.
 
@@ -142,6 +142,9 @@ Now the search will return users that match the entered "billing_city".  You can
 Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
 
 == Changelog ==
+
+= 1.3.1 =
+* Maintain role parameter on search
 
 = 1.3 =
 * Fix pagination on search
