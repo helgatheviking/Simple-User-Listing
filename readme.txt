@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.4
 Tested up to: 3.5.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,9 @@ Now the search will return users that match the entered "billing_city".  You can
 Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
 
 == Changelog ==
+
+= 1.3.2 =
+* Return shortcode instead of echo #facepalm
 
 = 1.3.1 =
 * Maintain role parameter on search
