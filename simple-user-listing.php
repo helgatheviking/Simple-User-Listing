@@ -105,26 +105,26 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @access public
 		 * @return string
 		 */
-		function shortcode_callback($atts, $content = null) {
+		function shortcode_callback( $atts, $content = null ) {
 			global $post, $sul_users, $user;
 
-			extract(shortcode_atts(array(
+			extract( shortcode_atts( array(
 				"list_id" => '',
 				"role" => '',
 				"number" => get_option( 'posts_per_page', 10 ),
 				"orderby" => 'login',
 				"order" => 'ASC'
-			), $atts));
+			), $atts ) );
 
-			$role = sanitize_text_field($role);
-			$number = sanitize_text_field($number);
+			$role = sanitize_text_field( $role );
+			$number = sanitize_text_field( $number );
 
 			// We're outputting a lot of HTML, and the easiest way
 			// to do it is with output buffering from PHP.
 			ob_start();
 
 			// Get the Search Term
-			$search = ( isset($_GET["as"]) ) ? sanitize_text_field($_GET["as"]) : false ;
+			$search = ( isset( $_GET["as"] ) ) ? sanitize_text_field( $_GET["as"] ) : false ;
 
 			// Get Query Var for pagination. This already exists in WordPress
 			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' )  : 1;
@@ -175,7 +175,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// Return only if we're inside a page. This won't list anything on a post or archive page.
 			if ( is_page() ) {
 				do_action( 'simple_user_listing_before_shortcode', $post, $list_id );
-				echo $output;
+				return $output;
 				do_action( 'simple_user_listing_after_shortcode', $post, $list_id );
 			}
 		}
