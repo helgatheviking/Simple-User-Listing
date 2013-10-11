@@ -109,11 +109,28 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			global $post, $sul_users, $user;
 
 			extract( shortcode_atts( array(
-				"list_id" => '',
-				"role" => '',
-				"number" => get_option( 'posts_per_page', 10 ),
-				"orderby" => 'login',
-				"order" => 'ASC'
+				'query_id' => 'simple_user_listing',
+				'role' => '',
+				'include' => '',
+				'exclude' => '',
+				'blog_id' => '',
+
+				//'search' => '',
+				//'search_columns' => '',
+
+				//'offset' => '', not sure I want to allow this one to be manipulated by user
+				'number' => get_option( 'posts_per_page', 10 ),
+
+				'order' => 'ASC',
+				'orderby' => 'login',
+
+				'meta_key' => '',
+				'meta_value' => '',
+				'meta_compare' => '=',
+				'meta_type' => 'CHAR',
+
+				'count_total' => true
+
 			), $atts ) );
 
 			$role = sanitize_text_field( $role );
@@ -124,7 +141,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			ob_start();
 
 			// Get the Search Term
-			$search = ( isset( $_GET["as"] ) ) ? sanitize_text_field( $_GET["as"] ) : false ;
+			$search = ( isset( $_GET['as'] ) ) ? sanitize_text_field( $_GET['as'] ) : false ;
 
 			// Get Query Var for pagination. This already exists in WordPress
 			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' )  : 1;
@@ -133,13 +150,25 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$offset = ( $page - 1 ) * $number;
 
 			$args = array(
-				'query_id' => 'simple_user_listing',
+				'query_id' => $query_id,
 				'offset' => $offset,
 				'number' => $number,
 				'orderby' => $orderby,
 				'order' => $order,
-				'role' => $role
+				'role' => $role,
+				'count_total' => $count_total
 			);
+
+			if ( $meta_key && $meta_value ) {
+				$args['meta_query'] = array(
+												array(
+													'key'       => $meta_key,
+													'value'     => $meta_value,
+													'compare'   => $meta_compare,
+													'type'      => $meta_type,
+												),
+											);
+			}
 
 			// Generate the query based on search field
 			if ( $search ){
