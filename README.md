@@ -3,9 +3,9 @@
 Contributors: helgatheviking
 Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
-Requires at least: 3.4
-Tested up to: 3.5.2
-Stable tag: 1.3.3
+Requires at least: 3.5
+Tested up to: 3.6
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,13 @@ As of version 1.2 you can now sort the user list by and of the sort parameters s
 ```
 [userlist orderby="post_count" order="DESC"]
 ```
+
+As of version 1.4 you can now list users by a meta key. Be careful with this as this is not exactly an efficient query.
+
+```
+[userlist meta_key="foo" meta_value="widgets"]
+```
+
 ### Templating
 
 The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
