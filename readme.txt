@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 1.4
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,4 +145,48 @@ Now the search will return users that match the entered "billing_city".  You can
 
 == Bug Reporting ==
 
-Please report any issues at: https://github.com/helgatheviking/Featured-Item-Metabox/issues
+Please report any issues at: https://github.com/helgatheviking/simple-user-listing/issues
+
+== Changelog ==
+
+= 1.4.1 =
+* Move changelog back to readme.txt #facepalm
+
+= 1.4 =
+* Add support for meta queries and custom query IDs
+* Rename list_id parameter to query_id
+* Move changelog to separate file
+
+= 1.3.3 =
+* Fixed the content-author.php template
+
+= 1.3.2 =
+* Return shortcode instead of echo #facepalm
+
+= 1.3.1 =
+* Maintain role parameter on search
+
+= 1.3 =
+* Fix pagination on search
+* Add support for WP_Pagenavi
+* Better support for customizing meta search queries
+
+= 1.2.2 =
+* Add FAQ
+
+= 1.2.1 =
+* Fix readme.txt markdown
+
+= 1.2 =
+* Add support for orderby and order parameters
+
+= 1.1.1 =
+* Fix divide by zero warning in navigation-author.php template
+
+= 1.1 =
+* Add translation .pot
+* Fix "1 posts" error in content-author.php template
+* HTML encode arrows in navigation-author.php template
+
+= 1.0 =
+* Initial release.
