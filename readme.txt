@@ -3,8 +3,8 @@ Contributors: helgatheviking
 Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 1.4.1
+Tested up to: 3.7
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,7 @@ By default the plugin will split the users up based on the "Posts per Page" sett
 
 = Parameters =
 
-Simple User Listing uses `WP_User_Query`, so you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page.
+Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page.
 
 `
 [userlist role="author" number="5"]
@@ -42,6 +42,12 @@ As of version 1.4 you can now list users by a meta key. Be careful with this as 
 
 `
 [userlist meta_key="foo" meta_value="widgets"]
+`
+
+As of version 1.4.2 you can now include and exclude users with a comma separated list of IDs.
+
+`
+[userlist exclude="1,2,3"]
 `
 
 = Templates =
@@ -148,6 +154,9 @@ Now the search will return users that match the entered "billing_city".  You can
 Please report any issues at: https://github.com/helgatheviking/simple-user-listing/issues
 
 == Changelog ==
+
+= 1.4.2 =
+* Support for include and exclude parameters
 
 = 1.4.1 =
 * Move changelog back to readme.txt #facepalm
