@@ -4,7 +4,7 @@ Plugin Name: Simple User Listing
 Plugin URI: http://wordpress.org/extend/plugins/simple-user-listing/
 Description: Create a simple shortcode to list our WordPress users.
 Author: Kathy Darling
-Version: 1.4.2
+Version: 1.5
 Author URI: http://kathyisawesome.com
 License: GPL2
 
@@ -37,36 +37,44 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	class Simple_User_Listing {
 
-		/* variables */
+		/* 
+		 * variables 
+		 */
 		public $plugin_path;
 		public $template_url;
 		public $allowed_search_vars;
 
-	   public function __construct() {
+		/*
+		 * constructor
+		 */
+
+		public function __construct() {
 
 			add_action('plugins_loaded', array( $this, 'load_text_domain' ) );
-		   add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
-		   add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
-		   add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
-		   add_filter( 'body_class', array( $this, 'body_class' ) );
-		   add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
+			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
+			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
+			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
 
-	   }
+		}
 
 		/**
-		 * Ready for translations
+		 * Make plugin ready for translation
 		 *
 		 * @access public
+		 * @since 1.0
 		 * @return none
 		 */
 		function load_text_domain() {
-		 load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
 		/**
 		 * Get the plugin path.
 		 *
 		 * @access public
+		 * @since 1.0
 		 * @return string
 		 */
 		function plugin_path() {
@@ -77,8 +85,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get the template url
-		 * @since 1.3
 		 * @access public
+		 * @since 1.3
 		 * @return string
 		 */
 		function template_url() {
@@ -89,8 +97,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get Allowed Search Args
-		 * @since 1.3
 		 * @access public
+		 * @since 1.3
 		 * @return array
 		 */
 		function allowed_search_vars() {
@@ -103,6 +111,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Callback for the shortcode
 		 *
 		 * @access public
+		 * @since 1.0
+		 * @param  array $atts shortcode attributes
+		 * @param  string $content shortcode content, null for this shortcode
 		 * @return string
 		 */
 		function shortcode_callback( $atts, $content = null ) {
@@ -114,27 +125,17 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'include' => '',
 				'exclude' => '',
 				'blog_id' => '',
-
-				//'search' => '',
-				//'search_columns' => '',
-
-				//'offset' => '', not sure I want to allow this one to be manipulated by user
 				'number' => get_option( 'posts_per_page', 10 ),
-
 				'order' => 'ASC',
 				'orderby' => 'login',
-
 				'meta_key' => '',
 				'meta_value' => '',
 				'meta_compare' => '=',
 				'meta_type' => 'CHAR',
-
-				'count_total' => true
-
+				'count_total' => true,
 			), $atts ) );
 
-			$role = sanitize_text_field( $role );
-			$number = sanitize_text_field( $number );
+			$number = intval( $number );
 
 			// We're outputting a lot of HTML, and the easiest way
 			// to do it is with output buffering from PHP.
@@ -149,27 +150,39 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// Calculate the offset (i.e. how many users we should skip)
 			$offset = ( $page - 1 ) * $number;
 
+			// args
 			$args = array(
 				'query_id' => $query_id,
 				'offset' => $offset,
-				'role' => $role,
-				'blog_id' => $blog_id,
 				'number' => $number,
 				'orderby' => $orderby,
 				'order' => $order,
-				'count_total' => $count_total
+				'count_total' => $count_total,
 			);
 
+			// if $role parameter is defined
+			if( $role ){ 
+				$args['role'] = sanitize_text_field( $role );
+			}
+
+			// if $blog_id parameter is defined
+			if( $blog_id ){
+				$args['blog_id'] = intval( $blog_id );
+			}
+
+			// if $includ parameter is defined
 			if( $include ){
 				$include = array_map( 'trim', explode( ',', $include ) );
 				$args['include'] = $include;
 			}
 
+			// if $exclude parameter is defined
 			if( $exclude ){
 				$exclude = array_map( 'trim', explode( ',', $exclude ) );
 				$args['exclude'] = $exclude;
 			}
 
+			// if meta search parameters are defined
 			if ( $meta_key && $meta_value ) {
 				$args['meta_query'] = array(
 												array(
@@ -186,15 +199,19 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				$args['search'] = '*' . $search . '*';
 			}
 
-			$args = apply_filters( 'sul_user_query_args', $args, $list_id );
+			// allow themes/plugins to filter the query args (probably redundant in light of pre_user_query filter, but still)
+			$args = apply_filters( 'sul_user_query_args', $args, $query_id );
 
+			// the query itself
 			$sul_users = new WP_User_Query( $args );
 
 			// The authors object.
 			$users = $sul_users->get_results();
 
-			do_action( 'simple_user_listing_before_loop', $list_id );
+			// before the user listing loop
+			do_action( 'simple_user_listing_before_loop', $query_id );
 
+			// the user listing loop
 			if ( ! empty( $users ) )	 {
 				$i = 0;
 				// loop through each author
@@ -206,7 +223,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				sul_get_template_part( 'none', 'author' );
 			} //endif
 
-			do_action( 'simple_user_listing_after_loop', $list_id );
+			// after the user listing loop
+			do_action( 'simple_user_listing_after_loop', $query_id );
 
 			// Output the content.
 			$output = ob_get_contents();
@@ -214,16 +232,30 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// Return only if we're inside a page. This won't list anything on a post or archive page.
 			if ( is_page() ) {
-				do_action( 'simple_user_listing_before_shortcode', $post, $list_id );
+				do_action( 'simple_user_listing_before_shortcode', $post, $query_id );
 				return $output;
-				do_action( 'simple_user_listing_after_shortcode', $post, $list_id );
+				do_action( 'simple_user_listing_after_shortcode', $post, $query_id );
 			}
 		}
 
+		/**
+		 * Add the search template
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @return null
+		 */
 		function add_search() {
 			sul_get_template_part( 'search', 'author' );
 		}
 
+		/**
+		 * Add the navigation template
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @return null
+		 */
 		function add_nav(){
 			sul_get_template_part( 'navigation', 'author' );
 		}
@@ -231,6 +263,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Add body class
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @param  array $c all generated WordPress body classes
+		 * @return array
 		 */
 		function body_class( $c ) {
 		    if( is_user_listing() ) {
@@ -242,7 +279,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Register the search query var
+		 *
+		 * @access public
 		 * @since 1.3
+		 * @param  array $query_vars variables recognized by WordPress
+		 * @return array
 		 */
 		function user_query_vars( $query_vars )	{
 			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ){
@@ -253,7 +294,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get Total Pages in User Query
+		 *
+		 * @access public
 		 * @since 1.3
+		 * @return number
 		 */
 		public function get_total_user_pages(){
 
@@ -281,7 +325,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get Previous users
+		 *
+		 * @access public
 		 * @since 1.3
+		 * @return URL string
 		 */
 		public function get_previous_users_url(){
 			global $sul_users;
@@ -309,7 +356,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get Next users
+		 * 
+		 * @access public
 		 * @since 1.3
+		 * @return URL string
 		 */
 		public function get_next_users_url(){
 			global $sul_users;
@@ -334,7 +384,14 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			return $next_url;
 		}
 
-
+		/**
+		 * Add search args to URL
+		 * 
+		 * @access public
+		 * @since 1.0
+		 * @param  string $url the permalink to which we should add the allowed $_GET variables
+		 * @return URL string
+		 */
 		public function add_search_args( $url ){
 			global $sul_users;
 
@@ -362,9 +419,10 @@ $simple_user_listing = new Simple_User_Listing();
  * Get template part
  *
  * @access public
+ * @since 1.0
  * @param mixed $slug
  * @param string $name (default: '')
- * @return void
+ * @return null
  */
 function sul_get_template_part( $slug, $name = '' ) {
 	global $simple_user_listing;
@@ -389,6 +447,7 @@ function sul_get_template_part( $slug, $name = '' ) {
  * Is User listing?
  *
  * @access public
+ * @since 1.0
  * @return boolean
  */
 function is_user_listing(){
