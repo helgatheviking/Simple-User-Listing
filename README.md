@@ -29,9 +29,13 @@ Place this shortcode anywhere you'd like to display a full list of all your blog
 [userlist]
 ```
 
-By default the plugin will split the users up based on the "Posts per Page" setting under Settings->Reading.
+## FAQ
 
-### Parameters
+1. I can't get the search users to work?
+
+The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
+
+2. How Can I Customize the User Query?
 
 Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page.
 
@@ -57,21 +61,35 @@ As of version 1.4.2 you can now include and exclude users with a comma separated
 [userlist exclude="1,2,3"]
 ```
 
-### Templating
+The full list of supported parameters (shown with default value) is:
+
+```
+'query_id' => 'simple_user_listing',
+'role' => '',
+'include' => '',
+'exclude' => '',
+'blog_id' => '',
+'number' => get_option( 'posts_per_page', 10 ),
+'order' => 'ASC',
+'orderby' => 'login',
+'meta_key' => '',
+'meta_value' => '',
+'meta_compare' => '=',
+'meta_type' => 'CHAR',
+'count_total' => true,
+```
+
+For more details on `WP_User_Query` parameters, so the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
+
+3. How Can I Customize the HTML/text, etc?
 
 The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
 
-Copy the files you wish to modify from the `/templates` folder of the plugin and paste them into a `simple-user-listing` folder in your theme.  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's $user object instead of the $post object.
+Copy the files you wish to modify from the `simple-user-listing/templates` folder of the plugin and paste them into a `simple-user-listing` folder in the root of your theme (so `my-theme/simple-user-listing`).  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's `$user` object instead of the $post object.
 
-[See the Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query)
+For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
 
-## FAQ
-
-1. I can't get the search users to work?
-
-The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
-
-2. How can I setup custom search? (search by a meta field)
+4. How can I setup custom search? (search by a meta field)
 
 First you need to change your search form.  You can do that by creating a new `search-authors.php` template in the `simple-user-listing` folder of your theme.
 
