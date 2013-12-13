@@ -1,0 +1,80 @@
+# Copyright (C) 2013 Simple User Listing
+# This file is distributed under the same license as the Simple User Listing package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple User Listing 1.2.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-user-listing\n"
+"POT-Creation-Date: 2013-07-06 13:43:19+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-12-13 10:38+0100\n"
+"Last-Translator: Kathy Darling <helgatheviking@gmail.com>\n"
+"Language-Team:  <helgatheviking@gmail.com>\n"
+"X-Generator: Poedit 1.5.7\n"
+"Language: French\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-KeywordsList: __();_e();__n();esc_attr();_x();_nx();esc_attr__()\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/content-author.php:18
+msgid "%s post"
+msgid_plural "%s posts"
+msgstr[0] "%s article"
+msgstr[1] "%s articles"
+
+#: templates/navigation-author.php:17
+msgid "User navigation"
+msgstr "Navigation de l'utilisateur"
+
+#: templates/navigation-author.php:20
+msgid "Previous"
+msgstr "Précédent"
+
+#: templates/navigation-author.php:24
+msgid "Next"
+msgstr "Suivant"
+
+#: templates/none-author.php:13
+msgid "No users found"
+msgstr "Aucun utilisateur trouvé"
+
+#: templates/search-author.php:16
+msgid "Search authors by name"
+msgstr "Chercher parmi les auteurs par nom"
+
+#: templates/search-author.php:18
+msgid "Search"
+msgstr "Chercher"
+
+#: templates/search-author.php:19 templates/search-author.php:20
+msgid "Search Authors"
+msgstr "Chercher parmi les auteurs"
+
+#: templates/search-author.php:24
+msgid "Search Results for: %s"
+msgstr "Résultats de recherche pour: %s"
+
+#: templates/search-author.php:25
+msgid "Back To Author Listing"
+msgstr "Retour à la liste des auteurs"
+
+#. Plugin Name of the plugin/theme
+msgid "Simple User Listing"
+msgstr "Simple Liste des utilisateurs"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/simple-user-listing/"
+msgstr "http://wordpress.org/extend/plugins/simple-user-listing/"
+
+#. Description of the plugin/theme
+msgid "Create a simple shortcode to list our WordPress users."
+msgstr "Créer un shortcode simple pour énumérernos utilisateurs de WordPress."
+
+#. Author of the plugin/theme
+msgid "Kathy Darling"
+msgstr "Kathy Darling"
+
+#. Author URI of the plugin/theme
+msgid "http://kathyisawesome.com"
+msgstr "http://kathyisawesome.com"
