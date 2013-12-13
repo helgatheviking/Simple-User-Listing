@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Simple User Listing package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple User Listing 1.5\n"
+"Project-Id-Version: Simple User Listing 1.5.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-user-listing\n"
 "POT-Creation-Date: 2013-12-13 09:11:16+00:00\n"
-"PO-Revision-Date: 2013-12-13 15:56+0100\n"
+"PO-Revision-Date: 2013-12-13 15:59+0100\n"
 "Last-Translator: Kathy Darling <helgatheviking@gmail.com>\n"
 "Language-Team: Nico Bartes <info@nicobartes.com>\n"
 "Language: German\n"
