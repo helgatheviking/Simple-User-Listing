@@ -192,6 +192,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 													'type'      => $meta_type,
 												),
 											);
+			} elseif( $meta_key ){
+				$args['meta_key'] = $meta_key;
 			}
 
 			// Generate the query based on search field
