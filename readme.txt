@@ -40,7 +40,7 @@ The search form will not work with the default permalinks. Try changing your per
 
 = How Can I Customize the User Query? =
 
-Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page.
+Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page. Roles must be in lowercase. 
 
 `
 [userlist role="author" number="5"]
@@ -82,7 +82,15 @@ The full list of supported parameters (shown with default value) is:
 'count_total' => true,
 `
 
-For more details on `WP_User_Query` parameters, so the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
+To know which values are supported, please see the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
+
+= How Can I Sort the Users by Last Name? =
+
+As of verison 1.5.2 you could simply use the following as your shortcode:
+
+`
+[userlist meta_key="last_name" orderby="meta_value" order="ASC"]
+`
 
 = How Can I Customize the HTML/text, etc? =
 
@@ -91,6 +99,10 @@ The whole reason I wrote this was that other similar plugins had too much contro
 Copy the files you wish to modify from the `simple-user-listing/templates` folder of the plugin and paste them into a `simple-user-listing` folder in the root of your theme (so `my-theme/simple-user-listing`).  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's `$user` object instead of the $post object.
 
 For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
+
+= Does Simple User Listing work with WP_Pagenavi? =
+
+Yes! [WP Pagenavi](http://wordpress.org/plugins/wp-pagenavi/) supports pagination for `WP_User_Query` and I configured the navigation-author.php template to automatically use WP Pagenavi if it is installed and activated.
 
 = How can I setup custom search? (search by a meta field) =
 

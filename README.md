@@ -79,9 +79,17 @@ The full list of supported parameters (shown with default value) is:
 'count_total' => true,
 ```
 
-For more details on `WP_User_Query` parameters, so the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
+To know which values are supported, please see the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
 
-3. How Can I Customize the HTML/text, etc?
+3. How Can I Sort the Users by Last Name?
+
+As of verison 1.5.2 you could simply use the following as your shortcode:
+
+```
+[userlist meta_key="last_name" orderby="meta_value" order="ASC"]
+```
+
+4. How Can I Customize the HTML/text, etc?
 
 The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
 
@@ -89,7 +97,7 @@ Copy the files you wish to modify from the `simple-user-listing/templates` folde
 
 For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
 
-4. How can I setup custom search? (search by a meta field)
+5. How can I setup custom search? (search by a meta field)
 
 First you need to change your search form.  You can do that by creating a new `search-authors.php` template in the `simple-user-listing` folder of your theme.
 
