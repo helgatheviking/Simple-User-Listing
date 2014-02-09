@@ -457,7 +457,7 @@ function is_user_listing(){
 
 	$listing = false;
 
-	if( is_page() && isset($post->post_content) && false !== stripos($post->post_content, '[userlist')) {
+	if( is_page() && isset($post->post_content) && has_shortcode( $post->post_content, 'userlist' ) ) {
 		$listing = true;
 	}
 
