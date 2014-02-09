@@ -204,14 +204,14 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// allow themes/plugins to filter the query args (probably redundant in light of pre_user_query filter, but still)
 			$args = apply_filters( 'sul_user_query_args', $args, $query_id );
 
+			// before the user listing loop
+			do_action( 'simple_user_listing_before_loop', $query_id );
+
 			// the query itself
 			$sul_users = new WP_User_Query( $args );
 
 			// The authors object.
 			$users = $sul_users->get_results();
-
-			// before the user listing loop
-			do_action( 'simple_user_listing_before_loop', $query_id );
 
 			// the user listing loop
 			if ( ! empty( $users ) )	 {
