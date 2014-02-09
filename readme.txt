@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,12 @@ By default the plugin will split the users up based on the "Posts per Page" sett
 
 See the [FAQ](http://wordpress.org/plugins/simple-user-listing/faq/) for more details on how to modify the list results.
 
+= Support =
+
+Support is handled in the [WordPress forums](http://wordpress.org/support/plugin/simple-user-listing). Please note that support is limited and does not cover any custom implementation of the plugin. 
+
+Please report any bugs, errors, warnings, code problems to [Github](https://github.com/helgatheviking/simple-user-listing/issues)
+
 == Installation ==
 
 1. Upload the `plugin` folder to the `/wp-content/plugins/` directory
@@ -37,6 +43,22 @@ See the [FAQ](http://wordpress.org/plugins/simple-user-listing/faq/) for more de
 = I can't get the search users to work? =
 
 The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
+
+= The search doesn't respect the shortcode parameters =
+
+Likely you are experiencing a conflict with another plugin, specifically one that is filtering `pre_user_query` to modify all user queries. The S2 Member plugin is a known culprit of this. To disable S2 Member's modifications on all Simple User Listing lists, add the following to your theme's functions.php or to a site-specific plugin. Ensure you are using at least SUL 1.5.3.
+
+`
+function kia_protect_sul_from_s2(){
+	remove_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
+}
+add_action( 'simple_user_listing_before_loop', 'kia_protect_sul_from_s2' );
+
+function kia_restore_s2(){
+	add_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
+}
+add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
+`
 
 = How Can I Customize the User Query? =
 
@@ -183,11 +205,14 @@ add_filter('sul_user_allowed_search_vars', 'kia_search_vars');
 
 Now the search will return users that match the entered "billing_city".  You can adjust as needed for more complicated meta queries.
 
-== Bug Reporting ==
-
-Please report any issues at: https://github.com/helgatheviking/simple-user-listing/issues
-
 == Changelog ==
+
+= 1.5.3 =
+* use has_shortcode() built-in function for is_user_listing()
+* move simple_user_listing_before_loop hook so that S2 member can be disabled for SUL
+
+= 1.5.2 =
+* separate meta_key param so you can sort by meta_value from shortcode
 
 = 1.5.1 =
 * tested against WordPress 3.8

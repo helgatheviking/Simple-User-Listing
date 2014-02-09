@@ -5,7 +5,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,8 @@ add_filter('sul_user_allowed_search_vars', 'kia_search_vars');
 
 Now the search will return users that match the entered "billing_city".  You can adjust as needed for more complicated meta queries.
 
-## Bug Reporting
+## Support
 
-Please report any issues at: https://github.com/helgatheviking/Simple-User-Listing/issues
+Support is handled in the [WordPress forums](http://wordpress.org/support/plugin/simple-user-listing). Please note that support is limited and does not cover any custom implementation of the plugin. 
+
+Please report any bugs, errors, warnings, code problems to [Github](https://github.com/helgatheviking/simple-user-listing/issues)
