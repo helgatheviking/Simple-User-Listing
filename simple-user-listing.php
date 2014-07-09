@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Simple User Listing
-Plugin URI: http://wordpress.org/extend/plugins/simple-user-listing/
+Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
 Description: Create a simple shortcode to list our WordPress users.
 Author: Kathy Darling
-Version: 1.5.3
+Version: 1.5.4
 Author URI: http://kathyisawesome.com
 License: GPL2
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		public function __construct() {
 
-			add_action('plugins_loaded', array( $this, 'load_text_domain' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
