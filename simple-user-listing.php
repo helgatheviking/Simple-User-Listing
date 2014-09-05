@@ -232,12 +232,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$output = ob_get_contents();
 			ob_end_clean();
 
-			// Return only if we're inside a page. This won't list anything on a post or archive page.
-			if ( is_page() ) {
-				do_action( 'simple_user_listing_before_shortcode', $post, $query_id );
-				return $output;
-				do_action( 'simple_user_listing_after_shortcode', $post, $query_id );
-			}
+			do_action( 'simple_user_listing_before_shortcode', $post, $query_id );
+			return $output;
+			do_action( 'simple_user_listing_after_shortcode', $post, $query_id );
+
 		}
 
 		/**
@@ -446,7 +444,8 @@ function sul_get_template_part( $slug, $name = '' ) {
 }
 
 /**
- * Is User listing?
+ * Is User listing post/page?
+ * Won't be true on archives
  *
  * @access public
  * @since 1.0
@@ -457,7 +456,7 @@ function is_user_listing(){
 
 	$listing = false;
 
-	if( is_page() && isset($post->post_content) && has_shortcode( $post->post_content, 'userlist' ) ) {
+	if( is_singular() && isset($post->post_content) && has_shortcode( $post->post_content, 'userlist' ) ) {
 		$listing = true;
 	}
 
