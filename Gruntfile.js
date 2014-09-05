@@ -203,14 +203,15 @@ module.exports = function(grunt) {
 
 	// deploy to wordpress.org
 	wp_deploy: {
-		deploy:{
-			options: {
-				svn_user: '<%= pkg.author %>',
-				plugin_slug: '<%= pkg.name %>',
-				build_dir: 'deploy/<%= pkg.name %>/'
-			},
-		}
-	}
+        deploy: { 
+            options: {
+                plugin_slug: '<%= pkg.name %>',
+                svn_user: '<%= pkg.author %>',  
+                build_dir: 'build' //relative path to your build directory
+                //assets_dir: 'wp-assets' //relative path to your assets directory (optional).
+            },
+        }
+    }
 
 
 });
