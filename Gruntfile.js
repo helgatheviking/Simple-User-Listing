@@ -38,33 +38,9 @@ module.exports = function(grunt) {
 		all: [ 'js/*.js', '!js/*.min.js' ]
   	},
 
-	compress: {
-		//Compress build/<%= pkg.name %>
-		main: {
-			options: {
-				mode: 'zip',
-				archive: './deploy/<%= pkg.name %>.zip'
-			},
-			expand: true,
-			cwd: 'deploy/<%= pkg.name %>/',
-			src: ['**/*'],
-			dest: '<%= pkg.name %>/'
-		},
-		version: {
-			options: {
-				mode: 'zip',
-				archive: './deploy/<%= pkg.name %>-<%= pkg.version %>.zip'
-			},
-			expand: true,
-			cwd: 'deploy/<%= pkg.name %>/',
-			src: ['**/*'],
-			dest: '<%= pkg.name %>/'
-		}	
-	},
-
 	clean: {
 		//Clean up build folder
-		main: ['deploy/<%= pkg.name %>']
+		main: ['build/<%= pkg.name %>']
 	},
 
 	copy: {
@@ -72,11 +48,15 @@ module.exports = function(grunt) {
 		main: {
 			src:  [
 				'**',
+				'!*~',
 				'!node_modules/**',
-				'!deploy/**',
-				'!.git/**',
-				'!Gruntfile.js',
-				'!package.json',
+				'!build/**',
+				'!.git/**','!.gitignore','!.gitmodules',
+				'!tests/**',
+				'!vendor/**',
+				'!Gruntfile.js','!package.json',
+				'!composer.lock','!composer.phar','!composer.json',
+				'!CONTRIBUTING.md',
 				'!gitcreds.json',
 				'!.gitignore',
 				'!.gitmodules',
@@ -86,13 +66,49 @@ module.exports = function(grunt) {
 				'!*.transifexrc',
 				'!deploy.sh',
 				'!languages/.tx',
-				'!languages/tx.exe'
+				'!languages/tx.exe',
+				'!README.md'
 			],
-			dest: 'deploy/<%= pkg.name %>/'
+			dest: 'build/<%= pkg.name %>/'
 		},
+	},
 	
+    checkrepo: {
+    	deploy: {
+            tag: {
+                eq: '<%= pkg.version %>',    // Check if highest repo tag is equal to pkg.version
+            },
+            tagged: true, // Check if last repo commit (HEAD) is not tagged
+            clean: true,   // Check if the repo working directory is clean
+        }
+    },
+ 
+
+ 	// bump version numbers and push tag to github
+	release: {
+		options: {
+			push: false,
+			github: { 
+				repo: '<%= pkg.author %>/<%= pkg.name %>', //put your user/repo here
+				usernameVar: '<%= creds.username %>', //ENVIRONMENT VARIABLE that contains Github username 
+				passwordVar: '<%= creds.password %>' //ENVIRONMENT VARIABLE that contains Github password
+			}
+		}
 	},
 
+	// deploy to wordpress.org
+    wp_deploy: {
+    	deploy:{
+            options: {
+        		svn_user: '<%= pkg.author %>',
+        		plugin_slug: '<%= pkg.name %>',
+        		build_dir: 'build/<%= pkg.name %>/'
+            },
+    	}
+    },
+
+
+    // Documentation
 	wp_readme_to_markdown: {
 		convert:{
 			files: {
@@ -108,7 +124,7 @@ module.exports = function(grunt) {
 		textdomain: '<%= pkg.name %>',
 		target: {
 			files: {
-				src: ['*.php', '**/*.php', '!node_modules/**', '!deploy/**']
+				src: ['*.php', '**/*.php', '!node_modules/**', '!build/**']
 			}
 		}
 	},
@@ -118,7 +134,7 @@ module.exports = function(grunt) {
 		target: {
 			options: {
 				domainPath: '/languages', // Where to save the POT file.
-				exclude: ['deploy'], // List of files or directories to ignore.
+				exclude: ['build'], // List of files or directories to ignore.
 				mainFile: '<%= pkg.name %>.php', // Main project file.
 				potFilename: '<%= pkg.name %>.pot', // Name of the POT file.
 				type: 'wp-plugin' // Type of project (wp-plugin or wp-theme).
@@ -139,18 +155,6 @@ module.exports = function(grunt) {
 		}
 	},
 
-	shell: {
-		options: {
-			stdout: true,
-			stderr: true
-		},
-		txpull: {
-			command: [
-				'cd languages',
-				'tx.exe pull -a -f',
-			].join( '&&' )
-		}
-	},
 
 	// turn po files into mo files
 	po2mo: {
@@ -158,17 +162,6 @@ module.exports = function(grunt) {
 			src: 'languages/*.po',
 			expand: true,
 		},
-	},
-
-	// make sure the repo is ok
-	checkrepo: {
-		deploy: {
-			tag: {
-				eq: '<%= pkg.version %>',	// Check if highest repo tag is equal to pkg.version
-			},
-			tagged: true, // Check if last repo commit (HEAD) is not tagged
-			clean: true,   // Check if the repo working directory is clean
-		}
 	},
 
 	// automatically update the docs, scripts on change	
@@ -189,44 +182,19 @@ module.exports = function(grunt) {
 		  },
 	},
 
-	// bump version numbers and push tag to github
-	release: {
-		options: {
-			push: false,
-			github: { 
-				repo: '<%= pkg.author %>/<%= pkg.name %>', //put your user/repo here
-				usernameVar: '<%= creds.username %>', //ENVIRONMENT VARIABLE that contains Github username 
-				passwordVar: '<%= creds.password %>' //ENVIRONMENT VARIABLE that contains Github password
-			}
-		}
-	},
-
-	// deploy to wordpress.org
-	wp_deploy: {
-        deploy: { 
-            options: {
-                plugin_slug: '<%= pkg.name %>',
-                svn_user: '<%= pkg.author %>',  
-                build_dir: 'build' //relative path to your build directory
-                //assets_dir: 'wp-assets' //relative path to your assets directory (optional).
-            },
-        }
-    }
-
-
 });
 
 grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
-
-grunt.registerTask( 'test', [ 'jshint', 'newer:uglify' ] );
-
-grunt.registerTask( 'build', [ 'test', 'newer:uglify', 'makepot', 'shell:txpull', 'newer:po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
 
 // bump version numbers 
 // grunt release		1.4.1 -> 1.4.2
 // grunt release:minor	1.4.1 -> 1.5.0
 // grint release:major	1.4.1 -> 2.0.0
 
-grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy', 'build', 'wp_deploy',  'compress' ] );
+
+grunt.registerTask( 'test', [ 'jshint' ] );
+grunt.registerTask( 'build', [ 'test', 'uglify', 'pot', 'po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
+grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy',  'test', 'wp_readme_to_markdown', 'clean', 'copy', 'wp_deploy' ] );
+
 
 };
