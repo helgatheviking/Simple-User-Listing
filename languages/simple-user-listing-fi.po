@@ -1,0 +1,84 @@
+# Copyright (C) 2014 Simple User Listing
+# This file is distributed under the same license as the Simple User Listing package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple User Listing 1.5.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/simple-user-"
+"listing\n"
+"POT-Creation-Date: 2014-07-08 17:25:53+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-04-17 21:16+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fi\n"
+
+#: templates/content-author.php:25
+msgid "Read posts by %s"
+msgstr "Lue käyttäjän %s artikkelit"
+
+#: templates/navigation-author.php:23
+msgid "User navigation"
+msgstr "Navigointi"
+
+#: templates/navigation-author.php:26
+msgid "Previous"
+msgstr "Edellinen"
+
+#: templates/navigation-author.php:30
+msgid "Next"
+msgstr "Seuraava"
+
+#: templates/none-author.php:13
+msgid "No users found"
+msgstr "Käyttäjiä ei löytynyt"
+
+#: templates/search-author.php:16
+msgid "Search authors by name"
+msgstr "Hae käyttäjän nimellä"
+
+#: templates/search-author.php:18
+msgid "Search"
+msgstr "Haku"
+
+#: templates/search-author.php:19 templates/search-author.php:20
+msgid "Search Authors"
+msgstr "Hae käyttäjät"
+
+#: templates/search-author.php:24
+msgid "Search Results for: %s"
+msgstr "Hakutulokset haulle: %s"
+
+#: templates/search-author.php:25
+msgid "Back To Author Listing"
+msgstr "Takaisin käyttäjälistaukseen"
+
+#. Plugin Name of the plugin/theme
+msgid "Simple User Listing"
+msgstr "Simple User Listing"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.kathyisawesome.com/489/simple-user-listing/"
+msgstr "http://www.kathyisawesome.com/489/simple-user-listing/"
+
+#. Description of the plugin/theme
+msgid "Create a simple shortcode to list our WordPress users."
+msgstr "Luo yksinkertainen shortcode listataksesi Wordpress käyttäjät."
+
+#. Author of the plugin/theme
+msgid "Kathy Darling"
+msgstr "Kathy Darling"
+
+#. Author URI of the plugin/theme
+msgid "http://kathyisawesome.com"
+msgstr "http://kathyisawesome.com"
+
+#: templates/content-author.php:27
+msgctxt "number of posts"
+msgid "1 post"
+msgid_plural "%s posts"
+msgstr[0] "1 artikkeli"
+msgstr[1] "%s artikkelia"
