@@ -4,7 +4,7 @@
 **Tags:** users, authors  
 **Requires at least:** 3.8  
 **Tested up to:** 4.2  
-**Stable tag:** 1.6.3  
+**Stable tag:** 1.7.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -232,6 +232,9 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 ## Changelog ##
+
+### 1.7.0 ###
+* Use transients to cache queries
 
 ### 1.6.3 ###
 * Add Finnish translation. props @Teemu Jönkkäri
