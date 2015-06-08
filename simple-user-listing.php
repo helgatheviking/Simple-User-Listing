@@ -57,6 +57,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
 
+			add_action( 'profile_update', array( $this, 'delete_user_transients' ) );
+			add_action( 'user_register', array( $this, 'delete_user_transients' ) );
+			add_action( 'save_post', array( $this, 'delete_user_transients' ) );
+			
 		}
 
 		/**
@@ -204,9 +208,18 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// allow themes/plugins to filter the query args (probably redundant in light of pre_user_query filter, but still)
 			$args = apply_filters( 'sul_user_query_args', $args, $query_id );
 
-			// the query itself
-			$sul_users = new WP_User_Query( $args );
+			// Generate a transient name based on current query
+			$transient_name = 'sul_query_' . md5( http_build_query( $args ) . $this->get_transient_version( 'sul_user_query' ) );
+			$transient_name = ( is_search() ) ? $transient_name . '_s' : $transient_name;
 
+			if ( false === ( $sul_users = get_transient( $transient_name ) ) ) {
+				
+				// the query itself
+				$sul_users = new WP_User_Query( $args );
+
+				set_transient( $transient_name, $sul_users, DAY_IN_SECONDS * 30 );
+			}
+		
 			// The authors object.
 			$users = $sul_users->get_results();
 
@@ -406,6 +419,53 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			}
 			return $url;
+		}
+
+		/**
+		 * Get transient version
+		 *
+		 * When using transients with unpredictable names, e.g. those containing an md5
+		 * hash in the name, we need a way to invalidate them all at once.
+		 *
+		 * borrowed from WooCommerce
+		 * Raised in issue https://github.com/woothemes/woocommerce/issues/5777
+		 * Adapted from ideas in http://tollmanz.com/invalidation-schemes/
+		 *
+		 * @param  string  $group   Name for the group of transients we need to invalidate
+		 * @param  boolean $refresh true to force a new version
+		 * @since  1.7.0
+		 * @return string transient version based on time(), 10 digits
+		 */
+		public function get_transient_version( $group, $refresh = false ) {
+			$transient_name  = $group . '-transient-version';
+			$transient_value = get_transient( $transient_name );
+
+			if ( false === $transient_value || true === $refresh ) {
+				$transient_value = time();
+				set_transient( $transient_name, $transient_value );
+			}
+			return $transient_value;
+		}
+
+
+		/**
+		 * Delete user transients when needed
+		 * @since  1.7.0
+		 */
+		public function delete_user_transients() {
+			// Increments the transient version to invalidate cache
+			$this->get_transient_version( 'sul_user_query', true );
+
+			// If not using an external caching system, we can clear the transients out manually and avoid filling our DB
+			if ( ! wp_using_ext_object_cache() ) {
+				global $wpdb;
+
+				$wpdb->query( "
+					DELETE FROM `$wpdb->options`
+					WHERE `option_name` LIKE ('\_transient\_sul\_query\_%')
+				" );
+			}
+
 		}
 
 	}
