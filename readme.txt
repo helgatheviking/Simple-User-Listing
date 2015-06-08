@@ -26,8 +26,31 @@ Place this shortcode anywhere you'd like to display a full list of all your blog
 
 By default the plugin will print out the users based on the "Posts per Page" setting under Settings->Reading, but this and many other settings can be changed via the shortcode's parameters. 
 
+= Support =
+
+If after reading the [FAQ](http://wordpress.org/plugins/simple-user-listing/faq) you still need help, support is handled in the [WordPress forums](http://wordpress.org/support/plugin/simple-user-listing). Please note that support is limited and does not cover any custom implementation of the plugin. 
+
+Please report any bugs, errors, warnings, code problems to [Github](https://github.com/helgatheviking/simple-user-listing/issues)
+
+== Installation ==
+
+1. Upload the `plugin` folder to the `/wp-content/plugins/` directory
+1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Add the shortcode [userlist] anywhere you wish to display a list of users
+
+== Frequently Asked Questions ==
+
+<a id="templates" name="templates"></a>
+= How Can I Customize the Output? =
+
+The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
+
+Copy the files you wish to modify from the `simple-user-listing/templates` folder of the plugin and paste them into a `simple-user-listing` folder in the root of your theme (so `my-theme/simple-user-listing`).  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's `$user` object instead of the $post object.
+
+For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
+
 <a id="parameters" name="parameters"></a>
-= Parameters =
+= Shortcode Paramaters: How Can I Customize the User Query?=
 
 Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page. Roles must be in lowercase. 
 
@@ -69,58 +92,6 @@ The full list of supported parameters (shown with default value) is:
 'meta_compare' => '=',
 'meta_type' => 'CHAR',
 'count_total' => true,
-`
-
-For advanced implementations you might want to read the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
-
-= Support =
-
-If after reading the [FAQ](http://wordpress.org/plugins/simple-user-listing/faq) you still need help, support is handled in the [WordPress forums](http://wordpress.org/support/plugin/simple-user-listing). Please note that support is limited and does not cover any custom implementation of the plugin. 
-
-Please report any bugs, errors, warnings, code problems to [Github](https://github.com/helgatheviking/simple-user-listing/issues)
-
-== Installation ==
-
-1. Upload the `plugin` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Add the shortcode [userlist] anywhere you wish to display a list of users
-
-== Frequently Asked Questions ==
-
-<a id="templates" name="templates"></a>
-= How Can I Customize the Output? =
-
-The whole reason I wrote this was that other similar plugins had too much control over the output.  You can style the output anyway you'd like by adding your own template parts to your theme.
-
-Copy the files you wish to modify from the `simple-user-listing/templates` folder of the plugin and paste them into a `simple-user-listing` folder in the root of your theme (so `my-theme/simple-user-listing`).  Now you can change the markup any way you please.  It will be similar to template parts for post loops, except you will have access to each user's `$user` object instead of the $post object.
-
-For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
-
-<a id="pagination" name="pagination"></a>
-= Does Simple User Listing work with WP_Pagenavi? =
-
-Yes! [WP Pagenavi](http://wordpress.org/plugins/wp-pagenavi/) supports pagination for `WP_User_Query` and I configured the navigation-author.php template to automatically use WP Pagenavi if it is installed and activated.
-
-<a name="permalinks"></a>
-= I can't get the search users to work? =
-
-The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
-
-<a id="fix-search" name="fix-search"></a>
-= The search doesn't respect the shortcode parameters =
-
-Likely you are experiencing a conflict with another plugin, specifically one that is filtering `pre_user_query` to modify all user queries. The S2 Member plugin is a known culprit of this. To disable S2 Member's modifications on all Simple User Listing lists, add the following to your theme's functions.php or to a site-specific plugin. Ensure you are using at least SUL 1.5.3.
-
-`
-function kia_protect_sul_from_s2(){
-	remove_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
-}
-add_action( 'simple_user_listing_before_loop', 'kia_protect_sul_from_s2' );
-
-function kia_restore_s2(){
-	add_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
-}
-add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 <a id="meta-sort" name="meta-sort"></a>
@@ -168,7 +139,10 @@ function kia_meta_search( $args ){
 add_filter('sul_user_query_args', 'kia_meta_search');
 `
 
-Now the search will return users that match the entered "last_name".  You can adjust as needed or use the `meta_query` array for more complicated meta queries.  See the Codex for an example of [Multiple custom user fields handling](http://codex.wordpress.org/Class_Reference/WP_User_Query#parameters).
+Now the search will return users that match the entered "last_name".  You can adjust as needed or use the `meta_query` array for more complicated meta queries.  
+
+
+
 
 <a id="display_name" name="display_name"></a>
 = How Can I Search By Display Name? =
@@ -186,6 +160,75 @@ function kia_search_users_by_display_name( $query ) {
 
 } 
 add_action( 'pre_user_query', 'kia_search_users_by_display_name' ); 
+`
+
+<a id="advanced" name="advanced"></a>
+= How to create very complex user queries | How to query multiple meta keys =
+
+It isn't worth the effort to get the shortcode parameters to handle complex arrays. And in the end it isn't necessary as there are several filters in place to permit you to run a complex query. The key will be using the `query_id` parameter.
+
+For example you could pass a specific ID via shortcode:
+
+`
+[userlist query_id="my_custom_meta_query"]
+`
+
+And then in your theme's `functions.php` or a site-specific plugin, you could filter the user query args:
+
+`
+add_filter( 'sul_user_query_args', 'sul_custom_meta_query', 10, 2 );
+
+function sul_custom_meta_query( $args, $query_id ){
+    // checking the query ID allows us to only target a specific shortcode
+	if( $query_id == 'my_custom_meta_query' ){
+			$args['meta_query'] = array(
+									'relation' => 'OR',
+									array(
+										'key'       => 'billing_city',
+										'value'     => 'oslo',
+										'compare'   => '=',
+										'type'      => 'CHAR',
+									),
+									array(
+										'key'       => 'first_name',
+										'value'     => 'bobby',
+										'compare'   => '=',
+										'type'      => 'CHAR',
+									)
+								);
+
+	}
+	return $args;
+}
+`
+
+For complex queries, you will want to read the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
+
+<a id="pagination" name="pagination"></a>
+= Does Simple User Listing work with WP_Pagenavi? =
+
+Yes! [WP Pagenavi](http://wordpress.org/plugins/wp-pagenavi/) supports pagination for `WP_User_Query` and I configured the navigation-author.php template to automatically use WP Pagenavi if it is installed and activated.
+
+<a name="permalinks"></a>
+= I can't get the search users to work? =
+
+The search form will not work with the default permalinks. Try changing your permalinks to some other structure.  The reason is form submits via the GET method and so adding those parameters to the URL seem to clash with the parameters already on the URL from the default permalink setup.
+
+<a id="fix-search" name="fix-search"></a>
+= S2 Member Conflicts | The search doesn't respect the shortcode parameters =
+
+Likely you are experiencing a conflict with another plugin, specifically one that is filtering `pre_user_query` to modify all user queries. The S2 Member plugin is a known culprit of this. To disable S2 Member's modifications on all Simple User Listing lists, add the following to your theme's functions.php or to a site-specific plugin. Ensure you are using at least SUL 1.5.3.
+
+`
+function kia_protect_sul_from_s2(){
+	remove_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
+}
+add_action( 'simple_user_listing_before_loop', 'kia_protect_sul_from_s2' );
+
+function kia_restore_s2(){
+	add_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
+}
+add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
