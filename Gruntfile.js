@@ -67,7 +67,8 @@ module.exports = function(grunt) {
 				'!deploy.sh',
 				'!languages/.tx',
 				'!languages/tx.exe',
-				'!README.md'
+				'!README.md',
+				'!wp-assets/**'
 			],
 			dest: 'build/<%= pkg.name %>/'
 		},
@@ -102,7 +103,8 @@ module.exports = function(grunt) {
             options: {
         		svn_user: '<%= pkg.author %>',
         		plugin_slug: '<%= pkg.name %>',
-        		build_dir: 'build/<%= pkg.name %>/'
+        		build_dir: 'build/<%= pkg.name %>/',
+        		temp_path: "D:/SVN/",
             },
     	}
     },
@@ -196,5 +198,5 @@ grunt.registerTask( 'test', [ 'jshint' ] );
 grunt.registerTask( 'build', [ 'test', 'uglify', 'pot', 'po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
 grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy',  'test', 'wp_readme_to_markdown', 'clean', 'copy', 'wp_deploy' ] );
 
-
+grunt.registerTask( 'default', [ 'wp_deploy' ] );
 };
