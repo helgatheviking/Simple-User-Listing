@@ -49,6 +49,22 @@ Copy the files you wish to modify from the `simple-user-listing/templates` folde
 
 For more details on what is available in the `$user` object [see the Codex reference on WP_User()](http://codex.wordpress.org/Class_Reference/WP_User)
 
+<a id="remove-search" name="remove-search"></a>
+= How Do I Remove the Search Input? =
+
+There are two ways to remove the search input. The search is added to a hook by the plugin, so you can remove it by adding the following to your theme's `functions.php` file:
+
+`
+function remove_SUL_search(){
+	if( function_exists( 'Simple_User_Listing' ) ){
+		remove_action( 'simple_user_listing_before_loop', array( 'Simple_User_Listing', 'add_search' ) );
+	}
+}
+add_action( 'wp_head', 'remove_SUL_search' );
+`
+
+Or you could copy the `search-author.php` from the plugin's template folder to a `simple-user-listing folder` in your theme (so `simple-user-listing/searcch-author.php`) and remove all the code from it so that it is blank. 
+
 <a id="parameters" name="parameters"></a>
 = Shortcode Paramaters: How Can I Customize the User Query?=
 
