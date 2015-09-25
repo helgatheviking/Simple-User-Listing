@@ -34,6 +34,7 @@ $num_posts = count_user_posts( $user->ID );
 		} ?>
 	</h2>
 
+<?php if( $user_info->description ): ?>
 	<p><?php echo $user_info->description; ?></p>
-
+<?php endif; ?>
 </div>
