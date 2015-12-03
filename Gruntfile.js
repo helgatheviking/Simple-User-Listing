@@ -85,15 +85,29 @@ module.exports = function(grunt) {
     },
  
 
- 	// bump version numbers and push tag to github
-	release: {
-		options: {
-			push: false,
-			github: { 
-				repo: '<%= pkg.author %>/<%= pkg.name %>', //put your user/repo here
-				usernameVar: '<%= creds.username %>', //ENVIRONMENT VARIABLE that contains Github username 
-				passwordVar: '<%= creds.password %>' //ENVIRONMENT VARIABLE that contains Github password
-			}
+	// bump version numbers
+	replace: {
+		Version: {
+			src: [
+				'readme.txt',
+				'readme.md',
+				'<%= pkg.name %>.php'
+			],
+			overwrite: true,
+			replacements: [
+				{
+					from: /Stable tag:.*$/m,
+					to: "Stable tag: <%= pkg.version %>"
+				},
+				{ 
+					from: /Version:.*$/m,
+					to: "Version: <%= pkg.version %>"
+				},
+				{ 
+					from: /public \$version = \'.*.'/m,
+					to: "public $version = '<%= pkg.version %>'"
+				}
+			]
 		}
 	},
 
