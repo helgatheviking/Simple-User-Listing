@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.8.0
 Tested up to: 4.4.0
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -248,6 +248,10 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.7.1 =
+* only show author description if exists
+* tested up to WordPress 4.4.0
 
 = 1.7.0 =
 * Use transients to cache queries
