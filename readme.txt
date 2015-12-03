@@ -66,7 +66,7 @@ add_action( 'wp_head', 'remove_SUL_search' );
 Or you could copy the `search-author.php` from the plugin's template folder to a `simple-user-listing folder` in your theme (so `simple-user-listing/searcch-author.php`) and remove all the code from it so that it is blank. 
 
 <a id="parameters" name="parameters"></a>
-= Shortcode Paramaters: How Can I Customize the User Query?=
+= Shortcode Paramaters: How Can I Customize the User Query? =
 
 Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page. Roles must be in lowercase. 
 
