@@ -56,6 +56,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			add_action( 'profile_update', array( $this, 'delete_user_transients' ) );
 			add_action( 'user_register', array( $this, 'delete_user_transients' ) );
+			add_action( 'delete_user', array( $this, 'delete_user_transients' ) );
 			add_action( 'save_post', array( $this, 'delete_user_transients' ) );
 			
 		}
