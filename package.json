@@ -1,10 +1,10 @@
 {
   "title": "Simple User Listing",
   "name": "simple-user-listing",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "A shortcode for displaying paginated lists of users",
   "main": "Gruntfile.js",
-  "license": "GPL",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/helgatheviking/simple-user-listing"
@@ -16,21 +16,21 @@
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-text-replace": "^0.4.0",
-    "load-grunt-tasks": "~0.4.0",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "jshint-stylish": "~0.1.5",
-    "grunt-wp-i18n": "~0.4.3",
+    "load-grunt-tasks": "~3.4.1",
+    "grunt-contrib-uglify": "~1.0.1",
+    "grunt-contrib-jshint": "~1.0.0",
+    "jshint-stylish": "~2.1.0",
+    "grunt-wp-i18n": "~0.5.4",
     "grunt-po2mo": "~0.1.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-release": "~0.7.0",
-    "grunt-newer": "~0.7.0",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-release": "~0.13.0",
+    "grunt-newer": "~1.1.2",
     "grunt-checkrepo": "~0.1.0",
-    "grunt-checkbranch": "~0.3.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-shell": "~0.6.4",
-    "grunt-wp-readme-to-markdown": "~0.7.0",
-    "grunt-wp-deploy": "~1.0.3"
+    "grunt-checkbranch": "~1.0.2",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-shell": "~1.2.1",
+    "grunt-wp-readme-to-markdown": "~1.0.0",
+    "grunt-wp-deploy": "~1.1.0"
   }
 }
