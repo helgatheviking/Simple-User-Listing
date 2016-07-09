@@ -121,7 +121,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		function shortcode_callback( $atts, $content = null ) {
 			global $post, $sul_users, $user;
 
-			extract( shortcode_atts( array(
+			$defaults = array(
 				'query_id' => 'simple_user_listing',
 				'role' => '',
 				'include' => '',
@@ -135,9 +135,13 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'meta_compare' => '=',
 				'meta_type' => 'CHAR',
 				'count_total' => true,
-			), $atts ) );
+				'taxonomy' => '',
+				'terms' => ''
+			);
+			
+			$atts = wp_parse_args( $atts, $defaults );
 
-			$number = intval( $number );
+			$number = intval( $atts['number'] );
 
 			// We're outputting a lot of HTML, and the easiest way
 			// to do it is with output buffering from PHP.
@@ -154,48 +158,49 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// args
 			$args = array(
-				'query_id' => $query_id,
+				'query_id' => $atts['query_id'],
 				'offset' => $offset,
 				'number' => $number,
-				'orderby' => $orderby,
-				'order' => $order,
-				'count_total' => $count_total,
+				'orderby' => $atts['orderby'],
+				'order' => $atts['order'],
+				'count_total' => $atts['count_total'],
 			);
 
 			// if $role parameter is defined
-			if( $role ){ 
-				$args['role'] = sanitize_text_field( $role );
+			if( $atts['role'] ){ 
+				$args['role'] = sanitize_text_field( $atts['role'] );
 			}
 
 			// if $blog_id parameter is defined
-			if( $blog_id ){
-				$args['blog_id'] = intval( $blog_id );
+			if( $atts['blog_id'] ){
+				$args['blog_id'] = intval( $atts['blog_id'] );
 			}
 
-			// if $includ parameter is defined
-			if( $include ){
-				$include = array_map( 'trim', explode( ',', $include ) );
+			// if $include parameter is defined
+			if( $atts['include'] ){
+				$include = array_map( 'trim', explode( ',', $atts['include'] ) );
 				$args['include'] = $include;
 			}
 
 			// if $exclude parameter is defined
-			if( $exclude ){
-				$exclude = array_map( 'trim', explode( ',', $exclude ) );
+			if( $atts['exclude'] ){
+				$exclude = array_map( 'trim', explode( ',', $atts['exclude'] ) );
 				$args['exclude'] = $exclude;
 			}
 
 			// if meta search parameters are defined
-			if ( $meta_key && $meta_value ) {
+			if ( $atts['meta_key'] && $atts['meta_value'] ) {
 				$args['meta_query'] = array(
 												array(
-													'key'       => $meta_key,
-													'value'     => $meta_value,
-													'compare'   => $meta_compare,
-													'type'      => $meta_type,
+													'key'       => $atts['meta_key'],
+													'value'     => $atts['meta_value'],
+													'compare'   => $atts['meta_compare'],
+													'type'      => $atts['meta_type'],
 												),
 											);
-			} elseif( $meta_key ){
-				$args['meta_key'] = $meta_key;
+			} elseif( $atts['meta_key'] ){
+				$args['meta_key'] = $atts['meta_key'];
+			}
 			}
 
 			// Generate the query based on search field
@@ -204,7 +209,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			}
 
 			// allow themes/plugins to filter the query args (probably redundant in light of pre_user_query filter, but still)
-			$args = apply_filters( 'sul_user_query_args', $args, $query_id );
+			$args = apply_filters( 'sul_user_query_args', $args, $atts['query_id'], $atts );
 
 			// Generate a transient name based on current query
 			$transient_name = 'sul_query_' . md5( http_build_query( $args ) . $this->get_transient_version( 'sul_user_query' ) );
@@ -222,7 +227,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$users = $sul_users->get_results();
 
 			// before the user listing loop
-			do_action( 'simple_user_listing_before_loop', $query_id );
+			do_action( 'simple_user_listing_before_loop', $atts['query_id'], $atts );
 
 			// the user listing loop
 			if ( ! empty( $users ) )	 {
@@ -237,15 +242,15 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			} //endif
 
 			// after the user listing loop
-			do_action( 'simple_user_listing_after_loop', $query_id );
+			do_action( 'simple_user_listing_after_loop', $atts['query_id'], $atts );
 
 			// Output the content.
 			$output = ob_get_contents();
 			ob_end_clean();
 
-			do_action( 'simple_user_listing_before_shortcode', $post, $query_id );
+			do_action( 'simple_user_listing_before_shortcode', $post, $atts['query_id'], $atts );
 			return $output;
-			do_action( 'simple_user_listing_after_shortcode', $post, $query_id );
+			do_action( 'simple_user_listing_after_shortcode', $post, $atts['query_id'], $atts );
 
 		}
 
