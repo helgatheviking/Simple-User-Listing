@@ -492,17 +492,22 @@ function sul_get_template_part( $slug, $name = '' ) {
 	$template = '';
 
 	// Look in yourtheme/slug-name.php and yourtheme/simple-user-listing/slug-name.php
-	if ( $name )
+	if ( $name ){
 		$template = locate_template( array ( "{$slug}-{$name}.php", "{$simple_user_listing->template_url()}{$slug}-{$name}.php" ) );
-	if ( !$template && $name && file_exists( $simple_user_listing->plugin_path() . "/templates/{$slug}-{$name}.php" ) )
+	}
+	
+	if ( !$template && $name && file_exists( $simple_user_listing->plugin_path() . "/templates/{$slug}-{$name}.php" ) ){
 		$template = $simple_user_listing->plugin_path() . "/templates/{$slug}-{$name}.php";
+	}
 
 	// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/simple_user_listing/slug.php
-	if ( !$template )
+	if ( !$template ){
 		$template = locate_template( array ( "{$slug}.php", "{$simple_user_listing->template_url()}{$slug}.php" ) );
+	}
 
-	if ( $template )
+	if ( $template ){
 		load_template( $template, false );
+	}
 
 }
 
