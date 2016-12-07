@@ -4,7 +4,7 @@ Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: users, authors
 Requires at least: 3.8.0
 Tested up to: 4.7.0
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -248,6 +248,10 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.7.4 =
+* remove stray }
+* restore transients in repo
 
 = 1.7.3 =
 * use array of attributes instead of extract()
