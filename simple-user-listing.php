@@ -201,7 +201,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			} elseif( $atts['meta_key'] ){
 				$args['meta_key'] = $atts['meta_key'];
 			}
-			}
 
 			// Generate the query based on search field
 			if ( $search ){
