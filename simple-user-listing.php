@@ -166,9 +166,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'count_total' => $atts['count_total'],
 			);
 
-			// if $role parameter is defined
-			if( $atts['role'] ){ 
-				$args['role'] = sanitize_text_field( $atts['role'] );
+			// if $role parameter is defined.
+			if( $atts['role'] ){
+				$args['role'] = array_map( 'trim', explode( ',', $atts['role'] ) );
+			}
 			}
 
 			// if $blog_id parameter is defined
@@ -178,14 +179,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// if $include parameter is defined
 			if( $atts['include'] ){
-				$include = array_map( 'trim', explode( ',', $atts['include'] ) );
-				$args['include'] = $include;
+				$args['include'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['include'] ) ) );
 			}
 
 			// if $exclude parameter is defined
 			if( $atts['exclude'] ){
-				$exclude = array_map( 'trim', explode( ',', $atts['exclude'] ) );
-				$args['exclude'] = $exclude;
+				$args['exclude'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['exclude'] ) ) );
 			}
 
 			// if meta search parameters are defined
