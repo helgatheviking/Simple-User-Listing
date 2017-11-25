@@ -1,6 +1,6 @@
 # Simple User Listing  #
 **Contributors:** helgatheviking  
-**Donate link:** https://inspirepay.com/pay/helgatheviking  
+**Donate link:** https://paypal.me/kathyisawesome/20  
 **Tags:** users, authors  
 **Requires at least:** 3.8  
 **Tested up to:** 4.7.0  
