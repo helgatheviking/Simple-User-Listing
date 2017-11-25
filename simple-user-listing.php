@@ -41,6 +41,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 */
 		protected static $_instance = null;
 
+		/**
+		* @constant string donate url
+		* @since 1.8.0
+		*/
+		CONST DONATE_URL = "https://paypal.me/kathyisawesome/20";
+
 		/* 
 		 * variables 
 		 */
@@ -98,6 +104,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'user_register', array( $this, 'delete_user_transients' ) );
 			add_action( 'delete_user', array( $this, 'delete_user_transients' ) );
 			add_action( 'save_post', array( $this, 'delete_user_transients' ) );
+
+			// add Donate link to plugin
+			add_filter( 'plugin_row_meta', array( $this, 'add_meta_links' ), 10, 2 );
 			
 		}
 
@@ -506,6 +515,19 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				" );
 			}
 
+		}
+
+		/**
+		* Add donation link
+		* @param array $plugin_meta
+	 	* @param string $plugin_file
+		* @since 1.8.0
+		*/
+		public function add_meta_links( $plugin_meta, $plugin_file ) {
+			if( $plugin_file == plugin_basename(__FILE__) ){
+				$plugin_meta[] = '<a class="dashicons-before dashicons-awards" href="' . self::DONATE_URL . '" target="_blank">' . __( 'Donate', 'simple-user-listing' ) . '</a>';
+			}
+			return $plugin_meta;
 		}
 
 	}
