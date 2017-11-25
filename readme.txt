@@ -2,9 +2,9 @@
 Contributors: helgatheviking
 Donate link: https://paypal.me/kathyisawesome/20
 Tags: users, authors
-Stable tag: 1.7.4
 Requires at least: 4.5.0
 Tested up to: 4.9.0
+Stable tag: 1.8.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -248,6 +248,12 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.8.0 =
+* New: Add support for `role__in` and `role__not_in` parameters
+* New: Add wrapper div for easy grid styling
+* Update donation link
+* Update required and tested against versions
 
 = 1.7.4 =
 * remove stray }

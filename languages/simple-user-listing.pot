@@ -1,32 +1,40 @@
-# Copyright (C) 2016 Kathy Darling
+# Copyright (C) 2017 Kathy Darling
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple User Listing 1.7.3\n"
+"Project-Id-Version: Simple User Listing 1.8.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/simple-user-listing\n"
-"POT-Creation-Date: 2016-07-09 01:42:45+00:00\n"
+"POT-Creation-Date: 2017-11-25 18:51:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Generator: grunt-wp-i18n1.0.1\n"
 
-#: templates/content-author.php:25
+#: simple-user-listing.php:79 simple-user-listing.php:88
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: simple-user-listing.php:563
+msgid "Donate"
+msgstr ""
+
+#: templates/content-author.php:29
 msgid "Read posts by %s"
 msgstr ""
 
-#: templates/navigation-author.php:23
+#: templates/navigation-author.php:27
 msgid "User navigation"
 msgstr ""
 
-#: templates/navigation-author.php:26
+#: templates/navigation-author.php:30
 msgid "Previous"
 msgstr ""
 
-#: templates/navigation-author.php:30
+#: templates/navigation-author.php:34
 msgid "Next"
 msgstr ""
 
@@ -34,23 +42,23 @@ msgstr ""
 msgid "No users found"
 msgstr ""
 
-#: templates/search-author.php:16
+#: templates/search-author.php:20
 msgid "Search authors by name"
 msgstr ""
 
-#: templates/search-author.php:18
+#: templates/search-author.php:22
 msgid "Search"
 msgstr ""
 
-#: templates/search-author.php:19 templates/search-author.php:20
+#: templates/search-author.php:23 templates/search-author.php:24
 msgid "Search Authors"
 msgstr ""
 
-#: templates/search-author.php:24
+#: templates/search-author.php:28
 msgid "Search Results for: %s"
 msgstr ""
 
-#: templates/search-author.php:25
+#: templates/search-author.php:29
 msgid "Back To Author Listing"
 msgstr ""
 
@@ -74,7 +82,7 @@ msgstr ""
 msgid "http://kathyisawesome.com"
 msgstr ""
 
-#: templates/content-author.php:27
+#: templates/content-author.php:31
 msgctxt "number of posts"
 msgid "1 post"
 msgid_plural "%s posts"
