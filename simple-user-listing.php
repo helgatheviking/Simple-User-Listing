@@ -257,7 +257,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Add the search template
 		 *
 		 * @access public
-		 * @since 1.0
+		 * @since 1.0.0
 		 * @return null
 		 */
 		function add_search() {
@@ -268,19 +268,18 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Add the navigation template
 		 *
 		 * @access public
-		 * @since 1.0
+		 * @since 1.0.0
 		 * @return null
 		 */
 		function add_nav(){
 			sul_get_template_part( 'navigation', 'author' );
 		}
 
-
 		/**
 		 * Add body class
 		 *
 		 * @access public
-		 * @since 1.0
+		 * @since 1.0.0
 		 * @param  array $c all generated WordPress body classes
 		 * @return array
 		 */
@@ -296,7 +295,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Register the search query var
 		 *
 		 * @access public
-		 * @since 1.3
+		 * @since 1.3.0
 		 * @param  array $query_vars variables recognized by WordPress
 		 * @return array
 		 */
@@ -311,7 +310,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Get Total Pages in User Query
 		 *
 		 * @access public
-		 * @since 1.3
+		 * @since 1.3.0
 		 * @return number
 		 */
 		public function get_total_user_pages(){
@@ -342,7 +341,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Get Previous users
 		 *
 		 * @access public
-		 * @since 1.3
+		 * @since 1.3.0
 		 * @return URL string
 		 */
 		public function get_previous_users_url(){
@@ -373,7 +372,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Get Next users
 		 * 
 		 * @access public
-		 * @since 1.3
+		 * @since 1.3.0
 		 * @return URL string
 		 */
 		public function get_next_users_url(){
@@ -403,7 +402,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Add search args to URL
 		 * 
 		 * @access public
-		 * @since 1.0
+		 * @since 1.0.0
 		 * @param  string $url the permalink to which we should add the allowed $_GET variables
 		 * @return URL string
 		 */
