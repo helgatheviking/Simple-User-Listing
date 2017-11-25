@@ -217,8 +217,8 @@ grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
 
 
 grunt.registerTask( 'test', [ 'jshint' ] );
-grunt.registerTask( 'build', [ 'test', 'uglify', 'makepot', 'po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
-grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy',  'test', 'wp_readme_to_markdown', 'clean', 'copy', 'wp_deploy' ] );
+grunt.registerTask( 'build', [ 'test', 'replace', 'uglify', 'makepot', 'po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
+grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy',  'test', 'build', 'wp_deploy' ] );
 
 grunt.registerTask( 'default', [ 'wp_deploy' ] );
 };
