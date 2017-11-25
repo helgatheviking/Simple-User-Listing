@@ -5,38 +5,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
-	creds: grunt.file.readJSON('gitcreds.json'),
-	uglify: {
-		options: {
-			compress: {
-				global_defs: {
-					"EO_SCRIPT_DEBUG": false
-				},
-				dead_code: true
-				},
-			banner: '/*! <%= pkg.title %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd HH:MM") %> */\n'
-		},
-		build: {
-			files: [{
-				expand: true,	// Enable dynamic expansion.
-				src: ['js/*.js', '!js/*.min.js'], // Actual pattern(s) to match.
-				ext: '.min.js',   // Dest filepaths will have this extension.
-			}]
-		}
-	},
-	jshint: {
-		options: {
-			reporter: require('jshint-stylish'),
-			globals: {
-				"EO_SCRIPT_DEBUG": false,
-			},
-			 '-W099': true, //Mixed spaces and tabs
-			 '-W083': true,//TODO Fix functions within loop
-			 '-W082': true, //Todo Function declarations should not be placed in blocks
-			 '-W020': true, //Read only - error when assigning EO_SCRIPT_DEBUG a value.
-		},
-		all: [ 'js/*.js', '!js/*.min.js' ]
-  	},
 
 	clean: {
 		//Clean up build folder
@@ -166,19 +134,6 @@ module.exports = function(grunt) {
 		}
 	},
 
-	// get transifex translations
-	transifex: {
-		"nav-menu-roles": {
-			options: {
-				targetDir: "languages",		// download specified resources / langs only
-		//		resources: ["localizable_enstrings"],
-				languages: ["es"],
-				filename : "<%= pkg.name %>-_lang_.json",
-		//		templateFn: function(strings) { return "bacon"; }
-			}
-		}
-	},
-
 
 	// turn po files into mo files
 	po2mo: {
@@ -186,39 +141,13 @@ module.exports = function(grunt) {
 			src: 'languages/*.po',
 			expand: true,
 		},
-	},
-
-	// automatically update the docs, scripts on change	
-	watch: {
-		readme: {
-			files: ['readme.txt'],
-			tasks: ['wp_readme_to_markdown'],
-			options: {
-			spawn: false,
-			},
-		  },
-		scripts: {
-			files: ['js/*.js'],
-			tasks: ['newer:jshint','newer:uglify'],
-			options: {
-			spawn: false,
-			},
-		  },
-	},
+	}
 
 });
 
 grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
 
-// bump version numbers 
-// grunt release		1.4.1 -> 1.4.2
-// grunt release:minor	1.4.1 -> 1.5.0
-// grint release:major	1.4.1 -> 2.0.0
+grunt.registerTask( 'build', [ 'test', 'replace', 'makepot', 'po2mo', 'clean', 'copy' ] );
+grunt.registerTask( 'deploy', [ 'build', 'checkbranch:master', 'checkrepo:deploy', 'build', 'wp_deploy' ] );
 
-
-grunt.registerTask( 'test', [ 'jshint' ] );
-grunt.registerTask( 'build', [ 'test', 'replace', 'uglify', 'makepot', 'po2mo', 'wp_readme_to_markdown', 'clean', 'copy' ] );
-grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo:deploy',  'test', 'build', 'wp_deploy' ] );
-
-grunt.registerTask( 'default', [ 'wp_deploy' ] );
 };
