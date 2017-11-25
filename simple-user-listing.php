@@ -96,6 +96,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'init', array( $this, 'load_text_domain' ) );
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
+			add_action( 'simple_user_listing_before_loop', array( $this, 'open_wrapper' ), 20 );
+			add_action( 'simple_user_listing_after_loop', array( $this, 'close_wrapper' ), 5 );
 			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
@@ -321,6 +323,28 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 */
 		function add_search() {
 			sul_get_template_part( 'search', 'author' );
+		}
+
+		/**
+		 * Add the open "wrapper" template
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @return null
+		 */
+		function open_wrapper() {
+			sul_get_template_part( 'open', 'author' );
+		}
+
+		/**
+		 * Add the close "wrapper" template
+		 *
+		 * @access public
+		 * @since 1.8.0
+		 * @return null
+		 */
+		function close_wrapper() {
+			sul_get_template_part( 'close', 'author' );
 		}
 
 		/**
