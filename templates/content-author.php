@@ -2,7 +2,11 @@
 /**
  * The Template for displaying Author listings
  *
- * Override this template by copying it to yourtheme/authors/content-author.php
+ * Override this template by copying it to yourtheme/simple-user-listing/content-author.php
+ *
+ * @author 		helgatheviking
+ * @package 	Simple-User-Listing/Templates
+ * @version     1.7.5
  *
  */
 

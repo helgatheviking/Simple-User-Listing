@@ -4,6 +4,10 @@
  *
  * Override this template by copying it to yourtheme/simple-user-listing/navigation-author.php
  *
+ * @author 		helgatheviking
+ * @package 	Simple-User-Listing/Templates
+ * @version     1.7.5
+ *
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
