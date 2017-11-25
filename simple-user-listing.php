@@ -34,6 +34,13 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	class Simple_User_Listing {
 
+		/**
+		 * The single instance of the class.
+		 * 
+		 * @var obj The Simple_User_Listing object
+		 */
+		protected static $_instance = null;
+
 		/* 
 		 * variables 
 		 */
@@ -41,10 +48,43 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		public $template_url;
 		public $allowed_search_vars;
 
+		/**
+		 * Main Simple_User_Listing instance.
+		 *
+		 * Ensures only one instance of Simple_User_Listing is loaded or can be loaded.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @return obj Simple_User_Listing single instance.
+		 */
+		public static function get_instance() {
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
+			return self::$_instance;
+		}
+
+		/**
+		 * Cloning is forbidden.
+		 * 
+		 * @since 1.8.0
+		 */
+		public function __clone() {
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'simple-user-listing' ) );
+		}
+
+		/**
+		 * Unserializing instances of this class is forbidden.
+		 * 
+		 * @since 1.8.0
+		 */
+		public function __wakeup() {
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'simple-user-listing' ) );
+		}
+
 		/*
 		 * constructor
 		 */
-
 		public function __construct() {
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
@@ -470,9 +510,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	}
 }
-global $simple_user_listing;
-$simple_user_listing = new Simple_User_Listing();
 
+// Launch the whole plugin.
+global $simple_user_listing;
+$simple_user_listing = Simple_User_Listing::get_instance();
 
 
 /**
