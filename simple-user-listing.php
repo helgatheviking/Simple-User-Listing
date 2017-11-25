@@ -221,17 +221,17 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// if $role parameter is defined.
 			if( $atts['role'] ){
-				$args['role'] = array_map( 'trim', explode( ',', $atts['role'] ) );
+				$args['role'] = array_map( 'sanitize_text_input', array_map( 'trim', explode( ',', $atts['role'] ) ) );
 			}
 
 			// if $role__in parameter is defined.
 			if( $atts['role__in'] ){
-				$args['role__in'] = array_map( 'trim', explode( ',', $atts['role__in'] ) );
+				$args['role__in'] = array_map( 'sanitize_text_input', array_map( 'trim', explode( ',', $atts['role__in'] ) ) );
 			}
 
 			// if $role__not_in parameter is defined.
 			if( $atts['role__not_in'] ){
-				$args['role__not_in'] = array_map( 'trim', explode( ',', $atts['role__not_in'] ) );
+				$args['role__not_in'] = array_map( 'sanitize_text_input', array_map( 'trim', explode( ',', $atts['role__not_in'] ) ) );
 			}
 
 			// if $blog_id parameter is defined
