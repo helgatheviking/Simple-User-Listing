@@ -47,7 +47,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		public function __construct() {
 
-			add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+			add_action( 'init', array( $this, 'load_text_domain' ) );
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
