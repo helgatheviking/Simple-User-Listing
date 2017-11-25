@@ -56,11 +56,9 @@ There are two ways to remove the search input. The search is added to a hook by 
 
 `
 function remove_SUL_search(){
-	if( function_exists( 'Simple_User_Listing' ) ){
-		remove_action( 'simple_user_listing_before_loop', array( 'Simple_User_Listing', 'add_search' ) );
-	}
+    remove_action( 'simple_user_listing_before_loop', array( Simple_User_Listing::get_instance(), 'add_search' ) );
 }
-add_action( 'wp_head', 'remove_SUL_search' );
+add_action( 'simple_user_listing_before_loop', 'remove_SUL_search', 5 );
 `
 
 Or you could copy the `search-author.php` from the plugin's template folder to a `simple-user-listing folder` in your theme (so `simple-user-listing/searcch-author.php`) and remove all the code from it so that it is blank. 
@@ -95,10 +93,12 @@ As of version 1.4.2 you can now include and exclude users with a comma separated
 The full list of supported parameters (shown with default value) is:
 
 `
-'query_id' => 'simple_user_listing',
-'role' => '',
-'include' => '',
-'exclude' => '',
+'query_id' => 'simple_user_listing', // This allows for targeted filtering of pre_get_user which allows for very custom queries.
+'role' => '', // Multiple roles can be defined in a comma separated list [userlist role="infield,outfield"]
+'role__in' => '', // Multiple roles can be defined in a comma separated list 
+'role__not_in' => // Multiple roles can be defined in a comma separated list
+'include' => '', // Multiple user IDs can be defined in a comma separated list
+'exclude' => '', // Multiple user IDs can be defined in a comma separated lis
 'blog_id' => '',
 'number' => get_option( 'posts_per_page', 10 ),
 'order' => 'ASC',

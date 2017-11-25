@@ -2,9 +2,9 @@
 **Contributors:** helgatheviking  
 **Donate link:** https://paypal.me/kathyisawesome/20  
 **Tags:** users, authors  
-**Stable tag:** 1.7.4  
 **Requires at least:** 4.5.0  
 **Tested up to:** 4.9.0  
+**Stable tag:** 1.8.0  
 **License:** GPLv3 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -20,9 +20,9 @@ To customize any of the templates, copy the file from the plugin's "templates" f
 
 Place this shortcode anywhere you'd like to display a full list of all your blog's users.
 
-`
+```
 [userlist]
-`
+```
 
 By default the plugin will print out the users based on the "Posts per Page" setting under Settings->Reading, but this and many other settings can be changed via the shortcode's parameters. 
 
@@ -54,31 +54,31 @@ For more details on what is available in the `$user` object [see the Codex refer
 
 Simple User Listing supports most of the parameters of the `WP_User_Query` class as parameters for the shortcode.  For example you can pass it a role defining which type of users you'd like to list.  You can also adjust the number of users displayed per page. Roles must be in lowercase. 
 
-`
+```
 [userlist role="author" number="5"]
-`
+```
 
 As of version 1.2 you can now sort the user list by and of the sort parameters supported by `WP_User_Query()`.  For example, the following would list your users based on number of posts written, with the highest first.
 
-`
+```
 [userlist orderby="post_count" order="DESC"]
-`
+```
 
 As of version 1.4 you can now list users by a meta key. Be careful with this as this is not exactly an efficient query.
 
-`
+```
 [userlist meta_key="foo" meta_value="widgets"]
-`
+```
 
 As of version 1.4.2 you can now include and exclude users with a comma separated list of IDs.
 
-`
+```
 [userlist exclude="1,2,3"]
-`
+```
 
 The full list of supported parameters (shown with default value) is:
 
-`
+```
 'query_id' => 'simple_user_listing',
 'role' => '',
 'include' => '',
@@ -92,25 +92,25 @@ The full list of supported parameters (shown with default value) is:
 'meta_compare' => '=',
 'meta_type' => 'CHAR',
 'count_total' => true,
-`
+```
 
 <a id="meta-sort" name="meta-sort"></a>
 ### How Can I Sort the Users by Last Name? ###
 
 As of verison 1.5.2 you could simply use the following as your shortcode:
 
-`
+```
 [userlist meta_key="last_name" orderby="meta_value" order="ASC"]
-`
+```
 
 <a id="meta-search" name="meta-search"></a>
 ### How can I search by a meta field? ex: Last Name ###
 
 While you could modify the `search-author.php` template, if you are only searching by one field it isn't really neccessary. You will, however, need to modify the shortcode's arguments for `WP_User_Query`.  You can do that by filtering `sul_user_query_args`.
 
-Add the following to your theme's functions.php:
+Add the following to your theme's `functions.php`:
 
-`
+```
 /**
  * Place this in your theme's functions.php file
  * Or a site-specific plugin
@@ -137,7 +137,7 @@ function kia_meta_search( $args ){
 	return $args;
 }
 add_filter('sul_user_query_args', 'kia_meta_search');
-`
+```
 
 Now the search will return users that match the entered "last_name".  You can adjust as needed or use the `meta_query` array for more complicated meta queries.  
 
@@ -150,7 +150,7 @@ By default the WordPress search relies on username, though wih the `search_colum
 
 It is much more useful to search by the user's display name, however this requires some trickery via the `pre_user_query` hook. Similar to `pre_get_posts` this is your last chance to change the `WP_User_Query` query before it is executed. I’ve built in a `query_id` variable so that you don’t go willy-nilly filtering all user queries which could have some unintended side effects.
 
-`
+```
 // Switch user search from user_login to display_name via query_where 
 function kia_search_users_by_display_name( $query ) {
 
@@ -160,7 +160,7 @@ function kia_search_users_by_display_name( $query ) {
 
 } 
 add_action( 'pre_user_query', 'kia_search_users_by_display_name' ); 
-`
+```
 
 <a id="advanced" name="advanced"></a>
 ### How to create very complex user queries | How to query multiple meta keys ###
@@ -169,13 +169,13 @@ It isn't worth the effort to get the shortcode parameters to handle complex arra
 
 For example you could pass a specific ID via shortcode:
 
-`
+```
 [userlist query_id="my_custom_meta_query"]
-`
+```
 
 And then in your theme's `functions.php` or a site-specific plugin, you could filter the user query args:
 
-`
+```
 add_filter( 'sul_user_query_args', 'sul_custom_meta_query', 10, 2 );
 
 function sul_custom_meta_query( $args, $query_id ){
@@ -200,7 +200,7 @@ function sul_custom_meta_query( $args, $query_id ){
 	}
 	return $args;
 }
-`
+```
 
 For complex queries, you will want to read the [WP Codex reference on WP_User_Query](http://codex.wordpress.org/Class_Reference/WP_User_Query#Parameters).
 
@@ -219,7 +219,7 @@ The search form will not work with the default permalinks. Try changing your per
 
 Likely you are experiencing a conflict with another plugin, specifically one that is filtering `pre_user_query` to modify all user queries. The S2 Member plugin is a known culprit of this. To disable S2 Member's modifications on all Simple User Listing lists, add the following to your theme's functions.php or to a site-specific plugin. Ensure you are using at least SUL 1.5.3.
 
-`
+```
 function kia_protect_sul_from_s2(){
 	remove_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
 }
@@ -229,88 +229,4 @@ function kia_restore_s2(){
 	add_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
 }
 add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
-`
-
-## Changelog ##
-
-### 1.7.0 ###
-* Use transients to cache queries
-
-### 1.6.3 ###
-* Add Finnish translation. props @Teemu Jönkkäri
-
-### 1.6.2 ###
-* Add Danish translation. props @Frank Pedersen
-
-### 1.6.1 ###
-* move simple_user_listing_before_loop to after query is run to have pagination available
-
-### 1.6.0 ###
-* Remove is_page() restriction on shortcode display. Can now be echoed anywhere.
-
-### 1.5.4 ###
-* fix untranslatable strings in templates
-* stop linking to authors that have no posts (this causes 404)
-* change content-author.php template
-* update docs
-
-### 1.5.3 ###
-* use has_shortcode() built-in function for is_user_listing()
-* move simple_user_listing_before_loop hook so that S2 member can be disabled for SUL
-
-### 1.5.2 ###
-* separate meta_key param so you can sort by meta_value from shortcode
-
-### 1.5.1 ###
-* tested against WordPress 3.8
-* French translation (by me, so open to improvement!)
-* German translation props @Nico Bartes
-
-### 1.5 ###
-* improved docbloc 
-* fixed conflicting blog_id/role parameters
-
-### 1.4.2 ###
-* Support for include and exclude parameters
-
-### 1.4.1 ###
-* Move changelog back to readme.txt #facepalm
-
-### 1.4 ###
-* Add support for meta queries and custom query IDs
-* Rename list_id parameter to query_id
-* Move changelog to separate file
-
-### 1.3.3 ###
-* Fixed the content-author.php template
-
-### 1.3.2 ###
-* Return shortcode instead of echo #facepalm
-
-### 1.3.1 ###
-* Maintain role parameter on search
-
-### 1.3 ###
-* Fix pagination on search
-* Add support for WP_Pagenavi
-* Better support for customizing meta search queries
-
-### 1.2.2 ###
-* Add FAQ
-
-### 1.2.1 ###
-* Fix readme.txt markdown
-
-### 1.2 ###
-* Add support for orderby and order parameters
-
-### 1.1.1 ###
-* Fix divide by zero warning in navigation-author.php template
-
-### 1.1 ###
-* Add translation .pot
-* Fix "1 posts" error in content-author.php template
-* HTML encode arrows in navigation-author.php template
-
-### 1.0 ###
-* Initial release.
+```
