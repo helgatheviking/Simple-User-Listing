@@ -4,7 +4,7 @@ Donate link: https://paypal.me/kathyisawesome/20
 Tags: users, authors
 Requires at least: 4.5.0
 Tested up to: 4.9.0
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -248,6 +248,9 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.8.1 =
+* Fix: Role broken parameter sanitization. Replace santize_text_input with actual function sanitize_text_field
 
 = 1.8.0 =
 * New: Add support for `role__in` and `role__not_in` parameters
