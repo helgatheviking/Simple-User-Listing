@@ -147,7 +147,8 @@ module.exports = function(grunt) {
 
 grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
 
-grunt.registerTask( 'build', [ 'test', 'replace', 'makepot', 'po2mo', 'clean', 'copy' ] );
+grunt.registerTask( 'build', [ 'replace', 'makepot' ] );
+grunt.registerTask( 'make', [ 'build', 'clean', 'copy' ] );
 grunt.registerTask( 'deploy', [ 'build', 'checkbranch:master', 'checkrepo:deploy', 'build', 'wp_deploy' ] );
 
 };
