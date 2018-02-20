@@ -190,7 +190,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'count_total' => true,
 				'taxonomy' => '',
 				'terms' => '',
-				'template' => 'content',
+				'template' => 'author',
 			);
 			
 			$atts = wp_parse_args( $atts, $defaults );
@@ -296,7 +296,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				// loop through each author
 				foreach( $users as $user ){
 					$user->counter = ++$i;
-					sul_get_template_part( $atts['template'], 'author' );
+					sul_get_template_part( 'content', $atts['template'] );
 				}
 			} else {
 				sul_get_template_part( 'none', 'author' );
