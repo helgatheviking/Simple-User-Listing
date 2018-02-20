@@ -600,6 +600,9 @@ function sul_get_template_part( $slug, $name = '' ) {
 		$template = locate_template( array ( "{$slug}.php", "{$simple_user_listing->template_url()}{$slug}.php" ) );
 	}
 
+	// Allow 3rd party plugins to filter template file from their plugin.
+	$template = apply_filters( 'sul_get_template_part', $template, $slug, $name );
+
 	if ( $template ){
 		load_template( $template, false );
 	}
