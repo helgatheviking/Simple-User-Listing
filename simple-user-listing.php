@@ -189,7 +189,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'meta_type' => 'CHAR',
 				'count_total' => true,
 				'taxonomy' => '',
-				'terms' => ''
+				'terms' => '',
+				'template' => 'content',
 			);
 			
 			$atts = wp_parse_args( $atts, $defaults );
@@ -295,7 +296,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				// loop through each author
 				foreach( $users as $user ){
 					$user->counter = ++$i;
-					sul_get_template_part( 'content', 'author' );
+					sul_get_template_part( $atts['template'], 'author' );
 				}
 			} else {
 				sul_get_template_part( 'none', 'author' );
