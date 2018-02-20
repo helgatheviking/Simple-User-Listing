@@ -4,7 +4,7 @@ Donate link: https://paypal.me/kathyisawesome/20
 Tags: users, authors
 Requires at least: 4.5.0
 Tested up to: 4.9.0
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -108,6 +108,7 @@ The full list of supported parameters (shown with default value) is:
 'meta_compare' => '=',
 'meta_type' => 'CHAR',
 'count_total' => true,
+'template' => 'author' // Corresponds to content-author.php template, can accept different templates per shortcode.
 `
 
 <a id="meta-sort" name="meta-sort"></a>
@@ -248,6 +249,11 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.8.2 =
+* New: Use different content templates per shortcode via template shortcode parameter. Props @nerdworker. 
+* Ex: [userlist template="tacos"] looks for a simple-user-listing/content-tacos.php template in your theme.
+* New: Add filter sul_get_template_part
 
 = 1.8.1 =
 * Fix: Role broken parameter sanitization. Replace santize_text_input with actual function sanitize_text_field
