@@ -504,8 +504,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				// get all the search query variables ( just the ones in the $_GET that we've whitelisted )
 				$search = array_intersect_key( $_GET, array_flip( $this->allowed_search_vars() ) );
 
-				if ( ! empty ( $search ) )
+				if ( ! empty ( $search ) ) {
 					$url = add_query_arg( (array)$search, $url );
+				}
 
 			}
 			return $url;
