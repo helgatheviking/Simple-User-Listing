@@ -119,7 +119,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0
 		 * @return none
 		 */
-		function load_text_domain() {
+		public function load_text_domain() {
 			load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
@@ -172,7 +172,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @param  string $content shortcode content, null for this shortcode
 		 * @return string
 		 */
-		function shortcode_callback( $atts, $content = null ) {
+		public function shortcode_callback( $atts, $content = null ) {
 			global $post, $sul_users, $user;
 
 			$defaults = array(
@@ -325,7 +325,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0.0
 		 * @return null
 		 */
-		function add_search() {
+		public function add_search() {
 			sul_get_template_part( 'search', 'author' );
 		}
 
@@ -336,7 +336,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0
 		 * @return null
 		 */
-		function open_wrapper() {
+		public function open_wrapper() {
 			sul_get_template_part( 'open', 'author' );
 		}
 
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.8.0
 		 * @return null
 		 */
-		function close_wrapper() {
+		public function close_wrapper() {
 			sul_get_template_part( 'close', 'author' );
 		}
 
@@ -370,7 +370,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @param  array $c all generated WordPress body classes
 		 * @return array
 		 */
-		function body_class( $c ) {
+		public function body_class( $c ) {
 		    if( is_user_listing() ) {
 		        $c[] = 'userlist';
 
@@ -386,7 +386,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @param  array $query_vars variables recognized by WordPress
 		 * @return array
 		 */
-		function user_query_vars( $query_vars )	{
+		public function user_query_vars( $query_vars )	{
 			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ){
 				$query_vars[] = $var;
 			}
