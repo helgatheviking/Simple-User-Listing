@@ -50,9 +50,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/* 
 		 * variables 
 		 */
-		public $plugin_path;
-		public $template_url;
-		public $allowed_search_vars;
+		private $plugin_path;
+		private $template_url;
+		private $allowed_search_vars;
 
 		/**
 		 * Main Simple_User_Listing instance.
@@ -130,10 +130,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0
 		 * @return string
 		 */
-		function plugin_path() {
-			if ( $this->plugin_path ) return $this->plugin_path;
-
-			return $this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
+		public function plugin_path() {
+			if ( ! $this->plugin_path ) {
+				$this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
+			}
+			return $this->plugin_path;
 		}
 
 		/**
@@ -142,10 +143,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3
 		 * @return string
 		 */
-		function template_url() {
-			if ( $this->template_url ) return $this->template_url;
-
-			return $this->template_url = trailingslashit( apply_filters( 'sul_template_url', 'simple-user-listing' ) );
+		public function template_url() {
+			if ( ! $this->template_url ) {
+				$this->template_url = trailingslashit( apply_filters( 'sul_template_url', 'simple-user-listing' ) );
+			}
+			return $this->template_url;
 		}
 
 		/**
@@ -154,10 +156,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3
 		 * @return array
 		 */
-		function allowed_search_vars() {
-			if ( $this->allowed_search_vars ) return $this->allowed_search_vars;
-
-			return $this->allowed_search_vars = apply_filters( 'sul_user_allowed_search_vars', array( 'as' ) );
+		public function allowed_search_vars() {
+			if ( ! $this->allowed_search_vars ) {
+				$this->allowed_search_vars = apply_filters( 'sul_user_allowed_search_vars', array( 'as' ) );
+			}
+			return $this->allowed_search_vars;
 		}
 
 		/**
