@@ -1,6 +1,6 @@
 === Simple User Listing  ===
 Contributors: helgatheviking
-Donate link: https://paypal.me/kathyisawesome/20
+Donate link: https://youcaring.com/wnt-residency
 Tags: users, authors
 Requires at least: 4.5.0
 Tested up to: 4.9.0
