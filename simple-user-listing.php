@@ -444,8 +444,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// There is no previous link on page 1
 			if ( $page > 1 ) {
 
-				$previous_url = add_query_arg( 'paged', $page - 1, get_permalink() );
 				// Add paging.
+				$previous_url = add_query_arg( 'paged', $page - 1, $this->get_current_url() );
 
 				// Add search params.
 				$previous_url = $this->add_search_args( $previous_url );
@@ -475,8 +475,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// There is no next link on last page/
 			if ( $page < $this->get_total_user_pages() ) {
 
-				$next_url = add_query_arg( 'paged', $page + 1, get_permalink() );
 				// Add paging.
+				$next_url = add_query_arg( 'paged', $page + 1, $this->get_current_url() );
 
 				// Add search params.
 				$next_url = $this->add_search_args( $next_url );
@@ -485,6 +485,17 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			return $next_url;
 		}
+
+		/**
+		 * Get current URL
+		 * 
+		 * @access public
+		 * @since 1.9.0
+		 * @return URL string
+		 */
+		public function get_current_url(){
+			return apply_filters( 'sul_base_url', home_url( add_query_arg( null, null ) ) );
+  		}
 
 		/**
 		 * Add search args to URL
