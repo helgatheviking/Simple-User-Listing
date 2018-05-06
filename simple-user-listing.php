@@ -292,7 +292,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// The authors object.
 			$users = $sul_users->get_results();
 
-			// before the user listing loop
+			// Before the user listing loop.
+			do_action( 'simple_user_listing_before_shortcode', $post, $atts['query_id'], $atts );
 			do_action( 'simple_user_listing_before_loop', $atts['query_id'], $atts );
 
 			// the user listing loop
@@ -307,16 +308,16 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				sul_get_template_part( 'none', 'author' );
 			} //endif
 
-			// after the user listing loop
+			// After the user listing loop.
 			do_action( 'simple_user_listing_after_loop', $atts['query_id'], $atts );
+			do_action( 'simple_user_listing_after_shortcode', $post, $atts['query_id'], $atts );
 
 			// Output the content.
 			$output = ob_get_contents();
+
 			ob_end_clean();
 
-			do_action( 'simple_user_listing_before_shortcode', $post, $atts['query_id'], $atts );
 			return $output;
-			do_action( 'simple_user_listing_after_shortcode', $post, $atts['query_id'], $atts );
 
 		}
 
