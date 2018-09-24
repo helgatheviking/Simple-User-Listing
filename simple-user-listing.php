@@ -45,7 +45,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		* @constant string donate url
 		* @since 1.8.0
 		*/
-		CONST DONATE_URL = "https://youcaring.com/wnt-residency";
+		CONST DONATE_URL = "https://www.paypal.me/usathwnt";
 
 		/* 
 		 * Variables 
