@@ -3,8 +3,8 @@ Contributors: helgatheviking
 Donate link: https://www.paypal.me/usathwnt
 Tags: users, authors
 Requires at least: 4.5.0
-Tested up to: 4.9.5
-Stable tag: 1.8.2
+Tested up to: 4.9.8
+Stable tag: 1.8.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -249,6 +249,10 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 `
 
 == Changelog ==
+
+= 1.8.2 =
+* New: Filter the users output via `simple_user_listing_users` filter. Props @Birmania. 
+* Fix: `simple_user_listing_before_shortcode` and `simple_user_listing_after_shortcode` hooks should now work, though by working they should now be redundant. Please continue using `simple_user_listing_before_loop` and `simple_user_listing_after_loop`. 
 
 = 1.8.2 =
 * New: Use different content templates per shortcode via template shortcode parameter. Props @nerdworker. 
