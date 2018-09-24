@@ -287,6 +287,9 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			// The authors object.
 			$users = $sul_users->get_results();
 
+			// Filter users just before the display loop
+			$users = apply_filters( 'simple_user_listing_users', $users, $atts['query_id']);
+
 			// before the user listing loop
 			do_action( 'simple_user_listing_before_loop', $atts['query_id'], $atts );
 
