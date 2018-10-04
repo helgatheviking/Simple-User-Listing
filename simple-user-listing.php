@@ -442,16 +442,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
 			// Start with nothing.
-			$previous_url = false;
+			$previous_url = '';
 
 			// There is no previous link on page 1
 			if ( $page > 1 ) {
 
-				// Add paging.
-				$previous_url = add_query_arg( 'paged', $page - 1, $this->get_current_url() );
-
-				// Add search params.
-				$previous_url = $this->add_search_args( $previous_url );
+				$previous_url = get_pagenum_link( $page - 1 );
 
 			}
 
@@ -473,16 +469,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$page = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
 			// Start with nothing.
-			$next_url = false;
+			$next_url = '';
 
 			// There is no next link on last page/
 			if ( $page < $this->get_total_user_pages() ) {
 
-				// Add paging.
-				$next_url = add_query_arg( 'paged', $page + 1, $this->get_current_url() );
-
-				// Add search params.
-				$next_url = $this->add_search_args( $next_url );
+				$next_url = get_pagenum_link( $page + 1 );
 
 			}
 
