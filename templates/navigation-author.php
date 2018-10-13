@@ -10,32 +10,35 @@
  *
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) exit; 
 
 global $simple_user_listing, $sul_users;
 
-if( function_exists( 'wp_pagenavi' ) ){
+if( function_exists( 'wp_pagenavi' ) ):
 
-		wp_pagenavi(array('query' => $sul_users,
-								'type' => 'users' ) );
-} else {
+	wp_pagenavi(
+		array( 'query' => $sul_users,
+				'type' => 'users' ) 
+	);
 
-	// Only show the navigation if needed
-	if ( $simple_user_listing->get_total_user_pages() > 1 ) { ?>
+// Only show the navigation if needed.
+elseif ( Simple_User_Listing::get_instance()->get_total_user_pages() > 1 ) : ?>
 
 	<nav id="nav-single">
-		<h3 class="assistive-text"><?php _e('User navigation', 'simple-user-listing');?></h3>
+			
+		<h3 class="assistive-text"><?php _e( 'User navigation', 'simple-user-listing' );?></h3>
 
-	<?php		if ( $previous_url = $simple_user_listing->get_previous_users_url() ) { ?>
-				<span class="nav-previous"><a rel="prev" href="<?php esc_attr_e( $previous_url ); ?>"><span class="meta-nav">&larr;</span> <?php _e('Previous', 'simple-user-listing');?></a></span>
-			<?php } ?>
+		<?php
+			
+		if ( $previous_url = Simple_User_Listing::get_instance()->get_previous_users_url() ) : ?>
+			<span class="nav-previous"><a rel="prev" href="<?php esc_attr_e( $previous_url ); ?>"><?php _e( '<span class="meta-nav">&larr;</span> Previous', 'simple-user-listing');?></a></span>
+		<?php endif; ?>
 
-			<?php if ( $next_url = $simple_user_listing->get_next_users_url() ) { ?>
-				<span class="nav-next"><a rel="next" href="<?php esc_attr_e( $next_url ); ?>"><?php _e('Next', 'simple-user-listing');?> <span class="meta-nav">&rarr;</span></a></span>
-			<?php } ?>
+		<?php if ( $next_url = Simple_User_Listing::get_instance()->get_next_users_url() ) : ?>
+			<span class="nav-next"><a rel="next" href="<?php esc_attr_e( $next_url ); ?>"><?php _e( 'Next <span class="meta-nav">&rarr;</span>', 'simple-user-listing' );?></a></span>
+		<?php endif; ?>
 
 	</nav>
 
-	<?php } ?>
-
-<?php } ?>
+<?php endif; ?>
