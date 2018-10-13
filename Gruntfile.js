@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 				'!.git/**','!.gitignore','!.gitmodules',
 				'!tests/**',
 				'!vendor/**',
-				'!Gruntfile.js','!package.json',
+				'!Gruntfile.js','!package.json','!package-lock.json',
 				'!composer.lock','!composer.phar','!composer.json',
 				'!CONTRIBUTING.md',
 				'!gitcreds.json',
