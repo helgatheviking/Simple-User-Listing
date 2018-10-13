@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/fundraiser/charity/1451316
 Tags: users, authors
 Requires at least: 4.5.0
 Tested up to: 4.9.8
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -250,8 +250,12 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
-= 1.8.2 =
-* New: Filter the users output via `simple_user_listing_users` filter. Props @Birmania. 
+= 1.8.4 =
+* Fix: Use core WordPress function page_num_link() to generate navigation links.
+
+= 1.8.3 =
+* New: Filter the users output via `simple_user_listing_users` filter. Props @Birmania.
+* Fix: Use custom get_current_url() instead of permalinks to generate navigation links.
 * Fix: `simple_user_listing_before_shortcode` and `simple_user_listing_after_shortcode` hooks should now work, though by working they should now be redundant. Please continue using `simple_user_listing_before_loop` and `simple_user_listing_after_loop`. 
 
 = 1.8.2 =

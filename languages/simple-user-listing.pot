@@ -2,10 +2,10 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple User Listing 1.8.3\n"
+"Project-Id-Version: Simple User Listing 1.8.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/Simple-User-Listing\n"
-"POT-Creation-Date: 2018-09-24 20:46:22+00:00\n"
+"POT-Creation-Date: 2018-10-13 15:11:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: simple-user-listing.php:583
+#: simple-user-listing.php:575
 msgid "Donate"
 msgstr ""
 
@@ -30,16 +30,16 @@ msgstr ""
 msgid "Read posts by %s"
 msgstr ""
 
-#: templates/navigation-author.php:27
+#: templates/navigation-author.php:30
 msgid "User navigation"
 msgstr ""
 
-#: templates/navigation-author.php:30
-msgid "Previous"
+#: templates/navigation-author.php:35
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
 msgstr ""
 
-#: templates/navigation-author.php:34
-msgid "Next"
+#: templates/navigation-author.php:39
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
 #: templates/none-author.php:13

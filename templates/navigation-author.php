@@ -6,7 +6,7 @@
  *
  * @author 		helgatheviking
  * @package 	Simple-User-Listing/Templates
- * @version     1.7.5
+ * @version     1.8.4
  *
  */
 
