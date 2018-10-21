@@ -307,7 +307,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 					sul_get_template_part( 'content', $atts['template'] );
 				}
 			} else {
-				sul_get_template_part( 'none', 'author' );
+				sul_get_template_part( 'none', $atts['template'] );
 			}
 
 			// After the user listing loop.
