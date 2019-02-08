@@ -186,6 +186,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				'include' => '',
 				'exclude' => '',
 				'blog_id' => '',
+				'has_published_posts' => '',
 				'number' => get_option( 'posts_per_page', 10 ),
 				'order' => 'ASC',
 				'orderby' => 'login',
@@ -255,6 +256,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				$args['exclude'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['exclude'] ) ) );
 			}
 
+			// If $has_published_posts parameter is defined.
+			if( $atts['has_published_posts'] ){
+				$args['has_published_posts'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['has_published_posts'] ) ) );
+			}
+			
 			// If meta search parameters are defined.
 			if ( $atts['meta_key'] && $atts['meta_value'] ) {
 				$args['meta_query'] = array(
