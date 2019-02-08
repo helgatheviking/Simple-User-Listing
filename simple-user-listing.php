@@ -99,6 +99,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'open_wrapper' ), 20 );
+			add_action( 'simple_user_listing_loop', array( $this, 'user_loop' ), 10, 3 );
 			add_action( 'simple_user_listing_after_loop', array( $this, 'close_wrapper' ), 5 );
 			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
@@ -175,7 +176,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @return string
 		 */
 		public function shortcode_callback( $atts, $content = null ) {
-			global $post, $sul_users, $user;
+			global $post, $sul_users;
 
 			$defaults = array(
 				'query_id' => 'simple_user_listing',
@@ -295,24 +296,15 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$users = apply_filters( 'simple_user_listing_users', $users, $atts['query_id'], $atts );
 
 			// Before the user listing loop.
-			do_action( 'simple_user_listing_before_shortcode', $post, $atts['query_id'], $atts );
-			do_action( 'simple_user_listing_before_loop', $atts['query_id'], $atts );
-
-			// The user listing loop.
-			if ( ! empty( $users ) )	 {
-				$i = 0;
-				// loop through each author
-				foreach( $users as $user ){
-					$user->counter = ++$i;
-					sul_get_template_part( 'content', $atts['template'] );
-				}
-			} else {
-				sul_get_template_part( 'none', $atts['template'] );
-			}
+			do_action( 'simple_user_listing_before_shortcode', $post, $atts['query_id'], $atts, $users );
+			do_action( 'simple_user_listing_before_loop', $atts['query_id'], $atts, $users );
+			
+			// The User Loop.
+			do_action( 'simple_user_listing_loop', $atts['query_id'], $atts, $users );
 
 			// After the user listing loop.
-			do_action( 'simple_user_listing_after_loop', $atts['query_id'], $atts );
-			do_action( 'simple_user_listing_after_shortcode', $post, $atts['query_id'], $atts );
+			do_action( 'simple_user_listing_after_loop', $atts['query_id'], $atts, $users );
+			do_action( 'simple_user_listing_after_shortcode', $post, $atts['query_id'], $atts, $users );
 
 			// Output the content.
 			$output = ob_get_contents();
@@ -345,6 +337,34 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			sul_get_template_part( 'open', 'author' );
 		}
 
+		/**
+		 * The user listing loop.
+		 *
+		 * @access public
+		 * @since 1.8.5
+		 * 
+		 * @param string $query_id
+		 * @param array $atts Attributes from shortcode.
+		 * @param WP_User[]
+		 * @return null
+		 */
+		public function user_loop( $query_id, $atts, $users ) {
+			global $user;
+			
+			$template = isset( $atts['template'] ) ? $atts['template'] : 'author';
+			
+			if ( ! empty( $users ) )	 {
+				$i = 0;
+				// Loop through each author.
+				foreach( $users as $user ){
+					$user->counter = ++$i;
+					sul_get_template_part( 'content', $template );
+				}
+			} else {
+				sul_get_template_part( 'none', $template );
+			}
+		}
+		
 		/**
 		 * Add the close "wrapper" template
 		 *
