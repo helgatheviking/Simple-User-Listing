@@ -306,7 +306,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			$transient_name = 'sul_query_' . md5( http_build_query( $args ) . $this->get_transient_version( 'sul_user_query' ) );
 			$transient_name = ( is_search() ) ? $transient_name . '_s' : $transient_name;
 
-			if ( false === ( $sul_users = get_transient( $transient_name ) ) ) {
+			if ( ( defined( 'SUL_QUERY_DEBUG_MODE' ) && SUL_QUERY_DEBUG_MODE ) || false === ( $sul_users = get_transient( $transient_name ) ) ) {
 				
 				// The query itself.
 				$sul_users = new WP_User_Query( $args );
