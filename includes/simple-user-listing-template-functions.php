@@ -56,7 +56,7 @@ function sul_get_template_part( $slug, $name = '' ) {
  * @since 1.0
  * @return boolean
  */
-function is_user_listing(){
+function is_user_listing() {
 	global $post;
 
 	$listing = false;
