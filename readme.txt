@@ -250,6 +250,10 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
+= 1.9.0 =
+* New: Add hooks in content-author.php
+* New: use define( 'SUL_QUERY_DEBUG_MODE', true ) to bypass transients for debugging.
+
 = 1.8.5 =
 * New: Display entire user loop on new `simple_user_listing_loop` hook. 
 * New: Accept passing custom templates for the author template via `template="template-name"`.
