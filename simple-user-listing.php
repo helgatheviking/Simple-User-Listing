@@ -95,6 +95,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			include_once( 'includes/simple-user-listing-template-functions.php' );
 
+			add_action( 'after_setup_theme', array( $this, 'attach_hooks' ) );
+
 			add_action( 'init', array( $this, 'load_text_domain' ) );
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
@@ -126,6 +128,23 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
+
+		/**
+		 * Attach hooks.
+		 *
+		 * @access public
+		 * @since 1.9.0
+		 * @return none
+		 */
+		public function attach_hooks() {
+			add_action( 'sul_before_user_loop_author',       'sul_template_loop_author_link_open' );
+			add_action( 'sul_before_user_loop_author_title', 'sul_template_loop_author_avatar' );
+			add_action( 'sul_user_loop_author_title',        'sul_template_loop_author_name' );
+			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_link_close', 5 );
+			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_description' );
+		}
+
+			
 		/**
 		 * Get the plugin path.
 		 *

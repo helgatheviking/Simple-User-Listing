@@ -67,3 +67,112 @@ function is_user_listing(){
 
 	return apply_filters( 'sul_is_user_listing', $listing );
 }
+
+
+/**
+ * Open a link if the user has posts.
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ * @return boolean
+ */
+function sul_template_loop_author_link_open( $user ) {
+	$num_posts = count_user_posts( $user->ID );
+	$user_info = get_userdata( $user->ID );
+
+	if ( $num_posts > 0 ) {
+
+		printf( '<a href="%s" title="%s">', 
+			get_author_posts_url( $user->ID ),
+			sprintf( esc_attr__( 'Read posts by %s', 'simple-user-listing' ), $user_info->display_name )
+		);
+	}
+}
+
+
+/**
+ * User avatar.
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ */
+function sul_template_loop_author_avatar( $user ) {
+	echo get_avatar( $user->ID, 90 );
+}
+
+/**
+ * User name.
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ */
+function sul_template_loop_author_name( $user ) {
+
+	$num_posts = count_user_posts( $user->ID );
+
+	$user_info = get_userdata( $user->ID );
+
+	$display_name =$user_info->display_name;
+
+	if ( $num_posts > 0 ) {
+		$display_name .= ' <span class="post-count"><span class="hyphen">-</span>' . sprintf( _nx( '1 post', '%s posts', $num_posts, 'number of posts', 'simple-user-listing' ), $num_posts ) . '</span>';
+	}
+
+	echo '<h2>'. $display_name . '</h2>';
+}
+
+/**
+ * Close a link if the user has posts.
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ */
+function sul_template_loop_author_link_close( $user ) {
+	$num_posts = count_user_posts( $user->ID );
+
+	if ( $num_posts > 0 ) {
+		echo '</a>';
+	}
+}
+
+
+/**
+ * Description
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ */
+function sul_template_loop_author_description( $user ) {
+
+	$description = get_user_meta( $user->ID, 'description', true );
+
+	if( $description ) {
+		echo '<p>' . wp_kses_post( $description ) . '</p>';
+	}
+
+}
+
+
+/**
+ * Description
+ *
+ * @access public
+ * @since 1.9.0
+ * @param WP_User $user
+ */
+function sul_template_loop_author_company( $user ) {
+
+	$company = get_user_meta( $user->ID, 'billing_company', true );
+
+	if( $company ) {
+		echo '<p>Company: ' . wp_kses_post( $company ) . '</p>';
+	}
+
+}
+add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_company', 20 );
+
