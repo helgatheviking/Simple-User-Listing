@@ -4,7 +4,7 @@ Plugin Name: Simple User Listing
 Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
 Description: Create a simple shortcode to list our WordPress users.
 Author: Kathy Darling
-Version: 1.8.5
+Version: 1.9.0
 Author URI: http://kathyisawesome.com
 License: GPL2
 Text Domain: simple-user-listing

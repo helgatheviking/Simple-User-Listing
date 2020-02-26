@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/fundraiser/charity/1451316
 Tags: users, authors
 Requires at least: 4.5.0
 Tested up to: 5.3.2
-Stable tag: 1.8.5
+Stable tag: 1.9.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -252,7 +252,7 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 = 1.9.0 =
 * New: Add hooks in content-author.php
-* New: use define( 'SUL_QUERY_DEBUG_MODE', true ) to bypass transients for debugging.
+* New: use define( 'SUL_QUERY_DEBUG_MODE', true ); to bypass transients for debugging.
 
 = 1.8.5 =
 * New: Display entire user loop on new `simple_user_listing_loop` hook. 
