@@ -40,18 +40,7 @@ module.exports = function(grunt) {
 			],
 			dest: 'build/<%= pkg.name %>/'
 		},
-	},
-	
-    checkrepo: {
-    	deploy: {
-            tag: {
-                eq: '<%= pkg.version %>',    // Check if highest repo tag is equal to pkg.version
-            },
-            tagged: true, // Check if last repo commit (HEAD) is not tagged
-            clean: true,   // Check if the repo working directory is clean
-        }
-    },
- 
+	}, 
 
 	// bump version numbers
 	replace: {
@@ -87,19 +76,6 @@ module.exports = function(grunt) {
 		}
 	},
 
-	// deploy to wordpress.org
-    wp_deploy: {
-    	deploy:{
-            options: {
-        		svn_user: '<%= pkg.author %>',
-        		plugin_slug: '<%= pkg.name %>',
-        		build_dir: 'build/<%= pkg.name %>/',
-        		temp_path: "D:/SVN/",
-            },
-    	}
-    },
-
-
     // Documentation
 	wp_readme_to_markdown: {
 		convert:{
@@ -134,20 +110,10 @@ module.exports = function(grunt) {
 		}
 	},
 
-
-	// turn po files into mo files
-	po2mo: {
-		files: {
-			src: 'languages/*.po',
-			expand: true,
-		},
-	}
-
 });
 
 grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
 grunt.registerTask( 'build', [ 'replace', 'makepot' ] );
 grunt.registerTask( 'release', [ 'build', 'clean', 'copy' ] );
-grunt.registerTask( 'deploy', [ 'build', 'checkbranch:master', 'checkrepo:deploy', 'build', 'wp_deploy' ] );
 
 };

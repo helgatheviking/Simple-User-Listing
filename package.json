@@ -15,13 +15,9 @@
   "author": "helgatheviking",
   "devDependencies": {
     "grunt": "^1.0.4",
-    "grunt-checkbranch": "~1.0.4",
-    "grunt-checkrepo": "~0.1.0",
     "grunt-contrib-clean": "~2.0.0",
     "grunt-contrib-copy": "~1.0.0",
-    "grunt-po2mo": "~0.1.2",
     "grunt-text-replace": "^0.4.0",
-    "grunt-wp-deploy": "~2.0.0",
     "grunt-wp-i18n": "~1.0.3",
     "grunt-wp-readme-to-markdown": "~2.0.1",
     "load-grunt-tasks": "~5.1.0"
