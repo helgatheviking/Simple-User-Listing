@@ -36,7 +36,8 @@ module.exports = function(grunt) {
 				'!languages/.tx',
 				'!languages/tx.exe',
 				'!README.md',
-				'!wp-assets/**'
+				'!.wordpress-org/**',
+				'!.github/**',
 			],
 			dest: 'build/<%= pkg.name %>/'
 		},
