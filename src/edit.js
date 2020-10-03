@@ -3,7 +3,7 @@ import {Component} from '@wordpress/element';
 class Edit extends Component {
 	render() {
 		return (
-			<div>Hola, mundo!</div>
+			<div>Placeholder for Simple User Listing Block</div>
 		);
 	}
 }

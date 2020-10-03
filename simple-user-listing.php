@@ -98,6 +98,10 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'after_setup_theme', array( $this, 'attach_hooks' ) );
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
+
+			// register gutenberg blocks
+			add_action( 'init', array( $this, 'register_blocks' ) );
+
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
 			add_action( 'simple_user_listing_before_loop', array( $this, 'open_wrapper' ), 20 );
@@ -620,6 +624,29 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 				$plugin_meta[] = '<a class="dashicons-before dashicons-awards" href="' . self::DONATE_URL . '" target="_blank">' . __( 'Donate', 'simple-user-listing' ) . '</a>';
 			}
 			return $plugin_meta;
+		}
+
+
+		/*
+		 * Registers block script
+		 */
+		function register_blocks() {
+
+			// automatically load dependencies and version
+			$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php' );
+
+			wp_register_script(
+				'sul-blocks-editor',
+				plugins_url( 'build/index.js', __FILE__ ),
+				$asset_file['dependencies'],
+				$asset_file['version']
+			);
+
+			register_block_type( 'simple-user-listing/userlist-block', array(
+				'editor_script' => 'sul-blocks-editor',
+				'render_callback' => array( $this, 'shortcode_callback' )
+			) );
+
 		}
 
 	}

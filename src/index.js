@@ -1,12 +1,12 @@
 import { registerBlockType } from '@wordpress/blocks';
 
-import Edit from "./edit";
-import Save from "./save";
+console.log('Loaded')
 
-registerBlockType( 'myguten/test-block', {
-    title: 'Basic Example',
+import Edit from "./edit";
+
+registerBlockType( 'simple-user-listing/userlist-block', {
+    title: 'Simple User Listing',
     icon: 'smiley',
     category: 'design',
     edit: Edit,
-    save: Save,
 } );
