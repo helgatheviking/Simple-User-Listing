@@ -1,28 +1,22 @@
 import {Component} from '@wordpress/element';
 
+import SearchForm from "./components/SearchForm";
+import User from "./components/User";
+
 class Edit extends Component {
 	render() {
 		return (
-			<div className="entry-content">
+			// use apiGet to get a valid list of users
+			// loop through the users and render the User Component per user
 
-				<div className="author-search">
-					<h2>Search authors by name</h2>
-					<form method="get" id="sul-searchform" action="">
-						<label htmlFor="as" className="assistive-text">Search</label>
-						<input type="text" className="field" name="as" id="sul-s" placeholder="Search Authors" value="" />
-						<input type="submit" className="submit" id="sul-searchsubmit" value="Search Authors" />
-					</form>
-				</div>
+			<div className="user-list-content">
+
+				<SearchForm />
 
 				<div className="user-list-wrap">
-					<div id="user-1" className="author-block">
 
-						<img alt=""
-							 src="http://1.gravatar.com/avatar/4fd3f3bbf5f32f9e4738a00d58bdbc57?s=90&amp;d=mm&amp;r=g"
-							 srcSet="http://1.gravatar.com/avatar/4fd3f3bbf5f32f9e4738a00d58bdbc57?s=180&amp;d=mm&amp;r=g 2x"
-							 className="avatar avatar-90 photo" loading="lazy" width="90" height="90" />
-							 <h2>admin</h2>
-					</div>
+					<User />
+
 					<div id="user-9" className="author-block">
 
 						<img alt=""
