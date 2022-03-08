@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "simple-user-listing/simple-user-list-block",
+	"version": "0.1.0",
+	"title": "Simple User Listing",
+	"category": "design",
+	"description": "List some users",
+	"attributes": {
+		"queryType":{
+			"type": "string",
+			"default": "all"
+        }
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "simple-user-listing",
+	"editorScript": "file:index.js",
+	"editorStyle": "file:index.css",
+	"style": "file:style-index.css"
+}

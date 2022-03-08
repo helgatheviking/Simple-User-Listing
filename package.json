@@ -21,5 +21,9 @@
     "grunt-wp-i18n": "~1.0.3",
     "grunt-wp-readme-to-markdown": "~2.0.1",
     "load-grunt-tasks": "~5.1.0"
-  }
+  },
+  "scripts": {
+		"start": "wp-scripts start",
+        "build": "wp-scripts build"
+   }
 }

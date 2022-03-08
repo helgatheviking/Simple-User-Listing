@@ -30,6 +30,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * http://wp.smashingmagazine.com/2012/06/05/front-end-author-listing-user-search-wordpress/
  */
 
+if ( ! defined( 'SUL_PLUGIN_FILE' ) ) {
+	define( 'SUL_PLUGIN_FILE', __FILE__ );
+}
+
 if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 	class Simple_User_Listing {
@@ -94,6 +98,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		public function __construct() {
 
 			include_once( 'includes/simple-user-listing-template-functions.php' );
+            include_once( 'includes/simple-user-list-block-functions.php' );
 
 			add_action( 'after_setup_theme', array( $this, 'attach_hooks' ) );
 
