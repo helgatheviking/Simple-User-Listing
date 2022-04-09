@@ -93,18 +93,11 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 */
 		public function __construct() {
 
-			include_once( 'includes/simple-user-listing-template-functions.php' );
-
-			add_action( 'after_setup_theme', array( $this, 'attach_hooks' ) );
+			add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
-			add_action( 'simple_user_listing_before_loop', array( $this, 'add_search' ) );
-			add_action( 'simple_user_listing_before_loop', array( $this, 'open_wrapper' ), 20 );
-			add_action( 'simple_user_listing_loop', array( $this, 'user_loop' ), 10, 3 );
-			add_action( 'simple_user_listing_after_loop', array( $this, 'close_wrapper' ), 5 );
-			add_action( 'simple_user_listing_after_loop', array( $this, 'add_nav' ) );
-			add_filter( 'body_class', array( $this, 'body_class' ) );
+
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
 
 			add_action( 'profile_update', array( $this, 'delete_user_transients' ) );
@@ -129,18 +122,14 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 
 		/**
-		 * Attach hooks.
+		 * Include functions/hooks.
 		 *
-		 * @since 1.9.0
+		 * @since 1.9.1
 		 */
-		public function attach_hooks() {
-			add_action( 'sul_before_user_loop_author',       'sul_template_loop_author_link_open' );
-			add_action( 'sul_before_user_loop_author_title', 'sul_template_loop_author_avatar' );
-			add_action( 'sul_user_loop_author_title',        'sul_template_loop_author_name' );
-			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_link_close', 5 );
-			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_description' );
+		public function theme_includes() {
+			include_once( 'includes/simple-user-listing-template-functions.php' );
+			include_once( 'includes/simple-user-listing-template-hooks.php' );
 		}
-
 			
 		/**
 		 * Get the plugin path.
@@ -334,94 +323,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		}
 
 		/**
-		 * Add the search template
-		 *
-		 * @access public
-		 * @since 1.0.0
-		 * @return null
-		 */
-		public function add_search() {
-			sul_get_template_part( 'search', 'author' );
-		}
-
-		/**
-		 * Add the open "wrapper" template
-		 *
-		 * @access public
-		 * @since 1.0
-		 * @return null
-		 */
-		public function open_wrapper() {
-			sul_get_template_part( 'open', 'author' );
-		}
-
-		/**
-		 * The user listing loop.
-		 *
-		 * @access public
-		 * @since 1.8.5
-		 * 
-		 * @param string $query_id
-		 * @param array $atts Attributes from shortcode.
-		 * @param WP_User[]
-		 * @return null
-		 */
-		public function user_loop( $query_id, $atts, $users ) {
-			global $user;
-			
-			$template = isset( $atts['template'] ) ? $atts['template'] : 'author';
-			
-			if ( ! empty( $users ) )	 {
-				$i = 0;
-				// Loop through each author.
-				foreach( $users as $user ){
-					$user->counter = ++$i;
-					sul_get_template_part( 'content', $template );
-				}
-			} else {
-				sul_get_template_part( 'none', $template );
-			}
-		}
-		
-		/**
-		 * Add the close "wrapper" template
-		 *
-		 * @access public
-		 * @since 1.8.0
-		 * @return null
-		 */
-		public function close_wrapper() {
-			sul_get_template_part( 'close', 'author' );
-		}
-
-		/**
-		 * Add the navigation template
-		 *
-		 * @access public
-		 * @since 1.0.0
-		 * @return null
-		 */
-		function add_nav(){
-			sul_get_template_part( 'navigation', 'author' );
-		}
-
-		/**
-		 * Add body class
-		 *
-		 * @access public
-		 * @since 1.0.0
-		 * @param  array $c all generated WordPress body classes
-		 * @return array
-		 */
-		public function body_class( $c ) {
-		    if( is_user_listing() ) {
-		        $c[] = 'userlist';
-
-		    }
-		    return $c;
-		}
-
-		/**
 		 * Register the search query var
 		 *
 		 * @since 1.3.0
@@ -608,6 +509,100 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			}
 			return $plugin_meta;
 		}
+
+		/*
+		|--------------------------------------------------------------------------
+		| Deprecated
+		|--------------------------------------------------------------------------
+		*/
+		
+		/**
+		 * Attach hooks.
+		 *
+		 * @since 1.9.0
+		 * @deprecated 1.9.1
+		 */
+		public function attach_hooks() {
+			_deprecated_function( 'Simple_User_Listing::attach_hooks()', '1.9.1', 'Hooks are added on the after_theme_setup hook via includes/simple-user-listing-template-hooks.php file.' );
+			add_action( 'sul_before_user_loop_author',       'sul_template_loop_author_link_open' );
+			add_action( 'sul_before_user_loop_author_title', 'sul_template_loop_author_avatar' );
+			add_action( 'sul_user_loop_author_title',        'sul_template_loop_author_name' );
+			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_link_close', 5 );
+			add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_description' );
+		}
+
+		/**
+		 * Add body class
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.9.1
+		 * @param  array $c all generated WordPress body classes
+		 * @return array
+		 */
+		public function body_class( $c ) {
+			_deprecated_function( 'Simple_User_Listing::body_class()', '1.9.1', 'sul_body_class()' );
+		    return sul_body_class( $c );
+		}
+
+		/**
+		 * Add the search template
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.9.1
+		 */
+		public function add_search() {
+			_deprecated_function( 'Simple_User_Listing::add_search()', '1.9.1', 'sul_template_user_search()' );
+			return sul_template_user_search();
+		}
+
+		/**
+		 * Add the open "wrapper" template
+		 *
+		 * @since 1.0
+		 * @deprecated 1.9.1
+		 */
+		public function open_wrapper() {
+			_deprecated_function( 'Simple_User_Listing::open_wrapper()', '1.9.1', 'sul_template_user_loop_wrapper_open()' );
+			return sul_template_user_loop_wrapper_open();
+		}
+
+		/**
+		 * The user listing loop.
+		 *
+		 * @since 1.8.5
+		 * @deprecated 1.9.1
+		 * 
+		 * @param string $query_id
+		 * @param array $atts Attributes from shortcode.
+		 * @param WP_User[]
+		 */
+		public function user_loop( $query_id, $atts, $users ) {
+			_deprecated_function( 'Simple_User_Listing::user_loop()', '1.9.1', 'sul_template_user_loop()' );
+			return sul_template_user_loop( $query_id, $atts, $users );
+		}
+		
+		/**
+		 * Add the close "wrapper" template
+		 *
+		 * @since 1.8.0
+		 * @deprecated 1.9.1
+		 */
+		public function close_wrapper() {
+			_deprecated_function( 'Simple_User_Listing::close_wrapper()', '1.9.1', 'sul_template_user_loop_wrapper_close()' );
+			return sul_template_user_loop_wrapper_close();
+		}
+
+		/**
+		 * Add the navigation template
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.9.1
+		 */
+		function add_nav(){
+			_deprecated_function( 'Simple_User_Listing::attach_hooks()', '1.9.1', 'sul_template_user_navigation()' );
+			return sul_template_user_navigation();
+		}
+
 
 	}
 }

@@ -65,6 +65,83 @@ function is_user_listing() {
 	return apply_filters( 'sul_is_user_listing', $listing );
 }
 
+/**
+ * Add body class
+ *
+ * @access public
+ * @since 1.0.0
+ * @param  array $c all generated WordPress body classes
+ * @return array
+ */
+function sul_body_class( $c ) {
+	if ( is_user_listing() ) {
+		$c[] = 'userlist';
+
+	}
+	return $c;
+}
+
+/**
+ * Add the search template
+ *
+ * @since 1.9.1
+ */
+function sul_template_user_search() {
+	sul_get_template_part( 'search', 'author' );
+}
+
+/**
+ * Add the open "wrapper" template
+ *
+ * @since 1.9.1
+ */
+function sul_template_user_loop_wrapper_open() {
+	sul_get_template_part( 'open', 'author' );
+}
+
+/**
+ * The user listing loop tenmplate.
+ *
+ * @since 1.9.1
+ * 
+ * @param string $query_id
+ * @param array $atts Attributes from shortcode.
+ * @param WP_User[]
+ */
+function sul_template_user_loop( $query_id, $atts, $users ) {
+	global $user;
+	
+	$template = isset( $atts['template'] ) ? $atts['template'] : 'author';
+	
+	if ( ! empty( $users ) )	 {
+		$i = 0;
+		// Loop through each author.
+		foreach( $users as $user ){
+			$user->counter = ++$i;
+			sul_get_template_part( 'content', $template );
+		}
+	} else {
+		sul_get_template_part( 'none', $template );
+	}
+}
+
+/**
+ * Add the close "wrapper" template
+ *
+ * @since 1.9.1
+ */
+function sul_template_user_loop_wrapper_close() {
+	sul_get_template_part( 'close', 'author' );
+}
+
+/**
+ * Add the navigation template
+ *
+ * @since 1.9.1
+ */
+function sul_template_user_navigation() {
+	sul_get_template_part( 'navigation', 'author' );
+}
 
 /**
  * Open a link if the user has posts.
@@ -164,5 +241,3 @@ function sul_template_loop_author_company( $user ) {
 	}
 
 }
-add_action( 'sul_after_user_loop_author',        'sul_template_loop_author_company', 20 );
-
