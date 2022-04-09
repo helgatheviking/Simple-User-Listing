@@ -236,8 +236,8 @@ function sul_template_loop_author_company( $user ) {
 
 	$company = get_user_meta( $user->ID, 'billing_company', true );
 
-	if( $company ) {
-		echo '<p>Company: ' . wp_kses_post( $company ) . '</p>';
+	if ( $company ) {
+		echo '<p>' . sprintf( esc_attr__( 'Company: %s', 'simple-user-listing' ), wp_kses_post( $company ) ) . '</p>';
 	}
 
 }
