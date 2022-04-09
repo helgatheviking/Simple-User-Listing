@@ -1,10 +1,10 @@
 === Simple User Listing  ===
 Contributors: helgatheviking
 Donate link: https://www.paypal.com/fundraiser/charity/1451316
-Tags: users, authors
+Tags: users, authors, directory
 Requires at least: 4.5.0
 Tested up to: 5.9.3
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
