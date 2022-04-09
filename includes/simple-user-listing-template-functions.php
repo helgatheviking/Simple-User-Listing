@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * Simple User Listing Core Functions. 
+ * Simple User Listing Template Functions. 
  * 
  * @package     Simple User Listing/Functions/Templates
  * @author      Kathy Darling
@@ -13,11 +13,9 @@
 /**
  * Get template part
  *
- * @access public
  * @since 1.0
  * @param mixed $slug
  * @param string $name (default: '')
- * @return null
  */
 function sul_get_template_part( $slug, $name = '' ) {
 
@@ -52,7 +50,6 @@ function sul_get_template_part( $slug, $name = '' ) {
  * Is User listing post/page?
  * Won't be true on archives
  *
- * @access public
  * @since 1.0
  * @return boolean
  */
@@ -61,7 +58,7 @@ function is_user_listing() {
 
 	$listing = false;
 
-	if( is_singular() && isset($post->post_content) && has_shortcode( $post->post_content, 'userlist' ) ) {
+	if ( is_singular() && isset($post->post_content) && has_shortcode( $post->post_content, 'userlist' ) ) {
 		$listing = true;
 	}
 
@@ -72,7 +69,6 @@ function is_user_listing() {
 /**
  * Open a link if the user has posts.
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  * @return boolean
@@ -90,11 +86,9 @@ function sul_template_loop_author_link_open( $user ) {
 	}
 }
 
-
 /**
  * User avatar.
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  */
@@ -105,7 +99,6 @@ function sul_template_loop_author_avatar( $user ) {
 /**
  * User name.
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  */
@@ -127,7 +120,6 @@ function sul_template_loop_author_name( $user ) {
 /**
  * Close a link if the user has posts.
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  */
@@ -143,7 +135,6 @@ function sul_template_loop_author_link_close( $user ) {
 /**
  * Description
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  */
@@ -151,7 +142,7 @@ function sul_template_loop_author_description( $user ) {
 
 	$description = get_user_meta( $user->ID, 'description', true );
 
-	if( $description ) {
+	if ( $description ) {
 		echo '<p>' . wp_kses_post( $description ) . '</p>';
 	}
 
@@ -161,7 +152,6 @@ function sul_template_loop_author_description( $user ) {
 /**
  * Description
  *
- * @access public
  * @since 1.9.0
  * @param WP_User $user
  */

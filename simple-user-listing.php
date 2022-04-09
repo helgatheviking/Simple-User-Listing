@@ -120,7 +120,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Make plugin ready for translation
 		 *
-		 * @access public
 		 * @since 1.0
 		 * @return none
 		 */
@@ -132,9 +131,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Attach hooks.
 		 *
-		 * @access public
 		 * @since 1.9.0
-		 * @return none
 		 */
 		public function attach_hooks() {
 			add_action( 'sul_before_user_loop_author',       'sul_template_loop_author_link_open' );
@@ -148,7 +145,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Get the plugin path.
 		 *
-		 * @access public
 		 * @since 1.0
 		 * @return string
 		 */
@@ -161,7 +157,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get the template url
-		 * @access public
 		 * @since 1.3
 		 * @return string
 		 */
@@ -174,7 +169,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 		/**
 		 * Get Allowed Search Args
-		 * @access public
 		 * @since 1.3
 		 * @return array
 		 */
@@ -188,7 +182,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Callback for the shortcode
 		 *
-		 * @access public
 		 * @since 1.0
 		 * @param  array $atts shortcode attributes
 		 * @param  string $content shortcode content, null for this shortcode
@@ -431,7 +424,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Register the search query var
 		 *
-		 * @access public
 		 * @since 1.3.0
 		 * @param  array $query_vars variables recognized by WordPress
 		 * @return array
@@ -446,7 +438,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Get Total Pages in User Query
 		 *
-		 * @access public
 		 * @since 1.3.0
 		 * @return number
 		 */
@@ -476,7 +467,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Get Previous users
 		 *
-		 * @access public
 		 * @since 1.3.0
 		 * @return URL string
 		 */
@@ -503,7 +493,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Get Next users
 		 * 
-		 * @access public
 		 * @since 1.3.0
 		 * @return URL string
 		 */
@@ -529,7 +518,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Get current URL
 		 * 
-		 * @access public
 		 * @since 1.9.0
 		 * @return URL string
 		 */
@@ -540,7 +528,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		/**
 		 * Add search args to URL
 		 * 
-		 * @access public
 		 * @since 1.0.0
 		 * @param  string $url the permalink to which we should add the allowed $_GET variables
 		 * @return URL string
