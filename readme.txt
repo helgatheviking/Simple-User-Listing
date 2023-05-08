@@ -250,6 +250,9 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
+= 1.9.2 =
+* Fix: Sanitize 'as' input value in search-author.php form.
+
 = 1.9.1 =
 * New: Move all template functions out of main class. @see: includes/simple-user-listing-template-functions.php
 * New: Attach all template functiosn to hooks on after_setup_theme hook. @see: includes/simple-user-listing-template-hooks.php

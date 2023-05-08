@@ -6,13 +6,13 @@
  *
  * @author 		helgatheviking
  * @package 	Simple-User-Listing/Templates
- * @version     1.9.0
+ * @version     1.9.2
  *
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-$search = ( get_query_var( 'as' ) ) ? get_query_var( 'as' )  : '';
+$search = ( get_query_var( 'as' ) ) ? sanitize_text_field( get_query_var( 'as' ) ) : '';
 
 ?>
 
