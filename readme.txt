@@ -1,6 +1,6 @@
 === Simple User Listing  ===
 Contributors: helgatheviking
-Donate link: https://www.paypal.com/fundraiser/charity/1451316
+Donate link: https://www.paypal.me/kathyisawesome
 Tags: users, authors, directory
 Requires at least: 4.5.0
 Stable tag: 1.9.1
