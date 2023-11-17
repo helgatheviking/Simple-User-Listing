@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 global $user;
 
 ?>
-<div id="user-<?php echo $user->ID; ?>" class="author-block">
+<div id="user-<?php echo esc_attr( $user->ID ); ?>" class="author-block">
 
 	<?php
 	/**
