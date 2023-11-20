@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/kathyisawesome
 Tags: users, authors, directory
 Requires at least: 4.5.0
 Tested up to: 6.3.0
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -250,6 +250,8 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
+= 1.9.3 =
+* Fix: Additional sanitization/security fixes.
 = 1.9.2 =
 * Fix: Sanitize 'as' input value in search-author.php form.
 
