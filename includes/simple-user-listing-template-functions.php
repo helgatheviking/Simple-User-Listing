@@ -1,12 +1,12 @@
-<?php 
+<?php
 
 /**
- * Simple User Listing Template Functions. 
- * 
+ * Simple User Listing Template Functions.
+ *
  * @package     Simple User Listing/Functions/Templates
  * @author      Kathy Darling
  * @copyright   Copyright (c) 2018, Kathy Darling
- * @license     http://opensource.org/licenses/gpl-3.0.php GNU Public License  
+ * @license     http://opensource.org/licenses/gpl-3.0.php GNU Public License
  */
 
 
@@ -27,7 +27,7 @@ function sul_get_template_part( $slug, $name = '' ) {
 	if ( $name ){
 		$template = locate_template( array ( "{$slug}-{$name}.php", "{$sul->template_url()}{$slug}-{$name}.php" ) );
 	}
-	
+
 	if ( !$template && $name && file_exists( $sul->plugin_path() . "/templates/{$slug}-{$name}.php" ) ){
 		$template = $sul->plugin_path() . "/templates/{$slug}-{$name}.php";
 	}
@@ -103,16 +103,16 @@ function sul_template_user_loop_wrapper_open() {
  * The user listing loop tenmplate.
  *
  * @since 1.9.1
- * 
+ *
  * @param string $query_id
  * @param array $atts Attributes from shortcode.
  * @param WP_User[]
  */
 function sul_template_user_loop( $query_id, $atts, $users ) {
 	global $user;
-	
+
 	$template = isset( $atts['template'] ) ? $atts['template'] : 'author';
-	
+
 	if ( ! empty( $users ) )	 {
 		$i = 0;
 		// Loop through each author.
@@ -156,7 +156,7 @@ function sul_template_loop_author_link_open( $user ) {
 
 	if ( $num_posts > 0 ) {
 
-		printf( '<a href="%s" title="%s">', 
+		printf( '<a href="%s" title="%s">',
 			get_author_posts_url( $user->ID ),
 			sprintf( esc_attr__( 'Read posts by %s', 'simple-user-listing' ), $user_info->display_name )
 		);
@@ -185,7 +185,7 @@ function sul_template_loop_author_name( $user ) {
 
 	$user_info = get_userdata( $user->ID );
 
-	$display_name =$user_info->display_name;
+	$display_name = esc_html( $user_info->display_name );
 
 	if ( $num_posts > 0 ) {
 		$display_name .= ' <span class="post-count"><span class="hyphen">-</span>' . sprintf( _nx( '1 post', '%s posts', $num_posts, 'number of posts', 'simple-user-listing' ), $num_posts ) . '</span>';

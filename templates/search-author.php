@@ -20,12 +20,12 @@ $search = ( get_query_var( 'as' ) ) ? sanitize_text_field( get_query_var( 'as' )
 	<h2><?php _e('Search authors by name' ,'simple-user-listing');?></h2>
 		<form method="get" id="sul-searchform" action="">
 			<label for="as" class="assistive-text"><?php _e('Search' ,'simple-user-listing');?></label>
-			<input type="text" class="field" name="as" id="sul-s" placeholder="<?php _e('Search Authors' ,'simple-user-listing');?>" value="<?php echo $search; ?>"/>
+			<input type="text" class="field" name="as" id="sul-s" placeholder="<?php _e('Search Authors' ,'simple-user-listing');?>" value="<?php echo esc_attr( $search ); ?>"/>
 			<input type="submit" class="submit" id="sul-searchsubmit" value="<?php _e('Search Authors' ,'simple-user-listing');?>" />
 		</form>
 	<?php
 	if( $search ){ ?>
-		<h2 ><?php printf( __('Search Results for: %s' ,'simple-user-listing'), '<em>' . $search .'</em>' );?></h2>
+		<h2 ><?php printf( __('Search Results for: %s' ,'simple-user-listing'), '<em>' . esc_html( $search ) .'</em>' );?></h2>
 		<a href="<?php the_permalink(); ?>"><?php _e('Back To Author Listing' ,'simple-user-listing');?></a>
 	<?php } ?>
 </div><!-- .author-search -->
