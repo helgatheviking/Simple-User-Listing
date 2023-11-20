@@ -251,7 +251,7 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 == Changelog ==
 
 = 1.9.3 =
-* Fix: Additional sanitization/security fixes.
+* Fix: Additional sanitization/security fixes. Props @WPprodigy.
 = 1.9.2 =
 * Fix: Sanitize 'as' input value in search-author.php form.
 
