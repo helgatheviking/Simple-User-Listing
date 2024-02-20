@@ -136,7 +136,7 @@ Add the following to your theme's functions.php:
 // Switch the WP_User_Query args to a meta search
 function kia_meta_search( $args ) {
 
-  // This $_GET is the name field of the custom input in search-author.php.
+	// This $_GET is the name field of the custom input in search-author.php.
 	$search = ( isset($_GET['as']) ) ? sanitize_text_field($_GET['as']) : false ;
 
 	if ( $search ) {
@@ -196,24 +196,23 @@ And then in your theme's `functions.php` or a site-specific plugin, you could fi
 add_filter( 'sul_user_query_args', 'sul_custom_meta_query', 10, 2 );
 
 function sul_custom_meta_query( $args, $query_id ) {
-    // Checking the query ID allows us to only target a specific shortcode.
+	// Checking the query ID allows us to only target a specific shortcode.
 	if ( $query_id === 'my_custom_meta_query' ) {
-			$args['meta_query'] = array(
-				'relation' => 'OR',
-				array(
-					'key'       => 'billing_city',
-					'value'     => 'oslo',
-					'compare'   => '=',
-					'type'      => 'CHAR',
-				),
-				array(
-					'key'       => 'first_name',
-					'value'     => 'bobby',
-					'compare'   => '=',
-					'type'      => 'CHAR',
-				)
-			);
-
+		$args['meta_query'] = array(
+			'relation' => 'OR',
+			array(
+				'key'       => 'billing_city',
+				'value'     => 'oslo',
+				'compare'   => '=',
+				'type'      => 'CHAR',
+			),
+			array(
+				'key'       => 'first_name',
+				'value'     => 'bobby',
+				'compare'   => '=',
+				'type'      => 'CHAR',
+			)
+		);
 	}
 	return $args;
 }
