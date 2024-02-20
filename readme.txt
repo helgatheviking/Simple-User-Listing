@@ -55,8 +55,8 @@ For more details on what is available in the `$user` object [see the Codex refer
 There are two ways to remove the search input. The search is added to a hook by the plugin, so you can remove it by adding the following to your theme's `functions.php` file:
 
 `
-function remove_SUL_search(){
-    remove_action( 'simple_user_listing_before_loop', array( Simple_User_Listing::get_instance(), 'add_search' ) );
+function remove_SUL_search() {
+    remove_action( 'simple_user_listing_before_loop',   'sul_template_user_search' );
 }
 add_action( 'simple_user_listing_before_loop', 'remove_SUL_search', 5 );
 `
