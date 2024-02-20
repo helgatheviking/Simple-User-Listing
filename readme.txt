@@ -171,7 +171,7 @@ It is much more useful to search by the user's display name, however this requir
 // Switch user search from user_login to display_name via query_where 
 function kia_search_users_by_display_name( $query ) {
 
-  if ( isset( $query->query_vars['query_id'] ) && $query->query_vars['query_id'] == 'simple_user_listing' ) {
+  if ( isset( $query->query_vars['query_id'] ) && $query->query_vars['query_id'] === 'simple_user_listing' ) {
      $query->query_where = str_replace( "user_login", "display_name", $query->query_where );
   }
 
@@ -197,7 +197,7 @@ add_filter( 'sul_user_query_args', 'sul_custom_meta_query', 10, 2 );
 
 function sul_custom_meta_query( $args, $query_id ) {
     // Checking the query ID allows us to only target a specific shortcode.
-	if( $query_id == 'my_custom_meta_query' ) {
+	if( $query_id === 'my_custom_meta_query' ) {
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
