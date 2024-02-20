@@ -2,7 +2,7 @@
   "title": "Simple User Listing",
   "name": "simple-user-listing",
   "version": "1.9.3",
-  "description": "A shortcode for displaying paginated lists of users",
+  "description": "A shortcode and block for displaying paginated lists of users",
   "main": "Gruntfile.js",
   "license": "GPL-3.0",
   "repository": {
@@ -14,8 +14,9 @@
   },
   "author": "helgatheviking",
   "devDependencies": {
-    "grunt": "^1.4.1",
-    "grunt-contrib-clean": "~2.0.0",
+    "@wordpress/scripts": "^27.2.0",
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "~2.0.1",
     "grunt-contrib-copy": "~1.0.0",
     "grunt-text-replace": "^0.4.0",
     "grunt-wp-i18n": "~1.0.3",
@@ -23,6 +24,11 @@
     "load-grunt-tasks": "~5.1.0"
   },
   "scripts": {
-    "build": "grunt build"
+    "build": "wp-scripts build --webpack-copy-php",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "release": "npm run build && grunt build",
+    "start": "wp-scripts start --webpack-copy-php"
   }
 }

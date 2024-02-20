@@ -99,9 +99,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 2.0.0
 		 */
 		private function add_hooks() {
+
 			add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
+			add_action( 'init', array( $this, 'register_blocks' ) );
+
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
@@ -116,6 +119,16 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		}
 
 		/**
+		 * Include functions/hooks.
+		 *
+		 * @since 1.9.1
+		 */
+		public function theme_includes() {
+			include_once( 'includes/simple-user-listing-template-functions.php' );
+			include_once( 'includes/simple-user-listing-template-hooks.php' );
+		}
+
+		/**
 		 * Make plugin ready for translation
 		 *
 		 * @since 1.0
@@ -126,13 +139,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		}
 
 		/**
-		 * Include functions/hooks.
+		 * Register blocks.
 		 *
-		 * @since 1.9.1
+		 * @since 2.0.0
 		 */
-		public function theme_includes() {
-			include_once( 'includes/simple-user-listing-template-functions.php' );
-			include_once( 'includes/simple-user-listing-template-hooks.php' );
+		public function register_blocks() {
+			register_block_type( __DIR__ . '/build/directory' );
 		}
 			
 		/**
