@@ -176,11 +176,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Callback for the shortcode
 		 *
 		 * @since 1.0
+		 * 
 		 * @param  array $atts shortcode attributes
 		 * @param  string $content shortcode content, null for this shortcode
 		 * @return string
 		 */
-		public function shortcode_callback( $atts, $content = null ) {
+		public function shortcode_callback( $atts = array(), $content = null ) {
 			global $post, $sul_users;
 
 			$defaults = array(
