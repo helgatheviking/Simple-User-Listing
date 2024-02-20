@@ -599,7 +599,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @deprecated 1.9.1
 		 */
 		function add_nav(){
-			_deprecated_function( 'Simple_User_Listing::attach_hooks()', '1.9.1', 'sul_template_user_navigation()' );
+			_deprecated_function( 'Simple_User_Listing::add_nav()', '1.9.1', 'sul_template_user_navigation()' );
 			return sul_template_user_navigation();
 		}
 
