@@ -134,12 +134,12 @@ Add the following to your theme's functions.php:
  *
  */
 // Switch the WP_User_Query args to a meta search
-function kia_meta_search( $args ){
+function kia_meta_search( $args ) {
 
   // This $_GET is the name field of the custom input in search-author.php.
 	$search = ( isset($_GET['as']) ) ? sanitize_text_field($_GET['as']) : false ;
 
-	if ( $search ){
+	if ( $search ) {
 		// If your shortcode has a 'role' parameter defined it will be maintained.
 		// Unless you choose to unset the role parameter by uncommenting the following:
 		//	unset( $args['role'] );
@@ -153,7 +153,7 @@ function kia_meta_search( $args ){
 
 	return $args;
 }
-add_filter('sul_user_query_args', 'kia_meta_search');
+add_filter( 'sul_user_query_args', 'kia_meta_search' );
 `
 
 Now the search will return users that match the entered "last_name".  You can adjust as needed or use the `meta_query` array for more complicated meta queries.  
@@ -195,9 +195,9 @@ And then in your theme's `functions.php` or a site-specific plugin, you could fi
 `
 add_filter( 'sul_user_query_args', 'sul_custom_meta_query', 10, 2 );
 
-function sul_custom_meta_query( $args, $query_id ){
+function sul_custom_meta_query( $args, $query_id ) {
     // Checking the query ID allows us to only target a specific shortcode.
-	if( $query_id == 'my_custom_meta_query' ){
+	if( $query_id == 'my_custom_meta_query' ) {
 			$args['meta_query'] = array(
 									'relation' => 'OR',
 									array(
@@ -237,12 +237,12 @@ The search form will not work with the default permalinks. Try changing your per
 Likely you are experiencing a conflict with another plugin, specifically one that is filtering `pre_user_query` to modify all user queries. The S2 Member plugin is a known culprit of this. To disable S2 Member's modifications on all Simple User Listing lists, add the following to your theme's functions.php or to a site-specific plugin. Ensure you are using at least SUL 1.5.3.
 
 `
-function kia_protect_sul_from_s2(){
+function kia_protect_sul_from_s2() {
 	remove_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
 }
 add_action( 'simple_user_listing_before_loop', 'kia_protect_sul_from_s2' );
 
-function kia_restore_s2(){
+function kia_restore_s2() {
 	add_action('pre_user_query', 'c_ws_plugin__s2member_users_list::users_list_query');
 }
 add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
