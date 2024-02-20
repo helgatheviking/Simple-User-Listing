@@ -148,7 +148,7 @@ Add the following to your theme's functions.php:
 			$args['meta_compare'] = '=';
 	
 			// Need to unset the original search args.
-			if( isset( $args['search'] ) ) unset($args['search']);
+			if ( isset( $args['search'] ) ) unset($args['search']);
 		}
 	
 		return $args;
@@ -197,7 +197,7 @@ And then in your theme's `functions.php` or a site-specific plugin, you could fi
 	
 	function sul_custom_meta_query( $args, $query_id ) {
 	    // Checking the query ID allows us to only target a specific shortcode.
-		if( $query_id === 'my_custom_meta_query' ) {
+		if ( $query_id === 'my_custom_meta_query' ) {
 				$args['meta_query'] = array(
 					'relation' => 'OR',
 					array(
