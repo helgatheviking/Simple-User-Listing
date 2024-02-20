@@ -88,11 +88,19 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'simple-user-listing' ) );
 		}
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public function __construct() {
+			$this->add_hooks();		
+		}
 
+		/**
+		 * Attach plugin hooks and filters.
+		 * 
+		 * @since 2.0.0
+		 */
+		private function add_hooks() {
 			add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
@@ -118,7 +126,6 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		public function load_text_domain() {
 			load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
-
 
 		/**
 		 * Include functions/hooks.
