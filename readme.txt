@@ -199,20 +199,20 @@ function sul_custom_meta_query( $args, $query_id ) {
     // Checking the query ID allows us to only target a specific shortcode.
 	if( $query_id == 'my_custom_meta_query' ) {
 			$args['meta_query'] = array(
-									'relation' => 'OR',
-									array(
-										'key'       => 'billing_city',
-										'value'     => 'oslo',
-										'compare'   => '=',
-										'type'      => 'CHAR',
-									),
-									array(
-										'key'       => 'first_name',
-										'value'     => 'bobby',
-										'compare'   => '=',
-										'type'      => 'CHAR',
-									)
-								);
+				'relation' => 'OR',
+				array(
+					'key'       => 'billing_city',
+					'value'     => 'oslo',
+					'compare'   => '=',
+					'type'      => 'CHAR',
+				),
+				array(
+					'key'       => 'first_name',
+					'value'     => 'bobby',
+					'compare'   => '=',
+					'type'      => 'CHAR',
+				)
+			);
 
 	}
 	return $args;
