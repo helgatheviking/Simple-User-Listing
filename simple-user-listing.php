@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
-	class Simple_User_Listing {
+	final class Simple_User_Listing {
 
 		/**
 		 * The single instance of the class.
