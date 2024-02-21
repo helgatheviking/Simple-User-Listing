@@ -4,3 +4,4 @@ build/
 *.afdesign
 .cache/
 *.sublime-workspace
+dist/

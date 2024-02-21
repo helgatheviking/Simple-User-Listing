@@ -144,7 +144,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 2.0.0
 		 */
 		public function register_blocks() {
-			register_block_type( __DIR__ . '/build/directory' );
+			register_block_type( __DIR__ . '/dist/directory' );
 		}
 			
 		/**

@@ -24,11 +24,11 @@
     "load-grunt-tasks": "~5.1.0"
   },
   "scripts": {
-    "build": "wp-scripts build --webpack-copy-php",
+    "build": "wp-scripts build --output-path=\"dist\" --webpack-copy-php",
     "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
     "release": "npm run build && grunt build",
-    "start": "wp-scripts start --webpack-copy-php"
+    "start": "wp-scripts start --output-path=\"dist\" --webpack-copy-php"
   }
 }
