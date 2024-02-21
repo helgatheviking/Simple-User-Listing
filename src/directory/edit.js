@@ -14,6 +14,13 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 
 /**
+ * Retrieves the translation of text.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Local dependencies
  */
 import SearchForm from "./components/search-form";
@@ -28,27 +35,36 @@ import User from "./components/user";
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes }) {
-
-	const blockProps = useBlockProps();
-
-    const users = useSelect( ( select ) => {
-        return select( 'core' ).getUsers();
+    const { users, isLoaded } = useSelect( ( select ) => {
+        return {
+            users: select( 'core' ).getUsers(),
+            isLoaded: select( 'core' ).hasFinishedResolution( 'getUsers' ),
+        };
     }, [] );
 
-    if ( ! users ) {
+    return (
         return null;
     }
 
 	return (
-        <div {...blockProps}>
-            <SearchForm />
-                <div class="user-list-wrap">
+            <div { ...useBlockProps() }>
+                <SearchForm />
+                <div className="user-list-wrap">
 
-                    { users.map( ( user ) => (
-                        <User key={ user.id } user={user} />
-                    ) ) }
-              
+                    { isLoaded ? (
+                        users && users.length > 0 ? (
+                            users.map(user => (
+                                <User key={user.id} user={user} />
+                            ))
+                        ) : (
+                            <h2>{ __( 'No users found', 'simple-user-listing' ) }</h2>
+                        )
+                    ) : (
+                        <h2>{ __( 'Loading users...', 'simple-user-listing' ) }</h2>
+                    ) }
+
                 </div>
         </div>
 	);
+    );
 }
