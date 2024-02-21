@@ -21,7 +21,7 @@ $search = ( get_query_var( 'as' ) ) ? sanitize_text_field( get_query_var( 'as' )
 		<form method="get" id="sul-searchform" action="">
 			<label for="sul-s" class="assistive-text"><?php _e( 'Search' ,'simple-user-listing');?></label>
 			<input id="sul-s" type="text" class="field" name="as" placeholder="<?php _e( 'Search Authors' ,'simple-user-listing' );?>" value="<?php echo esc_attr( $search ); ?>"/>
-			<input type="submit" class="submit" id="sul-searchsubmit" value="<?php _e('Search Authors' ,'simple-user-listing');?>" />
+			<input id="sul-searchsubmit" type="submit" class="button button-primary" value="<?php _e( 'Search Authors' ,'simple-user-listing' );?>" />
 		</form>
 	<?php
 	if( $search ){ ?>
