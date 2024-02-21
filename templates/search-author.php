@@ -6,7 +6,7 @@
  *
  * @author 		helgatheviking
  * @package 	Simple-User-Listing/Templates
- * @version     1.9.2
+ * @version     2.0.0
  *
  */
 
@@ -19,8 +19,8 @@ $search = ( get_query_var( 'as' ) ) ? sanitize_text_field( get_query_var( 'as' )
 <div class="author-search">
 	<h2><?php _e('Search authors by name' ,'simple-user-listing');?></h2>
 		<form method="get" id="sul-searchform" action="">
-			<label for="as" class="assistive-text"><?php _e('Search' ,'simple-user-listing');?></label>
-			<input type="text" class="field" name="as" id="sul-s" placeholder="<?php _e('Search Authors' ,'simple-user-listing');?>" value="<?php echo esc_attr( $search ); ?>"/>
+			<label for="sul-s" class="assistive-text"><?php _e( 'Search' ,'simple-user-listing');?></label>
+			<input id="sul-s" type="text" class="field" name="as" placeholder="<?php _e( 'Search Authors' ,'simple-user-listing' );?>" value="<?php echo esc_attr( $search ); ?>"/>
 			<input type="submit" class="submit" id="sul-searchsubmit" value="<?php _e('Search Authors' ,'simple-user-listing');?>" />
 		</form>
 	<?php
