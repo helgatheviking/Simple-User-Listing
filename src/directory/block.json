@@ -24,7 +24,9 @@
     "name": "simple-user-listing/directory-block",
     "render": "file:render.php",
     "supports": {
-        "align": true,
+        "anchor": true,
+		"align": true,
+		"className": true,
         "html": false
     },
     "textdomain": "simple-user-listing",
