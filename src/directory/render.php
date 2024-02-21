@@ -11,8 +11,13 @@
  * @param   string $content - The block inner HTML (usually empty unless using inner blocks).
  */
 ?>
-<div <?php echo get_block_wrapper_attributes(); ?>>
-    <?php echo Simple_User_Listing::get_instance()->shortcode_callback();  ?>
+
+<?php
+// Add columns to the block wrapper classes.
+$classes = ! empty( $attributes['className'] ) && false !== strpos( $attributes['className'], 'is-style-grid' ) ? array( 'class' => 'columns-' . $attributes['columns'] ) : array();
+?>
+
+<div <?php echo get_block_wrapper_attributes( $classes ); ?>>
 
 <?php
 $args = array();

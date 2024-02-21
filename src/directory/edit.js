@@ -32,7 +32,7 @@ import { InspectorControls } from '@wordpress/block-editor';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody
  */
-import { PanelBody, TextControl } from '@wordpress/components';
+import { PanelBody, RangeControl, TextControl } from '@wordpress/components';
 
 /**
  * Similar string cleanup function to WordPress's `sanitize_title`.
@@ -80,6 +80,43 @@ const QueryInspectorControls = ( { attributes, setAttributes } ) => {
 
 	);
 }
+
+/**
+ * Layout related inspector controls.
+ *
+ * @return {WPElement} Element to render.
+ */
+const LayoutInspectorControls = ( { attributes, setAttributes } ) => {
+
+    const { usersPerPage, className = '', columns } = attributes;
+    const isGrid = className.includes('is-style-grid');
+
+	return (
+        <InspectorControls>
+            <PanelBody title={ __( 'Layout', 'simple-user-listing' ) }>
+                <RangeControl
+                    label={__('Users per page', 'simple-user-listing')}
+                    value={ usersPerPage }
+                    onChange={ ( value ) => setAttributes({ usersPerPage: value }) }
+                    min={ 1 }
+                    max={ 10 }
+                />
+
+                { isGrid && (
+                    <RangeControl
+                        label={__('Columns', 'simple-user-listing')}
+                        value={ columns }
+                        onChange={ ( value ) => setAttributes({ columns: value }) }
+                        min={ 1 }
+                        max={ 4 }
+                    />
+                ) }
+            </PanelBody>
+        </InspectorControls>
+
+	);
+}
+/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -98,6 +135,10 @@ export default function Edit( { attributes, setAttributes } ) {
     return (
         <>
             <QueryInspectorControls
+                attributes={ attributes }
+                setAttributes={ setAttributes }
+            />
+            <LayoutInspectorControls
                 attributes={ attributes }
                 setAttributes={ setAttributes }
             />

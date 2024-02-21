@@ -6,6 +6,10 @@
             "type": "string",
             "default": "center"
         },
+        "columns": {
+            "type": "number",
+            "default": 2
+        },
         "queryId": {
             "type": "string",
             "default": ""
@@ -31,5 +35,11 @@
     },
     "textdomain": "simple-user-listing",
     "title": "User Directory",
+	"styles": [
+        { "name": "unstyled", "label": "Unstyled" },
+        { "name": "grid", "label": "Grid" },
+		{ "name": "list", "label": "List", "isDefault": true }
+    ],
+    "style": [ "file:./style-index.css" ],
     "version": "1.0.0"
 }
