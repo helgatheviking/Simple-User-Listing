@@ -25,6 +25,7 @@ import { __ } from '@wordpress/i18n';
  */
 import SearchForm from "./components/search-form";
 import User from "./components/user";
+import QueryControls from './sidebar/query-controls';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -34,7 +35,7 @@ import User from "./components/user";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes }) {
+export default function Edit( props ) {
     const { users, isLoaded } = useSelect( ( select ) => {
         return {
             users: select( 'core' ).getUsers(),
@@ -43,8 +44,8 @@ export default function Edit({ attributes }) {
     }, [] );
 
     return (
-        return null;
-    }
+        <>
+            <QueryControls {...props} />
 
 	return (
             <div { ...useBlockProps() }>
@@ -64,7 +65,7 @@ export default function Edit({ attributes }) {
                     ) }
 
                 </div>
-        </div>
-	);
+            </div>
+        </>
     );
 }

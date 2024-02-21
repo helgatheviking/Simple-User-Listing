@@ -5,6 +5,10 @@
         "align": {
             "type": "string",
             "default": "center"
+        },
+        "queryId": {
+            "type": "string",
+            "default": ""
         }
     },
     "category": "design",
