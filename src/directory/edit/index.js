@@ -57,16 +57,20 @@ import User from "./user";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit( props ) {
+export default function Edit( { attributes, setAttributes } ) {
 
-    const { attributes, setAttributes } = props;
+    const { usersPerPage } = attributes;
+
+    const queryParams = {
+        per_page: usersPerPage,
+    };
     
     const { users, isLoaded } = useSelect( ( select ) => {
         return {
-            users: select( 'core' ).getUsers(),
-            isLoaded: select( 'core' ).hasFinishedResolution( 'getUsers' ),
+            users: select( 'core' ).getUsers( queryParams ),
+            isLoaded: select( 'core' ).hasFinishedResolution( 'getUsers', [queryParams] ),
         };
-    }, [] );
+    }, [queryParams] );
 
     return (
         <>

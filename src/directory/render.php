@@ -22,6 +22,11 @@ $classes = ! empty( $attributes['className'] ) && false !== strpos( $attributes[
 <?php
 $args = array();
 
+// Limit users per page.
+if ( ! empty( $attributes['usersPerPage'] ) ) {
+    $args['number'] = $attributes['usersPerPage'];
+}
+
 // Custom query ID for advanced filtering.
 if ( ! empty( $attributes['queryId'] ) ) {
     $args['query_id'] = $attributes['queryId'];

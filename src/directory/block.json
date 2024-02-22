@@ -10,6 +10,10 @@
             "type": "number",
             "default": 2
         },
+        "usersPerPage": {
+            "type": "number",
+            "default": 10
+        },
         "queryId": {
             "type": "string",
             "default": ""
