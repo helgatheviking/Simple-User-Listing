@@ -21,27 +21,6 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
- * Inspector Controls appear in the post settings sidebar when a block is being edited.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#inspectorcontrols
- */
-import { InspectorControls } from '@wordpress/block-editor';
-
-/**
- * Core components
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody
- */
-import { PanelBody, RangeControl, TextControl } from '@wordpress/components';
-
-/**
- * Similar string cleanup function to WordPress's `sanitize_title`.
- * 
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-url/#cleanforslug
- */
-import { cleanForSlug } from '@wordpress/url';
-
-/**
  * Local dependencies
  */
 import './filters';
