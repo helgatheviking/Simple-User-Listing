@@ -44,77 +44,10 @@ import { cleanForSlug } from '@wordpress/url';
 /**
  * Local dependencies
  */
+import { LayoutInspectorControls, QueryInspectorControls } from './inspector-controls';
 import SearchForm from "./search-form";
 import User from "./user";
 
-/**
- * Block controls for the User Query.
- *
- * @return {WPElement} Element to render.
- */
-const QueryInspectorControls = ( { attributes, setAttributes } ) => {
-
-    const { queryId } = attributes;
-
-	return (
-        <InspectorControls>
-            <PanelBody title={__('User Query Settings', 'simple-user-listing')}>
-                <TextControl
-                    label={ __(
-                        'Query ID',
-                        'simple-user-listing'
-                    ) }
-                    help={ __(
-                        'Custom `query_id` for advanced usage.',
-                        'simple-user-listing'
-                    ) }
-                    value={ queryId || '' }
-                    onChange={ ( value ) => {
-                        let cleanValue = cleanForSlug( value );
-                        setAttributes( { queryId: cleanValue } )
-                    } }
-                />
-            </PanelBody>
-        </InspectorControls>
-
-	);
-}
-
-/**
- * Layout related inspector controls.
- *
- * @return {WPElement} Element to render.
- */
-const LayoutInspectorControls = ( { attributes, setAttributes } ) => {
-
-    const { usersPerPage, className = '', columns } = attributes;
-    const isGrid = className.includes('is-style-grid');
-
-	return (
-        <InspectorControls>
-            <PanelBody title={ __( 'Layout', 'simple-user-listing' ) }>
-                <RangeControl
-                    label={__('Users per page', 'simple-user-listing')}
-                    value={ usersPerPage }
-                    onChange={ ( value ) => setAttributes({ usersPerPage: value }) }
-                    min={ 1 }
-                    max={ 10 }
-                />
-
-                { isGrid && (
-                    <RangeControl
-                        label={__('Columns', 'simple-user-listing')}
-                        value={ columns }
-                        onChange={ ( value ) => setAttributes({ columns: value }) }
-                        min={ 1 }
-                        max={ 4 }
-                    />
-                ) }
-            </PanelBody>
-        </InspectorControls>
-
-	);
-}
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -123,7 +56,10 @@ const LayoutInspectorControls = ( { attributes, setAttributes } ) => {
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( props ) {
+
+    const { attributes, setAttributes } = props;
+    
     const { users, isLoaded } = useSelect( ( select ) => {
         return {
             users: select( 'core' ).getUsers(),
