@@ -21,6 +21,11 @@ import { useEntityRecords } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 
 /**
+ * Default spinner component
+ */
+import { Spinner } from '@wordpress/components';
+
+/**
  * Local dependencies
  */
 import './filters';
@@ -62,7 +67,7 @@ export default function Edit( { attributes, setAttributes } ) {
                 <div className="user-list-wrap">
 
                     { ! hasResolved ? (
-                        <h2>{ __( 'Loading users...', 'simple-user-listing' ) }</h2>
+                        <Spinner/>
                     ) : (
                         records && records.length > 0 ? (
                             records.map(user => (
