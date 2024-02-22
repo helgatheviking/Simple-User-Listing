@@ -22,6 +22,7 @@ $classes = ! empty( $attributes['className'] ) && false !== strpos( $attributes[
 <?php
 $args = array();
 
+// Custom query ID for advanced filtering.
 if ( ! empty( $attributes['queryId'] ) ) {
     $args['query_id'] = $attributes['queryId'];
 }
