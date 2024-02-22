@@ -44,9 +44,8 @@ import { cleanForSlug } from '@wordpress/url';
 /**
  * Local dependencies
  */
-import SearchForm from "./components/search-form";
-import User from "./components/user";
-import QueryControls from './sidebar/query-controls';
+import SearchForm from "./search-form";
+import User from "./user";
 
 /**
  * Block controls for the User Query.
