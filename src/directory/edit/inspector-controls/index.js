@@ -31,15 +31,21 @@ import { cleanForSlug } from '@wordpress/url';
  *
  * @return {WPElement} Element to render.
  */
-export function QueryInspectorControls ( props ) {
+export function QueryInspectorControls ( { attributes, setAttributes } ) {
 
-    const { attributes, setAttributes } = props;
-
-    const { queryId } = attributes;
+    const { queryId, usersPerPage } = attributes;
 
 	return (
         <InspectorControls>
             <PanelBody title={__('User Query Settings', 'simple-user-listing')}>
+
+                <RangeControl
+                    label={__('Users per page', 'simple-user-listing')}
+                    value={ usersPerPage }
+                    onChange={ ( value ) => setAttributes({ usersPerPage: value }) }
+                    min={ 1 }
+                    max={ 20 }
+                />
                 <TextControl
                     label={ __(
                         'Query ID',
@@ -70,31 +76,24 @@ export function LayoutInspectorControls( props ) {
 
     const { attributes, setAttributes } = props;
 
-    const { usersPerPage, className = '', columns } = attributes;
+    const { className = '', columns } = attributes;
     const isGrid = className.includes('is-style-grid');
 
-	return (
-        <InspectorControls>
-            <PanelBody title={ __( 'Layout', 'simple-user-listing' ) }>
-                <RangeControl
-                    label={__('Users per page', 'simple-user-listing')}
-                    value={ usersPerPage }
-                    onChange={ ( value ) => setAttributes({ usersPerPage: value }) }
-                    min={ 1 }
-                    max={ 10 }
-                />
+    if ( !isGrid ) {
+        return null;
+    }
 
-                { isGrid && (
+	return (
+            <InspectorControls>
+                <PanelBody title={ __( 'Layout', 'simple-user-listing' ) }>
                     <RangeControl
                         label={__('Columns', 'simple-user-listing')}
                         value={ columns }
                         onChange={ ( value ) => setAttributes({ columns: value }) }
                         min={ 1 }
                         max={ 4 }
-                    />
-                ) }
-            </PanelBody>
-        </InspectorControls>
-
+                    />                    
+                </PanelBody>
+            </InspectorControls>
 	);
 }
