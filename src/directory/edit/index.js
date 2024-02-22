@@ -44,6 +44,7 @@ import { cleanForSlug } from '@wordpress/url';
 /**
  * Local dependencies
  */
+import './filters';
 import { LayoutInspectorControls, QueryInspectorControls } from './inspector-controls';
 import SearchForm from "./search-form";
 import User from "./user";
