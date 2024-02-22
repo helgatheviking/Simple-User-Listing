@@ -7,11 +7,11 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
 /**
- * React hook for fetching dta from the core data store.
+ * React hook for fetching data from the core data store.
  * 
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#useselect
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-core-data/#useentityrecords
  */
-import { useSelect } from '@wordpress/data';
+import { useEntityRecords } from '@wordpress/core-data';
 
 /**
  * Retrieves the translation of text.
@@ -44,12 +44,7 @@ export default function Edit( { attributes, setAttributes } ) {
         per_page: usersPerPage,
     };
     
-    const { users, isLoaded } = useSelect( ( select ) => {
-        return {
-            users: select( 'core' ).getUsers( queryParams ),
-            isLoaded: select( 'core' ).hasFinishedResolution( 'getUsers', [queryParams] ),
-        };
-    }, [queryParams] );
+    const { records, hasResolved } = useEntityRecords( "root", "user", queryParams );
 
     return (
         <>
@@ -66,16 +61,16 @@ export default function Edit( { attributes, setAttributes } ) {
                 <SearchForm />
                 <div className="user-list-wrap">
 
-                    { isLoaded ? (
-                        users && users.length > 0 ? (
-                            users.map(user => (
+                    { ! hasResolved ? (
+                        <h2>{ __( 'Loading users...', 'simple-user-listing' ) }</h2>
+                    ) : (
+                        records && records.length > 0 ? (
+                            records.map(user => (
                                 <User key={user.id} user={user} />
                             ))
                         ) : (
                             <h2>{ __( 'No users found', 'simple-user-listing' ) }</h2>
-                        )
-                    ) : (
-                        <h2>{ __( 'Loading users...', 'simple-user-listing' ) }</h2>
+                        ) 
                     ) }
 
                 </div>
