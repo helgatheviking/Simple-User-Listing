@@ -105,6 +105,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'init', array( $this, 'load_text_domain' ) );
 			add_action( 'init', array( $this, 'register_blocks' ) );
 
+			add_filter( 'rest_user_collection_params', array( $this, 'rest_user_collection_params' ) );
+
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
@@ -145,6 +147,19 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 */
 		public function register_blocks() {
 			register_block_type( __DIR__ . '/dist/directory' );
+		}
+
+		/**
+		 * Add `login` to REST API collection orderby params.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @param array $query_params JSON Schema-formatted collection parameters.
+		 * @return array
+		 */
+		public function rest_user_collection_params( $query_params ) {
+			$query_params['orderby']['enum'][] = 'login';
+			return $query_params;
 		}
 			
 		/**

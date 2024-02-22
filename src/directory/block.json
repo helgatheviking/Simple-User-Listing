@@ -10,6 +10,14 @@
             "type": "number",
             "default": 2
         },
+        "order": {
+            "type": "string",
+            "default": "asc"
+        },
+        "orderBy": {
+            "type": "string",
+            "default": "name"
+        },
         "usersPerPage": {
             "type": "number",
             "default": 10

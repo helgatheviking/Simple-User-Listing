@@ -43,9 +43,11 @@ import User from "./user";
  */
 export default function Edit( { attributes, setAttributes } ) {
 
-    const { usersPerPage } = attributes;
+    const { order, orderBy, usersPerPage } = attributes;
 
     const queryParams = {
+        orderby : orderBy,
+        order   : order,
         per_page: usersPerPage,
     };
     

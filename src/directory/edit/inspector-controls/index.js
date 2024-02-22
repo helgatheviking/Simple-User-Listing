@@ -27,13 +27,18 @@ import { PanelBody, RangeControl, TextControl } from '@wordpress/components';
 import { cleanForSlug } from '@wordpress/url';
 
 /**
+ * Local dependencies
+ */
+import OrderControls from './order-controls';
+
+/**
  * Block controls for the User Query.
  *
  * @return {WPElement} Element to render.
  */
 export function QueryInspectorControls ( { attributes, setAttributes } ) {
 
-    const { queryId, usersPerPage } = attributes;
+    const { order, orderBy, queryId, usersPerPage } = attributes;
 
 	return (
         <InspectorControls>
@@ -46,6 +51,13 @@ export function QueryInspectorControls ( { attributes, setAttributes } ) {
                     min={ 1 }
                     max={ 20 }
                 />
+  
+                <OrderControls
+                    { ...{ order, orderBy } }
+                    onOrderByChange={ ( newOrderBy ) => setAttributes( { orderBy: newOrderBy } ) }
+                    onOrderChange={ ( newOrder ) => setAttributes( { order: newOrder } ) }
+                />
+
                 <TextControl
                     label={ __(
                         'Query ID',

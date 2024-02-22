@@ -22,6 +22,16 @@ $classes = ! empty( $attributes['className'] ) && false !== strpos( $attributes[
 <?php
 $args = array();
 
+// Sort users by ordersby parameter.
+if ( ! empty( $attributes['orderBy'] ) ) {
+    $args['orderby'] = $attributes['orderBy'];
+}
+
+// Order users.
+if ( ! empty( $attributes['order'] ) ) {
+    $args['order'] = $attributes['order'];
+}
+
 // Limit users per page.
 if ( ! empty( $attributes['usersPerPage'] ) ) {
     $args['number'] = $attributes['usersPerPage'];
