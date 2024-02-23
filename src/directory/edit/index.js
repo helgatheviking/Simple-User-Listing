@@ -1,28 +1,10 @@
 /**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
-
-/**
- * React hook for fetching data from the core data store.
- * 
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-core-data/#useentityrecords
- */
-import { useEntityRecords } from '@wordpress/core-data';
-
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-
-/**
- * Default spinner component
- */
+import { dispatch } from '@wordpress/data';
+import { useEntityRecords } from '@wordpress/core-data';
+import { useBlockProps } from '@wordpress/block-editor';
 import { Spinner } from '@wordpress/components';
 
 /**
