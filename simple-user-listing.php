@@ -107,6 +107,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			add_filter( 'rest_user_collection_params', array( $this, 'rest_user_collection_params' ) );
 			add_filter( 'rest_user_query', array( $this, 'rest_user_query' ), 10, 2 );
+			add_action('rest_api_init', array( $this, 'register_api_endpoint' ) );
 
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 
@@ -189,6 +190,42 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			}
 			return $prepared_args;
 		}
+
+		/**
+		 * Add custom REST API endpoint to fetch user roles.
+		 *
+		 * @since 2.0.0
+		 */
+		public function register_api_endpoint() {
+			register_rest_route('simple-user-listing/v1', '/user-roles', array(
+				'methods' => 'GET',
+				'callback' => array( $this, 'get_user_roles' ),
+				'permission_callback' => function() { return current_user_can( 'edit_posts' ); },
+			) );
+		}
+	
+		/**
+		 * Rest callback.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @param array           $prepared_args Array of arguments for WP_User_Query.
+		 * @param WP_REST_Request $request       The REST API request.
+		 * @return array
+		 */
+		public function get_user_roles() {
+
+			/**
+			 * Filters the list of editable roles.
+			 *
+			 * @since 2.8.0
+			 *
+			 * @param string[] $all_roles Are a name=>label pair.
+			 */
+			$roles = apply_filters( 'simple_user_listing_roles', wp_roles()->role_names );
+
+			return rest_ensure_response( $roles );
+		}		
 			
 		/**
 		 * Get the plugin path.
