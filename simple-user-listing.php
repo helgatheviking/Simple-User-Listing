@@ -106,6 +106,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'init', array( $this, 'register_blocks' ) );
 
 			add_filter( 'rest_user_collection_params', array( $this, 'rest_user_collection_params' ) );
+			add_filter( 'rest_user_query', array( $this, 'rest_user_query' ), 10, 2 );
 
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 
@@ -159,7 +160,34 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 */
 		public function rest_user_collection_params( $query_params ) {
 			$query_params['orderby']['enum'][] = 'login';
+
+			$query_params['roles__not_in'] = array(
+				'description' => __( 'Limit result set to users that do not match at least one specific role provided.', 'simple-user-listing' ),
+				'type'        => 'array',
+				'items'       => array(
+					'type' => 'string',
+				),
+			);
+
 			return $query_params;
+		}
+
+		/**
+		 * Add `role__not_in` support to to REST API collection query.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @param array           $prepared_args Array of arguments for WP_User_Query.
+		 * @param WP_REST_Request $request       The REST API request.
+		 * @return array
+		 */
+		public function rest_user_query( $prepared_args, $request ) {
+			$query_params['orderby']['enum'][] = 'login';
+
+			if ( ! empty( $request['roles__not_in'] ) ) {
+				$prepared_args['role__not_in'] = $request['roles__not_in'];
+			}
+			return $prepared_args;
 		}
 			
 		/**
