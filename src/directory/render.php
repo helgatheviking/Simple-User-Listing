@@ -41,6 +41,20 @@ if ( ! empty( $attributes['usersPerPage'] ) ) {
 if ( ! empty( $attributes['queryId'] ) ) {
     $args['query_id'] = $attributes['queryId'];
 }
+
+// If not showing all users, build a custom query
+if ( empty( $attributes['showAllUsers'] ) ) {
+
+    // Build a query.
+    if ( ! empty( $attributes['roles'] ) ) {
+        if ( ! empty( $attributes['excludeRoles'] ) ) {
+            $args['role__not_in'] = $attributes['roles'];
+        } else {
+            $args['role__in'] = $attributes['roles'];
+        }
+    }
+}
+
 ?>
 
     <?php echo Simple_User_Listing::get_instance()->shortcode_callback( $args ); ?>

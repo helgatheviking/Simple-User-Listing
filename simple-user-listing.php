@@ -330,13 +330,15 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			}
 
 			// If $role__in parameter is defined.
-			if( $atts['role__in'] ){
-				$args['role__in'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role__in'] ) ) );
+			if( $atts['role__in'] ) {
+				$role__in = is_array( $atts['role__in'] ) ? $atts['role__in'] : explode( ',', $atts['role__in'] );
+				$args['role__in'] = array_map( 'sanitize_text_field', array_map( 'trim', $role__in ) );
 			}
 
 			// If $role__not_in parameter is defined.
-			if( $atts['role__not_in'] ){
-				$args['role__not_in'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role__not_in'] ) ) );
+			if( $atts['role__not_in'] ) {
+				$role__not_in = is_array( $atts['role__not_in'] ) ? $atts['role__not_in'] : explode( ',', $atts['role__not_in'] );
+				$args['role__not_in'] = array_map( 'sanitize_text_field', array_map( 'trim', $role__not_in ) );
 			}
 
 			// If $blog_id parameter is defined.

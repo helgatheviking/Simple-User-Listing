@@ -6,7 +6,11 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { 
     PanelBody,
     RangeControl,
+    ToggleControl,
     TextControl,
+    SelectControl,
+    __experimentalToolsPanel as ToolsPanel,
+    __experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 
 import { cleanForSlug } from '@wordpress/url';
@@ -15,6 +19,7 @@ import { cleanForSlug } from '@wordpress/url';
  * Local dependencies
  */
 import OrderControls from './order-controls';
+import RoleControl from './role-control';
 
 /**
  * Block controls for the User Query.
@@ -23,11 +28,26 @@ import OrderControls from './order-controls';
  */
 export function QueryInspectorControls ( { attributes, setAttributes } ) {
 
-    const { order, orderBy, queryId, usersPerPage } = attributes;
+    const { excludeRoles, order, orderBy, showAllUsers, queryId, roles, usersPerPage } = attributes;
+
+    const resetUserFilters = () => {
+        setAttributes( {
+            excludeRoles: false,
+            roles: [],
+        } );
+    };
 
 	return (
         <InspectorControls>
             <PanelBody title={__('User Query Settings', 'simple-user-listing')}>
+                <ToggleControl
+                    label={__('Display all users', 'simple-user-listing')}
+                    help= {__('Toggle to show all site users. Disable to limit display to certain users.', 'simple-user-listing')}
+                    checked={showAllUsers}
+                    onChange={() => {
+                        setAttributes({ showAllUsers: !showAllUsers });
+                    }}
+                />
 
                 <RangeControl
                     label={__('Users per page', 'simple-user-listing')}
@@ -59,6 +79,37 @@ export function QueryInspectorControls ( { attributes, setAttributes } ) {
                     } }
                 />
             </PanelBody>
+
+            { ! showAllUsers && (
+                <ToolsPanel label={ __( 'Filter Users', 'simple-user-listing' ) } resetAll={ resetUserFilters }>
+
+                    <ToolsPanelItem
+                        hasValue={ () => roles.length > 0 }
+                        label={ __( 'User roles',  'simple-user-listing' ) }
+                        onDeselect={ () => setAttributes( { 
+                            excludeRoles: false,
+                            roles: []
+                        } ) }
+                    >
+                        <RoleControl
+                            roles={ roles }
+                            onRoleChange={ ( newRoles ) => setAttributes( { roles: newRoles } ) }
+                        />
+
+                        <ToggleControl
+                            label={ __(
+                                'Exclude roles',
+                                'simple-user-listing'
+                            ) }
+                            checked={ excludeRoles }
+                            onChange={ () =>
+                                setAttributes( { excludeRoles: ! excludeRoles } )
+                            }
+                        />
+
+                    </ToolsPanelItem>
+                </ToolsPanel>
+            ) }  
         </InspectorControls>
 
 	);

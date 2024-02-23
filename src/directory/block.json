@@ -10,6 +10,14 @@
             "type": "number",
             "default": 2
         },
+        "excludeRoles": {
+            "type": "boolean",
+            "default": false
+        },
+        "showAllUsers": {
+            "type": "boolean",
+            "default": true
+        },
         "order": {
             "type": "string",
             "default": "asc"
@@ -17,6 +25,10 @@
         "orderBy": {
             "type": "string",
             "default": "name"
+        },
+        "roles": {
+            "type": "array",
+            "default": []
         },
         "usersPerPage": {
             "type": "number",

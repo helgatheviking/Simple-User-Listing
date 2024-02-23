@@ -16,6 +16,18 @@ import SearchForm from "./search-form";
 import User from "./user";
 
 /**
+ * Add our custom entities for retrieving external data in the Block Editor.
+ */
+dispatch( 'core' ).addEntities( [
+	{
+		baseURL: '/simple-user-listing/v1/user-roles',
+        label: __( 'User Roles', 'simple-user-listing' ),
+		kind: 'simple-user-listing/v1',
+		name: 'user-roles',
+	}
+] );
+
+/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -25,13 +37,24 @@ import User from "./user";
  */
 export default function Edit( { attributes, setAttributes } ) {
 
-    const { order, orderBy, usersPerPage } = attributes;
+    const { excludeRoles, order, orderBy, showAllUsers, roles, usersPerPage } = attributes;
 
-    const queryParams = {
+    let queryParams = {
         orderby : orderBy,
         order   : order,
         per_page: usersPerPage,
     };
+
+    // Set up custom user query parameters.
+    if ( ! showAllUsers ) {
+        if ( roles.length > 0 ) {
+            if ( excludeRoles ) {
+                queryParams.roles__not_in = roles;
+            } else {
+                queryParams.roles = roles;
+            }
+        }
+    }
     
     const { records, hasResolved } = useEntityRecords( "root", "user", queryParams );
 
@@ -41,6 +64,7 @@ export default function Edit( { attributes, setAttributes } ) {
                 attributes={ attributes }
                 setAttributes={ setAttributes }
             />
+            
             <LayoutInspectorControls
                 attributes={ attributes }
                 setAttributes={ setAttributes }
