@@ -58,7 +58,8 @@ export function QueryInspectorControls ( { attributes, setAttributes } ) {
                 />
   
                 <OrderControls
-                    { ...{ order, orderBy } }
+                    order={order}
+                    orderBy={orderBy}
                     onOrderByChange={ ( newOrderBy ) => setAttributes( { orderBy: newOrderBy } ) }
                     onOrderChange={ ( newOrder ) => setAttributes( { order: newOrder } ) }
                 />
