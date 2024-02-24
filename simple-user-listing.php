@@ -325,7 +325,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			);
 
 			// If $role parameter is defined.
-			if( $atts['role'] ){
+			if( $atts['role'] ) {
 				$args['role'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role'] ) ) );
 			}
 
@@ -342,22 +342,22 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			}
 
 			// If $blog_id parameter is defined.
-			if( $atts['blog_id'] ){
+			if( $atts['blog_id'] ) {
 				$args['blog_id'] = intval( $atts['blog_id'] );
 			}
 
 			// If $include parameter is defined.
-			if( $atts['include'] ){
+			if( $atts['include'] ) {
 				$args['include'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['include'] ) ) );
 			}
 
 			// If $exclude parameter is defined.
-			if( $atts['exclude'] ){
+			if( $atts['exclude'] ) {
 				$args['exclude'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['exclude'] ) ) );
 			}
 
 			// If $has_published_posts parameter is defined.
-			if( $atts['has_published_posts'] ){
+			if( $atts['has_published_posts'] ) {
 				$args['has_published_posts'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['has_published_posts'] ) ) );
 			}
 			
@@ -371,12 +371,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 													'type'      => $atts['meta_type'],
 												),
 											);
-			} elseif( $atts['meta_key'] ){
+			} elseif( $atts['meta_key'] ) {
 				$args['meta_key'] = $atts['meta_key'];
 			}
 
 			// Generate the query based on search field.
-			if ( $search ){
+			if ( $search ) {
 				$args['search'] = '*' . $search . '*';
 			}
 
@@ -429,7 +429,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @return array
 		 */
 		public function user_query_vars( $query_vars )	{
-			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ){
+			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ) {
 				$query_vars[] = $var;
 			}
 			return $query_vars;
@@ -441,13 +441,13 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return number
 		 */
-		public function get_total_user_pages(){
+		public function get_total_user_pages() {
 
 			global $sul_users;
 
 			$total_pages = 1;
 
-			if( $sul_users && ! is_wp_error( $sul_users ) ){
+			if( $sul_users && ! is_wp_error( $sul_users ) ) {
 
 				// Get the total number of authors. Based on this, offset and number per page, we'll generate our pagination.
 				$total_authors = $sul_users->get_total();
@@ -470,7 +470,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return URL string
 		 */
-		public function get_previous_users_url(){
+		public function get_previous_users_url() {
 			global $sul_users;
 
 			// Get Query Var for pagination. This already exists in WordPress.
@@ -496,7 +496,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return URL string
 		 */
-		public function get_next_users_url(){
+		public function get_next_users_url() {
 			global $sul_users;
 
 			// Get Query Var for pagination. This already exists in WordPress
@@ -521,7 +521,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.9.0
 		 * @return URL string
 		 */
-		public function get_current_url(){
+		public function get_current_url() {
 			return apply_filters( 'sul_base_url', home_url( add_query_arg( null, null ) ) );
   		}
 
@@ -532,7 +532,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @param  string $url the permalink to which we should add the allowed $_GET variables
 		 * @return URL string
 		 */
-		public function add_search_args( $url ){
+		public function add_search_args( $url ) {
 			global $sul_users;
 
 			// If this is a search query, preserve the query args.
@@ -603,7 +603,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		* @since 1.8.0
 		*/
 		public function add_meta_links( $plugin_meta, $plugin_file ) {
-			if( $plugin_file == plugin_basename(__FILE__) ){
+			if( $plugin_file == plugin_basename(__FILE__) ) {
 				$plugin_meta[] = '<a class="dashicons-before dashicons-awards" href="' . self::DONATE_URL . '" target="_blank">' . __( 'Donate', 'simple-user-listing' ) . '</a>';
 			}
 			return $plugin_meta;
@@ -697,7 +697,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0.0
 		 * @deprecated 1.9.1
 		 */
-		function add_nav(){
+		function add_nav() {
 			_deprecated_function( 'Simple_User_Listing::add_nav()', '1.9.1', 'sul_template_user_navigation()' );
 			return sul_template_user_navigation();
 		}
