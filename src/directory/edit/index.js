@@ -47,7 +47,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
     // Set up custom user query parameters.
     if ( ! showAllUsers ) {
-        if ( roles.length > 0 ) {
+        if ( !! roles ) {
             if ( excludeRoles ) {
                 queryParams.roles__not_in = roles;
             } else {

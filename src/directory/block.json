@@ -27,8 +27,9 @@
             "default": "name"
         },
         "roles": {
-            "type": "array",
-            "default": []
+            "type": "string",
+            "default": ""
+        },
         },
         "usersPerPage": {
             "type": "number",

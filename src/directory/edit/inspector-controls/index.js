@@ -33,7 +33,7 @@ export function QueryInspectorControls ( { attributes, setAttributes } ) {
     const resetUserFilters = () => {
         setAttributes( {
             excludeRoles: false,
-            roles: [],
+            roles: '',
         } );
     };
 
@@ -85,16 +85,16 @@ export function QueryInspectorControls ( { attributes, setAttributes } ) {
                 <ToolsPanel label={ __( 'Filter Users', 'simple-user-listing' ) } resetAll={ resetUserFilters }>
 
                     <ToolsPanelItem
-                        hasValue={ () => roles.length > 0 }
-                        label={ __( 'User roles',  'simple-user-listing' ) }
+                        hasValue={ () => !! roles }
+                        label={ __( 'By roles',  'simple-user-listing' ) }
                         onDeselect={ () => setAttributes( { 
                             excludeRoles: false,
-                            roles: []
+                            roles: ''
                         } ) }
                     >
                         <RoleControl
-                            roles={ roles }
-                            onRoleChange={ ( newRoles ) => setAttributes( { roles: newRoles } ) }
+                            value={ roles }
+                            onChange={ ( newRoles ) => setAttributes( { roles: newRoles } ) }
                         />
 
                         <ToggleControl
