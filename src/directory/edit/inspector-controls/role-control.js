@@ -10,7 +10,9 @@ export default function RoleControl( { value, onChange } ) {
 	/**
 	 * User roles are received in format of object ex: { "administrator": "Administrator", "editor": "Editor" }.
 	 */
-	const { record: userRoles, hasResolved } = useEntityRecord( 'simple-user-listing/v1', 'user-roles' );
+	const { record, hasResolved } = useEntityRecord( 'simple-user-listing/v1', 'user-roles' );
+
+	const userRoles = record?.registered_roles ?? [];
 
 	if ( ! hasResolved ) {
 		return;

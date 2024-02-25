@@ -199,21 +199,35 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		public function register_api_endpoint() {
 			register_rest_route('simple-user-listing/v1', '/user-roles', array(
 				'methods' => 'GET',
-				'callback' => array( $this, 'get_user_roles' ),
+				'callback' => array( $this, 'get_rest_response' ),
 				'permission_callback' => function() { return current_user_can( 'edit_posts' ); },
 			) );
 		}
-	
+
 		/**
 		 * Rest callback.
 		 *
 		 * @since 2.0.0
 		 * 
-		 * @param array           $prepared_args Array of arguments for WP_User_Query.
-		 * @param WP_REST_Request $request       The REST API request.
 		 * @return array
 		 */
-		public function get_user_roles() {
+		public function get_rest_response() {
+
+			$response = array(
+				'registered_roles' => $this->get_user_roles(),
+			);
+
+			return rest_ensure_response( $response );
+		}
+
+		/**
+		 * Retrieve user roles.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @return array
+		 */
+		private function get_user_roles() {
 
 			/**
 			 * Filters the list of editable roles.
@@ -222,9 +236,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			 *
 			 * @param string[] $all_roles Are a name=>label pair.
 			 */
-			$roles = apply_filters( 'simple_user_listing_roles', wp_roles()->role_names );
+			return apply_filters( 'simple_user_listing_roles', wp_roles()->role_names );
 
-			return rest_ensure_response( $roles );
 		}		
 			
 		/**
