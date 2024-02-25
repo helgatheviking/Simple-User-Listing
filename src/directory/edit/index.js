@@ -5,13 +5,14 @@ import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls } from '@wordpress/block-editor';
 import { Spinner } from '@wordpress/components';
 
 /**
  * Local dependencies
  */
 import './filters';
-import { LayoutInspectorControls, QueryInspectorControls } from './inspector-controls';
+import { LayoutPanel, QueryPanel } from './inspector-controls';
 import { SearchForm, User } from "../components";
 
 /**
@@ -59,16 +60,19 @@ export default function Edit( { attributes, setAttributes } ) {
 
     return (
         <>
-            <QueryInspectorControls
-                attributes={ attributes }
-                setAttributes={ setAttributes }
-            />
-            
-            <LayoutInspectorControls
-                attributes={ attributes }
-                setAttributes={ setAttributes }
-            />
 
+            <InspectorControls>
+                <QueryPanel
+                    attributes={ attributes }
+                    setAttributes={ setAttributes }
+                />
+                
+                <LayoutPanel
+                    attributes={ attributes }
+                    setAttributes={ setAttributes }
+                />
+            </InspectorControls>
+            
             <div { ...useBlockProps() }>
                 <SearchForm />
                 <div className="user-list-wrap">
