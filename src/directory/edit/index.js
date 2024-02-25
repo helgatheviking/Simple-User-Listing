@@ -12,8 +12,7 @@ import { Spinner } from '@wordpress/components';
  */
 import './filters';
 import { LayoutInspectorControls, QueryInspectorControls } from './inspector-controls';
-import SearchForm from "./search-form";
-import User from "./user";
+import { SearchForm, User } from "../components";
 
 /**
  * Add our custom entities for retrieving external data in the Block Editor.
