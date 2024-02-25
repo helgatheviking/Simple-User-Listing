@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
 	clean: {
 		//Clean up build folder
-		main: ['build/<%= pkg.name %>']
+		main: ['build/**']
 	},
 
 	copy: {
@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 				'!.git/**','!.gitignore','!.gitmodules',
 				'!tests/**',
 				'!vendor/**',
+				'!src/**',
 				'!Gruntfile.js','!package.json','!package-lock.json',
 				'!composer.lock','!composer.phar','!composer.json',
 				'!CONTRIBUTING.md',
@@ -39,9 +40,23 @@ module.exports = function(grunt) {
 				'!.wordpress-org/**',
 				'!.github/**',
 			],
-			dest: 'build/<%= pkg.name %>/'
+			dest: 'build/'
 		},
-	}, 
+	},
+
+	// Make a zipfile.
+	compress: {
+		main: {
+			options: {
+				mode: 'zip',
+				archive: 'deploy/<%= pkg.name %>-<%= pkg.version %>.zip',
+			},
+			expand: true,
+			cwd: 'build/',
+			dest: '<%= pkg.name %>',
+			src: [ '**/*' ]
+		},
+	},
 
 	// bump version numbers
 	replace: {
@@ -101,7 +116,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
-  grunt.registerTask( 'build', [ 'replace' ] );
-grunt.registerTask( 'release', [ 'build', 'clean', 'copy' ] );
+  grunt.registerTask( 'build', [ 'replace', 'clean', 'copy' ] );
+  grunt.registerTask( 'deploy', [ 'build', 'compress' ] );
+  grunt.registerTask( 'release', [ 'deploy', 'clean' ] );
 
 };
