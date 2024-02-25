@@ -28,6 +28,7 @@
     "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
+    "makepot": "composer run-script makepot",
     "release": "npm run build && grunt build",
     "start": "wp-scripts start --output-path=\"dist\" --webpack-copy-php"
   }

@@ -98,23 +98,10 @@ module.exports = function(grunt) {
 		}
 	},
 
-	// Generate .pot file
-	makepot: {
-		target: {
-			options: {
-				domainPath: '/languages', // Where to save the POT file.
-				exclude: ['build'], // List of files or directories to ignore.
-				mainFile: '<%= pkg.name %>.php', // Main project file.
-				potFilename: '<%= pkg.name %>.pot', // Name of the POT file.
-				type: 'wp-plugin' // Type of project (wp-plugin or wp-theme).
-			}
-		}
-	},
+  });
 
-});
-
-grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
-grunt.registerTask( 'build', [ 'replace', 'makepot' ] );
+  grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
+  grunt.registerTask( 'build', [ 'replace' ] );
 grunt.registerTask( 'release', [ 'build', 'clean', 'copy' ] );
 
 };
