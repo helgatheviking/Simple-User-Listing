@@ -53,6 +53,13 @@ if ( empty( $attributes['showAllUsers'] ) ) {
             $args['role__in'] = $attributes['roles'];
         }
     }
+    if ( ! empty( $attributes['users'] ) ) {
+        if ( ! empty( $attributes['excludeUsers'] ) ) {
+            $args['exclude'] = $attributes['users'];
+        } else {
+            $args['include'] = $attributes['users'];
+        }
+    }
 }
 
 ?>

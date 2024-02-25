@@ -37,7 +37,7 @@ dispatch( 'core' ).addEntities( [
  */
 export default function Edit( { attributes, setAttributes } ) {
 
-    const { excludeRoles, order, orderBy, showAllUsers, roles, usersPerPage } = attributes;
+    const { excludeRoles, excludeUsers, order, orderBy, showAllUsers, roles, users, usersPerPage } = attributes;
 
     let queryParams = {
         orderby : orderBy,
@@ -52,6 +52,13 @@ export default function Edit( { attributes, setAttributes } ) {
                 queryParams.roles__not_in = roles;
             } else {
                 queryParams.roles = roles;
+            }
+        }
+        if ( !! users ) {
+            if ( excludeUsers ) {
+                queryParams.exclude = users;
+            } else {
+                queryParams.include = users;
             }
         }
     }

@@ -14,6 +14,10 @@
             "type": "boolean",
             "default": false
         },
+        "excludeUsers": {
+            "type": "boolean",
+            "default": false
+        },
         "showAllUsers": {
             "type": "boolean",
             "default": true
@@ -30,6 +34,9 @@
             "type": "string",
             "default": ""
         },
+        "users": {
+            "type": "string",
+            "default": ""
         },
         "usersPerPage": {
             "type": "number",

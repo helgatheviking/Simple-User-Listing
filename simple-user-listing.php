@@ -361,12 +361,14 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			// If $include parameter is defined.
 			if( $atts['include'] ) {
-				$args['include'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['include'] ) ) );
+				$include = is_array( $atts['include'] ) ? $atts['include'] : explode( ',', $atts['include'] );
+				$args['include'] = array_map( 'intval', array_map( 'trim', $include ) );
 			}
 
 			// If $exclude parameter is defined.
 			if( $atts['exclude'] ) {
-				$args['exclude'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['exclude'] ) ) );
+				$exclude = is_array( $atts['exclude'] ) ? $atts['exclude'] : explode( ',', $atts['exclude'] );
+				$args['exclude'] = array_map( 'intval', array_map( 'trim', $exclude ) );
 			}
 
 			// If $has_published_posts parameter is defined.
