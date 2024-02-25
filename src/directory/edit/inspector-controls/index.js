@@ -18,8 +18,8 @@ import { cleanForSlug } from '@wordpress/url';
 /**
  * Local dependencies
  */
-import OrderControls from './order-controls';
-import RoleControl from './role-control';
+import { OrderControls, RoleControl } from '../../controls';
+import { RoleControl } from '../../controls';
 
 /**
  * Block controls for the User Query.

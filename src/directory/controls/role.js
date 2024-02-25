@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useEntityRecord } from '@wordpress/core-data';
 import { FormTokenField } from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 
 export default function RoleControl( { value, onChange } ) {
 
@@ -15,7 +16,7 @@ export default function RoleControl( { value, onChange } ) {
 	const userRoles = record?.registered_roles ?? [];
 
 	if ( ! hasResolved ) {
-		return;
+		return <Spinner />;
 	}
 
 	/**
@@ -63,10 +64,17 @@ export default function RoleControl( { value, onChange } ) {
 
 	return (
 		<FormTokenField
+			__experimentalExpandOnFocus
 			label={ __( 'Roles', 'simple-user-listing' ) }
 			value={ sanitizedValue } // Needs to be an array of labels.
 			suggestions={ suggestions } // Needs to be an array of labels.
 			onChange={ onRoleChange }
+			messages={{
+				added: __('Role added', 'simple-user-listing'),
+				remove: __('Remove role', 'simple-user-listing'),
+				removed: __('Role removed', 'simple-user-listing')
+			}}
+			__experimentalShowHowTo={ false }
 		/>
 	);
 }
