@@ -41,14 +41,6 @@ export default function QueryPanel ( { attributes, setAttributes } ) {
 	return (
         <>
             <PanelBody title={__('User Query Settings', 'simple-user-listing')}>
-                <ToggleControl
-                    label={__('Display all users', 'simple-user-listing')}
-                    help= {__('Toggle to show all site users. Disable to limit display to certain users.', 'simple-user-listing')}
-                    checked={showAllUsers}
-                    onChange={() => {
-                        setAttributes({ showAllUsers: !showAllUsers });
-                    }}
-                />
 
                 <RangeControl
                     label={__('Users per page', 'simple-user-listing')}
@@ -92,6 +84,15 @@ export default function QueryPanel ( { attributes, setAttributes } ) {
                         let cleanValue = cleanForSlug( value );
                         setAttributes( { queryId: cleanValue } )
                     } }
+                />
+
+                <ToggleControl
+                    label={__('Display all users', 'simple-user-listing')}
+                    help= {__('Toggle to show all site users. Disable to limit display to certain users.', 'simple-user-listing')}
+                    checked={showAllUsers}
+                    onChange={() => {
+                        setAttributes({ showAllUsers: !showAllUsers });
+                    }}
                 />
             </PanelBody>
 
