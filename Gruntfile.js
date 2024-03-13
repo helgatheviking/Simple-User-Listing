@@ -119,5 +119,6 @@ module.exports = function(grunt) {
   grunt.registerTask( 'build', [ 'replace', 'clean', 'copy' ] );
   grunt.registerTask( 'deploy', [ 'build', 'compress' ] );
   grunt.registerTask( 'release', [ 'deploy', 'clean' ] );
+  grunt.registerTask( 'zip', [ 'clean', 'copy', 'compress' ] );
 
 };

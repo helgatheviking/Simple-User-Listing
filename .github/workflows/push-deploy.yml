@@ -59,7 +59,7 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: "Sets up Composer Caching."
-        uses: "actions/cache@v3"
+        uses: "actions/cache@v4"
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-composer-build-${{ hashFiles('**/composer.lock') }}
@@ -86,7 +86,7 @@ jobs:
           echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
 
       - name: "Sets up NPM Caching."
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
           key: ${{ runner.os }}-node-npm-build-${{ hashFiles('**/package-lock.json') }}
