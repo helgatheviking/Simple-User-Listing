@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/kathyisawesome
 Tags: users, authors, directory
 Requires at least: 6.1.0
 Tested up to: 6.3.0
-Stable tag: 2.0.0-beta.1
+Stable tag: 2.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -249,8 +249,12 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
+= 2.0.0 =
+* New: Introduce first pass at block editor support. Supports relatively simple queries only. Complex queries (including based on user meta) will still need to use the shortcode.
+
 = 1.9.3 =
 * Fix: Additional sanitization/security fixes. Props @WPprodigy.
+
 = 1.9.2 =
 * Fix: Sanitize 'as' input value in search-author.php form.
 

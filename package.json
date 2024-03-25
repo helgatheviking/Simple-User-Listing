@@ -1,8 +1,8 @@
 {
   "title": "Simple User Listing",
   "name": "simple-user-listing",
-  "version": "2.0.0-beta.1",
-  "description": "A shortcode and block for displaying paginated lists of users",
+  "version": "2.0.0",
+  "description": "Display a directory WordPress users",
   "main": "Gruntfile.js",
   "license": "GPL-3.0",
   "repository": {

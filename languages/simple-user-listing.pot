@@ -1,36 +1,72 @@
-# Copyright (C) 2022 Kathy Darling
+# Copyright (C) 2024 Kathy Darling
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple User Listing 1.9.1\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/Simple-User-Listing\n"
-"POT-Creation-Date: 2022-04-09 15:42:23+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: Simple User Listing 2.0.0-beta.1\n"
+"Report-Msgid-Bugs-To: https://github.com/helgatheviking/simple-user-listing/issues/new/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-03-25T14:23:07-04:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: simple-user-listing\n"
 
-#: includes/simple-user-listing-template-functions.php:161
+#. Plugin Name of the plugin
+#: simple-user-listing.php
+msgid "Simple User Listing"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: simple-user-listing.php
+msgid "http://www.kathyisawesome.com/489/simple-user-listing/"
+msgstr ""
+
+#. Description of the plugin
+#: simple-user-listing.php
+msgid "Display a directory WordPress users."
+msgstr ""
+
+#. Author of the plugin
+#: simple-user-listing.php
+msgid "Kathy Darling"
+msgstr ""
+
+#. Author URI of the plugin
+#: simple-user-listing.php
+msgid "http://kathyisawesome.com"
+msgstr ""
+
+#: includes/simple-user-listing-template-functions.php:164
 msgid "Read posts by %s"
 msgstr ""
 
-#: includes/simple-user-listing-template-functions.php:240
+#: includes/simple-user-listing-template-functions.php:194
+msgctxt "number of posts"
+msgid "1 post"
+msgid_plural "%s posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/simple-user-listing-template-functions.php:243
 msgid "Company: %s"
 msgstr ""
 
-#: simple-user-listing.php:79
+#: simple-user-listing.php:77
 msgid "Cloning this object is forbidden."
 msgstr ""
 
-#: simple-user-listing.php:88
+#: simple-user-listing.php:86
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: simple-user-listing.php:508
+#: simple-user-listing.php:166
+msgid "Limit result set to users that do not match at least one specific role provided."
+msgstr ""
+
+#: simple-user-listing.php:622
 msgid "Donate"
 msgstr ""
 
@@ -47,52 +83,195 @@ msgid "Next <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
 #: templates/none-author.php:13
+#: dist/directory/index.js:9
 msgid "No users found"
 msgstr ""
 
-#: templates/search-author.php:20
-msgid "Search authors by name"
+#: templates/search-author.php:19
+#: dist/directory/index.js:9
+msgid "Search users by name"
 msgstr ""
 
-#: templates/search-author.php:22
+#: templates/search-author.php:21
+#: dist/directory/index.js:9
 msgid "Search"
 msgstr ""
 
-#: templates/search-author.php:23 templates/search-author.php:24
-msgid "Search Authors"
+#: templates/search-author.php:22
+#: templates/search-author.php:23
+#: dist/directory/index.js:9
+msgid "Search users"
 msgstr ""
 
-#: templates/search-author.php:28
+#: templates/search-author.php:27
 msgid "Search Results for: %s"
 msgstr ""
 
-#: templates/search-author.php:29
+#: templates/search-author.php:28
 msgid "Back To Author Listing"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "Simple User Listing"
+#: dist/directory/index.js:1
+msgid "Layout"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "http://www.kathyisawesome.com/489/simple-user-listing/"
+#: dist/directory/index.js:1
+msgid "Columns"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid "Create a simple shortcode to list our WordPress users."
+#: dist/directory/index.js:1
+msgid "Roles"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "Kathy Darling"
+#: dist/directory/index.js:1
+msgid "Role added"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "http://kathyisawesome.com"
+#: dist/directory/index.js:1
+msgid "Remove role"
 msgstr ""
 
-#: includes/simple-user-listing-template-functions.php:191
-msgctxt "number of posts"
-msgid "1 post"
-msgid_plural "%s posts"
-msgstr[0] ""
-msgstr[1] ""
+#: dist/directory/index.js:1
+msgid "Role removed"
+msgstr ""
+
+#: dist/directory/index.js:1
+msgid "Users"
+msgstr ""
+
+#: dist/directory/index.js:1
+msgid "User added"
+msgstr ""
+
+#: dist/directory/index.js:1
+msgid "Remove User"
+msgstr ""
+
+#: dist/directory/index.js:1
+msgid "User removed"
+msgstr ""
+
+#. translators: label for ordering users by name.
+#: dist/directory/index.js:3
+msgid "Display name"
+msgstr ""
+
+#: dist/directory/index.js:3
+msgid "User name"
+msgstr ""
+
+#. translators: label for ordering users by User ID
+#: dist/directory/index.js:5
+msgid "User ID"
+msgstr ""
+
+#. translators: label for ordering users in ascending order.
+#: dist/directory/index.js:7
+msgid "Ascending, ex: A → Z"
+msgstr ""
+
+#. translators: label for ordering users in descending order.
+#: dist/directory/index.js:9
+msgid "Descending, ex: Z → A"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "User Query Settings"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Users per page"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Order by"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Order"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Query ID"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Custom `query_id` for advanced usage."
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Display all users"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Toggle to show all site users. Disable to limit display to certain users."
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Filter Users"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "By roles"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Exclude roles"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "By user"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "Exclude users"
+msgstr ""
+
+#: dist/directory/index.js:9
+msgid "User Roles"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block description"
+msgid "List the site's users"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block keyword"
+msgid "authors"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block keyword"
+msgid "directory"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block keyword"
+msgid "listing"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block keyword"
+msgid "user"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block title"
+msgid "User Directory"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block style label"
+msgid "Unstyled"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block style label"
+msgid "Grid"
+msgstr ""
+
+#: dist/directory/block.json
+msgctxt "block style label"
+msgid "List"
+msgstr ""

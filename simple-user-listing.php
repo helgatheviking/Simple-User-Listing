@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple User Listing
  * Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
- * Description: Create a simple shortcode to list our WordPress users.
+ * Description: Display a directory WordPress users.
  * Author: Kathy Darling
  * Version: 2.0.0-beta.1
  * Author URI: http://kathyisawesome.com
