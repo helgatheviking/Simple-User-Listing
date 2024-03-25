@@ -4,7 +4,7 @@
  * Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
  * Description: Display a directory WordPress users.
  * Author: Kathy Darling
- * Version: 2.0.1-beta.1
+ * Version: 2.0.2
  * Author URI: http://kathyisawesome.com
  * License: GPL2
  * Text Domain: simple-user-listing
