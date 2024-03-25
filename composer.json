@@ -1,0 +1,13 @@
+{
+    "require-dev": {
+        "wp-cli/i18n-command": "^2.6"
+    },
+    "scripts": {
+        "makepot-audit": [
+            "wp --allow-root i18n make-pot . languages/free_gift_coupons.pot --slug=wc_free_gift_coupons --exclude=\".github,.wordpress-org,node_modules,vendor,src,build,deploy\" --headers=\"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n\""
+        ],
+        "makepot": [
+            "@makepot-audit --skip-audit"
+        ]
+     }
+}

@@ -3,6 +3,7 @@
 /.github
 /node_modules
 /build
+/src
 
 *.sublime-project
 *.afdesign

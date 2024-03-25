@@ -1,0 +1,77 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "center"
+        },
+        "columns": {
+            "type": "number",
+            "default": 2
+        },
+        "excludeRoles": {
+            "type": "boolean",
+            "default": false
+        },
+        "excludeUsers": {
+            "type": "boolean",
+            "default": false
+        },
+        "showAllUsers": {
+            "type": "boolean",
+            "default": true
+        },
+        "order": {
+            "type": "string",
+            "default": "asc"
+        },
+        "orderBy": {
+            "type": "string",
+            "default": "name"
+        },
+        "roles": {
+            "type": "string",
+            "default": ""
+        },
+        "users": {
+            "type": "string",
+            "default": ""
+        },
+        "usersPerPage": {
+            "type": "number",
+            "default": 10
+        },
+        "queryId": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "category": "design",
+    "description": "List the site's users",
+    "editorScript": "file:index.js",
+    "icon": "id",
+    "keywords": [
+        "authors",
+        "directory",
+        "listing",
+        "user"        
+    ],
+    "name": "simple-user-listing/directory-block",
+    "render": "file:render.php",
+    "supports": {
+        "anchor": true,
+		"align": true,
+		"className": true,
+        "html": false
+    },
+    "textdomain": "simple-user-listing",
+    "title": "User Directory",
+	"styles": [
+        { "name": "unstyled", "label": "Unstyled" },
+        { "name": "grid", "label": "Grid" },
+		{ "name": "list", "label": "List", "isDefault": true }
+    ],
+    "style": [ "file:./style-index.css" ],
+    "version": "1.0.0"
+}

@@ -41,8 +41,6 @@ global $user;
 
 	/**
 	 * Hook: sul_after_user_loop_author_title.
-	 *
-	 * @hooked sul_template_loop_price - 10
 	 */
 	do_action( 'sul_after_user_loop_author_title', $user );
 

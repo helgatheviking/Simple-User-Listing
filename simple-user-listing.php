@@ -1,38 +1,36 @@
 <?php
-/*
-Plugin Name: Simple User Listing
-Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
-Description: Create a simple shortcode to list our WordPress users.
-Author: Kathy Darling
-Version: 1.9.3
-Author URI: http://kathyisawesome.com
-License: GPL2
-Text Domain: simple-user-listing
-
-Copyright 2015  Kathy Darling  (email: kathy.darling@gmail.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as
-published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
-/*
- * adapted from: Cristian Antohe
+/**
+ * Plugin Name: Simple User Listing
+ * Plugin URI: http://www.kathyisawesome.com/489/simple-user-listing/
+ * Description: Create a simple shortcode to list our WordPress users.
+ * Author: Kathy Darling
+ * Version: 2.0.0-beta.1
+ * Author URI: http://kathyisawesome.com
+ * License: GPL2
+ * Text Domain: simple-user-listing
+ * 
+ * Copyright 2024  Kathy Darling				
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * Adapted from: Cristian Antohe
  * http://wp.smashingmagazine.com/2012/06/05/front-end-author-listing-user-search-wordpress/
  */
 
 if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
-	class Simple_User_Listing {
+	final class Simple_User_Listing {
 
 		/**
 		 * The single instance of the class.
@@ -76,7 +74,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.8.0
 		 */
 		public function __clone() {
-			_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'simple-user-listing' ) );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning this object is forbidden.', 'simple-user-listing' ) );
 		}
 
 		/**
@@ -85,17 +83,32 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.8.0
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'simple-user-listing' ) );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'simple-user-listing' ) );
 		}
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public function __construct() {
+			$this->add_hooks();		
+		}
+
+		/**
+		 * Attach plugin hooks and filters.
+		 * 
+		 * @since 2.0.0
+		 */
+		private function add_hooks() {
 
 			add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
 
 			add_action( 'init', array( $this, 'load_text_domain' ) );
+			add_action( 'init', array( $this, 'register_blocks' ) );
+
+			add_filter( 'rest_user_collection_params', array( $this, 'rest_user_collection_params' ) );
+			add_filter( 'rest_user_query', array( $this, 'rest_user_query' ), 10, 2 );
+			add_action('rest_api_init', array( $this, 'register_api_endpoint' ) );
+
 			add_shortcode( 'userlist', array( $this, 'shortcode_callback' ) );
 
 			add_filter( 'query_vars', array( $this, 'user_query_vars' ) );
@@ -105,9 +118,18 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			add_action( 'delete_user', array( $this, 'delete_user_transients' ) );
 			add_action( 'save_post', array( $this, 'delete_user_transients' ) );
 
-			// add Donate link to plugin
+			// Add Donate link to plugin.
 			add_filter( 'plugin_row_meta', array( $this, 'add_meta_links' ), 10, 2 );
-			
+		}
+
+		/**
+		 * Include functions/hooks.
+		 *
+		 * @since 1.9.1
+		 */
+		public function theme_includes() {
+			include_once( 'includes/simple-user-listing-template-functions.php' );
+			include_once( 'includes/simple-user-listing-template-hooks.php' );
 		}
 
 		/**
@@ -120,16 +142,103 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			load_plugin_textdomain( 'simple-user-listing', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
+		/**
+		 * Register blocks.
+		 *
+		 * @since 2.0.0
+		 */
+		public function register_blocks() {
+			register_block_type( __DIR__ . '/dist/directory' );
+		}
 
 		/**
-		 * Include functions/hooks.
+		 * Add `login` to REST API collection orderby params.
 		 *
-		 * @since 1.9.1
+		 * @since 2.0.0
+		 * 
+		 * @param array $query_params JSON Schema-formatted collection parameters.
+		 * @return array
 		 */
-		public function theme_includes() {
-			include_once( 'includes/simple-user-listing-template-functions.php' );
-			include_once( 'includes/simple-user-listing-template-hooks.php' );
+		public function rest_user_collection_params( $query_params ) {
+			$query_params['orderby']['enum'][] = 'login';
+
+			$query_params['roles__not_in'] = array(
+				'description' => __( 'Limit result set to users that do not match at least one specific role provided.', 'simple-user-listing' ),
+				'type'        => 'array',
+				'items'       => array(
+					'type' => 'string',
+				),
+			);
+
+			return $query_params;
 		}
+
+		/**
+		 * Add `role__not_in` support to to REST API collection query.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @param array           $prepared_args Array of arguments for WP_User_Query.
+		 * @param WP_REST_Request $request       The REST API request.
+		 * @return array
+		 */
+		public function rest_user_query( $prepared_args, $request ) {
+			$query_params['orderby']['enum'][] = 'login';
+
+			if ( ! empty( $request['roles__not_in'] ) ) {
+				$prepared_args['role__not_in'] = $request['roles__not_in'];
+			}
+			return $prepared_args;
+		}
+
+		/**
+		 * Add custom REST API endpoint to fetch user roles.
+		 *
+		 * @since 2.0.0
+		 */
+		public function register_api_endpoint() {
+			register_rest_route('simple-user-listing/v1', '/user-roles', array(
+				'methods' => 'GET',
+				'callback' => array( $this, 'get_rest_response' ),
+				'permission_callback' => function() { return current_user_can( 'edit_posts' ); },
+			) );
+		}
+
+		/**
+		 * Rest callback.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @return array
+		 */
+		public function get_rest_response() {
+
+			$response = array(
+				'registered_roles' => $this->get_user_roles(),
+			);
+
+			return rest_ensure_response( $response );
+		}
+
+		/**
+		 * Retrieve user roles.
+		 *
+		 * @since 2.0.0
+		 * 
+		 * @return array
+		 */
+		private function get_user_roles() {
+
+			/**
+			 * Filters the list of editable roles.
+			 *
+			 * @since 2.8.0
+			 *
+			 * @param string[] $all_roles Are a name=>label pair.
+			 */
+			return apply_filters( 'simple_user_listing_roles', wp_roles()->role_names );
+
+		}		
 			
 		/**
 		 * Get the plugin path.
@@ -172,11 +281,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * Callback for the shortcode
 		 *
 		 * @since 1.0
+		 * 
 		 * @param  array $atts shortcode attributes
 		 * @param  string $content shortcode content, null for this shortcode
 		 * @return string
 		 */
-		public function shortcode_callback( $atts, $content = null ) {
+		public function shortcode_callback( $atts = array(), $content = null ) {
 			global $post, $sul_users;
 
 			$defaults = array(
@@ -228,37 +338,41 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			);
 
 			// If $role parameter is defined.
-			if( $atts['role'] ){
+			if( $atts['role'] ) {
 				$args['role'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role'] ) ) );
 			}
 
 			// If $role__in parameter is defined.
-			if( $atts['role__in'] ){
-				$args['role__in'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role__in'] ) ) );
+			if( $atts['role__in'] ) {
+				$role__in = is_array( $atts['role__in'] ) ? $atts['role__in'] : explode( ',', $atts['role__in'] );
+				$args['role__in'] = array_map( 'sanitize_text_field', array_map( 'trim', $role__in ) );
 			}
 
 			// If $role__not_in parameter is defined.
-			if( $atts['role__not_in'] ){
-				$args['role__not_in'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['role__not_in'] ) ) );
+			if( $atts['role__not_in'] ) {
+				$role__not_in = is_array( $atts['role__not_in'] ) ? $atts['role__not_in'] : explode( ',', $atts['role__not_in'] );
+				$args['role__not_in'] = array_map( 'sanitize_text_field', array_map( 'trim', $role__not_in ) );
 			}
 
 			// If $blog_id parameter is defined.
-			if( $atts['blog_id'] ){
+			if( $atts['blog_id'] ) {
 				$args['blog_id'] = intval( $atts['blog_id'] );
 			}
 
 			// If $include parameter is defined.
-			if( $atts['include'] ){
-				$args['include'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['include'] ) ) );
+			if( $atts['include'] ) {
+				$include = is_array( $atts['include'] ) ? $atts['include'] : explode( ',', $atts['include'] );
+				$args['include'] = array_map( 'intval', array_map( 'trim', $include ) );
 			}
 
 			// If $exclude parameter is defined.
-			if( $atts['exclude'] ){
-				$args['exclude'] = array_map( 'intval', array_map( 'trim', explode( ',', $atts['exclude'] ) ) );
+			if( $atts['exclude'] ) {
+				$exclude = is_array( $atts['exclude'] ) ? $atts['exclude'] : explode( ',', $atts['exclude'] );
+				$args['exclude'] = array_map( 'intval', array_map( 'trim', $exclude ) );
 			}
 
 			// If $has_published_posts parameter is defined.
-			if( $atts['has_published_posts'] ){
+			if( $atts['has_published_posts'] ) {
 				$args['has_published_posts'] = array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $atts['has_published_posts'] ) ) );
 			}
 			
@@ -272,12 +386,12 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 													'type'      => $atts['meta_type'],
 												),
 											);
-			} elseif( $atts['meta_key'] ){
+			} elseif( $atts['meta_key'] ) {
 				$args['meta_key'] = $atts['meta_key'];
 			}
 
 			// Generate the query based on search field.
-			if ( $search ){
+			if ( $search ) {
 				$args['search'] = '*' . $search . '*';
 			}
 
@@ -330,7 +444,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @return array
 		 */
 		public function user_query_vars( $query_vars )	{
-			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ){
+			if( is_array( $this->allowed_search_vars() ) ) foreach( $this->allowed_search_vars() as $var ) {
 				$query_vars[] = $var;
 			}
 			return $query_vars;
@@ -342,13 +456,13 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return number
 		 */
-		public function get_total_user_pages(){
+		public function get_total_user_pages() {
 
 			global $sul_users;
 
 			$total_pages = 1;
 
-			if( $sul_users && ! is_wp_error( $sul_users ) ){
+			if( $sul_users && ! is_wp_error( $sul_users ) ) {
 
 				// Get the total number of authors. Based on this, offset and number per page, we'll generate our pagination.
 				$total_authors = $sul_users->get_total();
@@ -371,7 +485,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return URL string
 		 */
-		public function get_previous_users_url(){
+		public function get_previous_users_url() {
 			global $sul_users;
 
 			// Get Query Var for pagination. This already exists in WordPress.
@@ -397,7 +511,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.3.0
 		 * @return URL string
 		 */
-		public function get_next_users_url(){
+		public function get_next_users_url() {
 			global $sul_users;
 
 			// Get Query Var for pagination. This already exists in WordPress
@@ -422,7 +536,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.9.0
 		 * @return URL string
 		 */
-		public function get_current_url(){
+		public function get_current_url() {
 			return apply_filters( 'sul_base_url', home_url( add_query_arg( null, null ) ) );
   		}
 
@@ -433,7 +547,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @param  string $url the permalink to which we should add the allowed $_GET variables
 		 * @return URL string
 		 */
-		public function add_search_args( $url ){
+		public function add_search_args( $url ) {
 			global $sul_users;
 
 			// If this is a search query, preserve the query args.
@@ -504,7 +618,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		* @since 1.8.0
 		*/
 		public function add_meta_links( $plugin_meta, $plugin_file ) {
-			if( $plugin_file == plugin_basename(__FILE__) ){
+			if( $plugin_file == plugin_basename(__FILE__) ) {
 				$plugin_meta[] = '<a class="dashicons-before dashicons-awards" href="' . self::DONATE_URL . '" target="_blank">' . __( 'Donate', 'simple-user-listing' ) . '</a>';
 			}
 			return $plugin_meta;
@@ -598,8 +712,8 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.0.0
 		 * @deprecated 1.9.1
 		 */
-		function add_nav(){
-			_deprecated_function( 'Simple_User_Listing::attach_hooks()', '1.9.1', 'sul_template_user_navigation()' );
+		function add_nav() {
+			_deprecated_function( 'Simple_User_Listing::add_nav()', '1.9.1', 'sul_template_user_navigation()' );
 			return sul_template_user_navigation();
 		}
 

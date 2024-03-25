@@ -1,0 +1,56 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .wp-block-simple-user-listing-directory-block {
+
+	.author-search {
+		margin-bottom: 2em;
+	}
+
+	&.is-style-grid {
+
+		.user-list-wrap {
+			display: grid;
+			grid-gap: 20px;
+		}
+
+		&.columns-2 .user-list-wrap {
+			grid-template-columns: repeat(2, 1fr);		
+		}
+
+		&.columns-3 .user-list-wrap {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&.columns-4 .user-list-wrap {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+	}
+
+	&.is-style-list .user-list-wrap {
+		display: flex;
+		flex-direction: column;
+
+		.author-block {
+			.avatar {
+				float: left;
+				margin-right: 1em;
+			}
+	
+			.author-name {
+				clear: none;
+			}
+	
+			.author-description {
+				clear: both;
+			}
+		}
+
+	}
+
+}

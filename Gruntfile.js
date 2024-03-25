@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
 	clean: {
 		//Clean up build folder
-		main: ['build/<%= pkg.name %>']
+		main: ['build/**']
 	},
 
 	copy: {
@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 				'!.git/**','!.gitignore','!.gitmodules',
 				'!tests/**',
 				'!vendor/**',
+				'!src/**',
 				'!Gruntfile.js','!package.json','!package-lock.json',
 				'!composer.lock','!composer.phar','!composer.json',
 				'!CONTRIBUTING.md',
@@ -39,9 +40,23 @@ module.exports = function(grunt) {
 				'!.wordpress-org/**',
 				'!.github/**',
 			],
-			dest: 'build/<%= pkg.name %>/'
+			dest: 'build/'
 		},
-	}, 
+	},
+
+	// Make a zipfile.
+	compress: {
+		main: {
+			options: {
+				mode: 'zip',
+				archive: 'deploy/<%= pkg.name %>-<%= pkg.version %>.zip',
+			},
+			expand: true,
+			cwd: 'build/',
+			dest: '<%= pkg.name %>',
+			src: [ '**/*' ]
+		},
+	},
 
 	// bump version numbers
 	replace: {
@@ -98,23 +113,12 @@ module.exports = function(grunt) {
 		}
 	},
 
-	// Generate .pot file
-	makepot: {
-		target: {
-			options: {
-				domainPath: '/languages', // Where to save the POT file.
-				exclude: ['build'], // List of files or directories to ignore.
-				mainFile: '<%= pkg.name %>.php', // Main project file.
-				potFilename: '<%= pkg.name %>.pot', // Name of the POT file.
-				type: 'wp-plugin' // Type of project (wp-plugin or wp-theme).
-			}
-		}
-	},
+  });
 
-});
-
-grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
-grunt.registerTask( 'build', [ 'replace', 'makepot' ] );
-grunt.registerTask( 'release', [ 'build', 'clean', 'copy' ] );
+  grunt.registerTask( 'docs', [ 'wp_readme_to_markdown'] );
+  grunt.registerTask( 'build', [ 'replace', 'clean', 'copy' ] );
+  grunt.registerTask( 'deploy', [ 'build', 'compress' ] );
+  grunt.registerTask( 'release', [ 'deploy', 'clean' ] );
+  grunt.registerTask( 'zip', [ 'clean', 'copy', 'compress' ] );
 
 };

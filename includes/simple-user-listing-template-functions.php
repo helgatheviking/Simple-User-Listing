@@ -2,6 +2,9 @@
 
 /**
  * Simple User Listing Template Functions.
+ * 
+ * @since 1.0.0
+ * @version 2.0.0
  *
  * @package     Simple User Listing/Functions/Templates
  * @author      Kathy Darling
@@ -191,7 +194,7 @@ function sul_template_loop_author_name( $user ) {
 		$display_name .= ' <span class="post-count"><span class="hyphen">-</span>' . sprintf( _nx( '1 post', '%s posts', $num_posts, 'number of posts', 'simple-user-listing' ), $num_posts ) . '</span>';
 	}
 
-	echo '<h2>'. $display_name . '</h2>';
+	echo '<h2 class="author-name">'. $display_name . '</h2>';
 }
 
 /**
@@ -220,7 +223,7 @@ function sul_template_loop_author_description( $user ) {
 	$description = get_user_meta( $user->ID, 'description', true );
 
 	if ( $description ) {
-		echo '<p>' . wp_kses_post( $description ) . '</p>';
+		echo '<p class="author-description">' . wp_kses_post( $description ) . '</p>';
 	}
 
 }
