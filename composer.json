@@ -4,10 +4,15 @@
     },
     "scripts": {
         "makepot-audit": [
-            "wp --allow-root i18n make-pot . languages/free_gift_coupons.pot --slug=wc_free_gift_coupons --exclude=\".github,.wordpress-org,node_modules,vendor,src,build,deploy\" --headers=\"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n\""
+            "wp --allow-root i18n make-pot . languages/simple-user-listing.pot --slug=simple-user-listing --exclude=\".github,.wordpress-org,node_modules,vendor,src,build,deploy\" --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/helgatheviking/simple-user-listing/issues/new/\"}'"
         ],
         "makepot": [
             "@makepot-audit --skip-audit"
         ]
-     }
+     },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }
