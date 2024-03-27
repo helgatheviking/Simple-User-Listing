@@ -6,7 +6,7 @@
  * Author: Kathy Darling
  * Version: 2.0.2
  * Author URI: http://kathyisawesome.com
- * License: GPL2
+ * License: GPL3
  * Text Domain: simple-user-listing
  * 
  * Copyright 2024  Kathy Darling				
