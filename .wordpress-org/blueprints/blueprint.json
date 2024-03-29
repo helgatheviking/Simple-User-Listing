@@ -28,6 +28,10 @@
             }
         },
         {
+            "step": "activateTheme",
+            "themeFolderName": "twentytwentyfour"
+        },
+        {
             "step": "wp-cli",
             "command": "wp user create helga helga@mailinator.com --role=subscriber --user_pass=password --display_name=\"Helga The Viking\" --description=\"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\" --send-email=false"
         },
