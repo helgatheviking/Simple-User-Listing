@@ -39,6 +39,7 @@ module.exports = function(grunt) {
 				'!README.md',
 				'!.wordpress-org/**',
 				'!.github/**',
+				'!.demo-content/**',
 			],
 			dest: 'build/'
 		},
