@@ -143,5 +143,5 @@ jobs:
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SLUG: simple-user-listing
+          SLUG: ${{ env.release_name }}
           BUILD_DIR: ./build
