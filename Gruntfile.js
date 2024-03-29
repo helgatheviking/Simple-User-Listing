@@ -37,9 +37,10 @@ module.exports = function(grunt) {
 				'!languages/.tx',
 				'!languages/tx.exe',
 				'!README.md',
+				'!readme.md',
 				'!.wordpress-org/**',
 				'!.github/**',
-				'!.demo-content/**',
+				'!demo-content/**',
 			],
 			dest: 'build/'
 		},
