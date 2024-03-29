@@ -1,14 +1,12 @@
 # Simple User Listing  #
-**Contributors:** [helgatheviking](https://profiles.wordpress.org/helgatheviking/)  
-**Donate link:** https://www.paypal.me/kathyisawesome  
-**Tags:** users, authors, directory  
-**Requires at least:** 6.1.0  
-**Tested up to:** 6.5.0  
-**Stable tag:** 2.0.2  
-**License:** GPLv3 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-3.0.html  
 
 A shortcode for displaying paginated lists of users.
+
+This is a developmental repo. Clone this repo and run `npm install && npm run release`   
+OR    
+|[Download latest release](https://github.com/helgatheviking/kia-subtitle/releases/latest)|
+
+
 
 ## Description ##
 
