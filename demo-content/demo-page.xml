@@ -31,7 +31,7 @@
 			<title><![CDATA[Simple User Listing Block]]></title>
 			<link>https://sandbox.lndo.site/simple-user-listing-block/</link>
 			<pubDate>Tue, 20 Feb 2024 16:27:07 +0000</pubDate>
-			<dc:creator><![CDATA[helga]]></dc:creator>
+			<dc:creator><![CDATA[admin]]></dc:creator>
 			<guid isPermaLink="false">https://sandbox.lndo.site/?page_id=2025</guid>
 			<description></description>
 			<content:encoded><![CDATA[<!-- wp:simple-user-listing/directory-block {"columns":3,"showAllUsers":false,"roles":"subscriber","usersPerPage":9,"className":"is-style-grid"} /-->]]></content:encoded>
