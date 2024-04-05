@@ -31,7 +31,7 @@
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "url",
-                "url": "https:\/\/github.com\/helgatheviking\/simple-user-listing-demo-avatars\/releases\/download\/1.0.0\/simple-user-listing-demo-avatars.1.0.0.zip"
+                "url": "https:\/\/raw.githubusercontent.com\/helgatheviking\/simple-user-listing-demo-avatars\/trunk\/deploy\/simple-user-listing-demo-avatars.1.0.0.zip"
             },
             "options": {
                 "activate": true
