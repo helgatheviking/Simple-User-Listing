@@ -6,3 +6,4 @@ build/
 .cache/
 *.sublime-workspace
 dist/
+demo-content/avatars
