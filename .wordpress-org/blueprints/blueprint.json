@@ -28,14 +28,17 @@
             }
         },
         {
-            "step": "installPlugin",
-            "pluginZipFile": {
-                "resource": "url",
-                "url": "https:\/\/raw.githubusercontent.com\/helgatheviking\/simple-user-listing-demo-avatars\/trunk\/deploy\/simple-user-listing-demo-avatars.1.0.0.zip"
-            },
-            "options": {
-                "activate": true
-            }
+            "step": "mkdir",
+            "path": "/wordpress/wp-content/plugins/simple-user-listing-demo-avatars"
+        },
+        {
+            "step": "writeFile",
+            "path": "/wordpress/wp-content/plugins/simple-user-listing-demo-avatars/plugin.php",
+            "data": "<?php\n/*\nPlugin Name: Simple User Listing - Demo Avatars\nDescription: Use Picsum.photos to generate some random random avatars\nVersion: 1.0\nAuthor: helgatheviking\n*/\n\nfunction simple_user_listing_random_avatars($args) {\n    $args['url'] = 'https:\/\/picsum.photos\/120?random='. uniqid();\n return $args;\n}\n\nadd_filter('pre_get_avatar_data', 'simple_user_listing_random_avatars');"
+        },
+        {
+            "step": "activatePlugin",
+            "pluginPath": "simple-user-listing-demo-avatars/plugin.php"
         },
         {
             "step": "activateTheme",
