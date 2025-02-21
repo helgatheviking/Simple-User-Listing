@@ -4,7 +4,7 @@
  * Simple User Listing Template Functions.
  * 
  * @since 1.0.0
- * @version 2.0.0
+ * @version 2.0.4
  *
  * @package     Simple User Listing/Functions/Templates
  * @author      Kathy Darling
@@ -173,7 +173,14 @@ function sul_template_loop_author_link_open( $user ) {
  * @param WP_User $user
  */
 function sul_template_loop_author_avatar( $user ) {
-	echo get_avatar( $user->ID, 90 );
+	/**
+	 * Filter the author avatar size.
+	 *
+	 * @since 2.0.4
+	 * @param int $size
+	 */
+	$size = apply_filters( 'sul_author_avatar_size', 128 );
+	echo get_avatar( $user->ID, $size );
 }
 
 /**

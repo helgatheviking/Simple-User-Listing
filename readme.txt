@@ -249,6 +249,9 @@ add_action( 'simple_user_listing_after_loop', 'kia_restore_s2' );
 
 == Changelog ==
 
+= 2.0.4 =
+* New: Introduce `sul_author_avatar_size` filter.
+
 = 2.0.3 =
 * Fix: No plugin changes. Fix SVN chaos caused by autodeploy scripts.
 
