@@ -133,7 +133,7 @@
 		<wp:author>
 			<wp:author_login><![CDATA[crona.shayna]]></wp:author_login>
 			<wp:author_email><![CDATA[shayna.crona@example.org]]></wp:author_email>
-			<wp:author_display_name><![CDATA[Shayna]]></wp:author_display_name>
+			<wp:author_display_name><![CDATA[Shayna Crona]]></wp:author_display_name>
 			<wp:author_first_name><![CDATA[Shayna]]></wp:author_first_name>
 			<wp:author_last_name><![CDATA[Crona]]></wp:author_last_name>
 			<wp:author_description><![CDATA[desc]]></wp:author_description>
@@ -141,7 +141,7 @@
 		<wp:author>
 			<wp:author_login><![CDATA[grimz]]></wp:author_login>
 			<wp:author_email><![CDATA[bgrimes@example.net]]></wp:author_email>
-			<wp:author_display_name><![CDATA[Brandi]]></wp:author_display_name>
+			<wp:author_display_name><![CDATA[Brandi Grimes]]></wp:author_display_name>
 			<wp:author_first_name><![CDATA[Brandi]]></wp:author_first_name>
 			<wp:author_last_name><![CDATA[Grimes]]></wp:author_last_name>
 			<wp:author_description><![CDATA[Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.]]></wp:author_description>
@@ -149,12 +149,10 @@
 		<generator>https://wordpress.org/?v=6.4.3</generator>
 		<item>
 			<title><![CDATA[Simple User Listing Block]]></title>
-			<link>https://sandbox.lndo.site/simple-user-listing-block/</link>
 			<pubDate>Tue, 20 Feb 2024 16:27:07 +0000</pubDate>
 			<dc:creator><![CDATA[helga]]></dc:creator>
-			<guid isPermaLink="false">https://sandbox.lndo.site/?page_id=2025</guid>
 			<description></description>
-			<content:encoded><![CDATA[<!-- wp:simple-user-listing/directory-block {"columns":3,"showAllUsers":false,"roles":"subscriber","usersPerPage":9,"className":"is-style-grid"} /-->]]></content:encoded>
+			<content:encoded><![CDATA[<!-- wp:simple-user-listing/directory-block {"columns":3,"roles":"subscriber","usersPerPage":9,"className":"is-style-grid"} /-->]]></content:encoded>
 			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 			<wp:post_id>2025</wp:post_id>
 			<wp:post_date><![CDATA[2024-02-20 16:27:07]]></wp:post_date>

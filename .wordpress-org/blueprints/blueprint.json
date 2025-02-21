@@ -2,114 +2,72 @@
     "$schema": "https://playground.wordpress.net/blueprint-schema.json",
     "landingPage": "/wp-admin/post.php?post=2025&action=edit",
     "preferredVersions": {
-        "php": "8.2",
-        "wp": "latest"
+      "php": "8.2",
+      "wp": "latest"
     },
-    "phpExtensionBundles": [
-        "kitchen-sink"
-    ],
     "features": {
-        "networking": true
+      "networking": true
     },
     "steps": [
-        {
-            "step": "login",
-            "username": "admin",
-            "password": "password"
+      {
+        "step": "login",
+        "username": "admin"
+      },
+      {
+        "step": "installTheme",
+        "themeData": {
+          "resource": "wordpress.org/themes",
+          "slug": "twentytwentyfour"
         },
-        {
-            "step": "installPlugin",
-            "pluginZipFile": {
-                "resource": "wordpress.org\/plugins",
-                "slug": "simple-user-listing"
-            },
-            "options": {
-                "activate": true
-            }
+        "options": {
+          "activate": true
+        }
+      },
+      {
+        "step": "installPlugin",
+        "pluginData": {
+          "resource": "wordpress.org/plugins",
+          "slug": "wordpress-importer"
         },
-        {
-            "step": "mkdir",
-            "path": "/wordpress/wp-content/plugins/simple-user-listing-demo-avatars"
+        "options": {
+          "activate": true
+        }
+      },
+      {
+        "step": "installPlugin",
+        "pluginData": {
+          "resource": "wordpress.org/plugins",
+          "slug": "simple-user-listing"
         },
-        {
-            "step": "writeFile",
-            "path": "/wordpress/wp-content/plugins/simple-user-listing-demo-avatars/plugin.php",
-            "data": "<?php\n/*\nPlugin Name: Simple User Listing - Demo Avatars\nDescription: Use Picsum.photos to generate some random random avatars\nVersion: 1.0\nAuthor: helgatheviking\n*/\n\nfunction simple_user_listing_random_avatars($args) {\n    $args['url'] = 'https:\/\/picsum.photos\/120?random='. uniqid();\n return $args;\n}\n\nadd_filter('pre_get_avatar_data', 'simple_user_listing_random_avatars');"
+        "options": {
+          "activate": true
+        }
+      },
+      {
+        "step": "installPlugin",
+        "pluginData": {
+          "resource": "wordpress.org/plugins",
+          "slug": "leira-letter-avatar"
         },
-        {
-            "step": "activatePlugin",
-            "pluginPath": "simple-user-listing-demo-avatars/plugin.php"
-        },
-        {
-            "step": "activateTheme",
-            "themeFolderName": "twentytwentyfour"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create helga helga@mailinator.com --role=subscriber --user_pass=password --display_name=\"Helga The Viking\" --description=\"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create emanho emanho@example.com --role=subscriber --user_pass=password --display_name=\"Emanuel Hodkiewicz\" --description=\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create bruins99 jb@example.net --role=subscriber --user_pass=password --display_name=\"Jany Bruen\" --description=\"Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create lsawayn larue.sawayn@example.com --role=subscriber --user_pass=password --display_name=\"Larue Sawayn\" --description=\"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create emmet.schaden eshaden@example.net --role=subscriber --user_pass=password --display_name=\"Emmet Schaden\" --description=\"Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create emoore enoch.moore@example.org --role=subscriber --user_pass=password --display_name=\"Enoch Moore\" --description=\"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create jzemlak9 jzem@example.org --role=subscriber --user_pass=password --display_name=\"Jordan Zemlak\" --description=\"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create kstoltz karlie.stoltenberg@example.com --role=subscriber --user_pass=password --display_name=\"Karlie Stoltenberg\" --description=\"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create lunaconroy lunaconroy@example.net --role=subscriber --user_pass=password --display_name=\"Luna Conroy\" --description=\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create homeskillet homeskillet@example.net --role=subscriber --user_pass=password --display_name=\"Home Skillet\" --description=\"Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create maddie mramirez@example.com --role=subscriber --user_pass=password --display_name=\"Maddie Ramirez\" --description=\"Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create ahilpert93 ahilpert@example.org --role=subscriber --user_pass=password --display_name=\"Addie Hilpert\" --description=\"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create breanna.renner brenner@example.net --role=subscriber --user_pass=password --display_name=\"Breanna Renner\" --description=\"Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create crona.shayna shayna.crona@example.org --role=subscriber --user_pass=password --display_name=\"Shayna Crona\" --description=\"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.\" --send-email=false"
-        },
-        {
-            "step": "wp-cli",
-            "command": "wp user create grimz bgrimes@example.net --role=subscriber --user_pass=password --display_name=\"Brandi Grimes\" --description=\"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\" --send-email=false"
-        },
-        {
-			"step": "importFile",
-			"file": {
-				"resource": "url",
-				"url": "https://raw.githubusercontent.com/helgatheviking/Simple-User-Listing/trunk/demo-content/demo-page.xml"
-			}
-		}
+        "options": {
+          "activate": true
+        }
+      },
+      {
+        "step": "setSiteOptions",
+        "options": {
+          "blogname": "Simple User Listing Demo",
+          "blogdescription": "A user directory example",
+          "avatar_default": "leira_letter_avatar"
+        }
+      },
+      {
+        "step": "importWxr",
+        "file": {
+          "resource": "url",
+          "url": "https://raw.githubusercontent.com/helgatheviking/Simple-User-Listing/refs/heads/trunk/demo-content/demo-content.xml"
+        }
+      }
     ]
-}
+  }
+  

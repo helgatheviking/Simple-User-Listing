@@ -34,7 +34,7 @@
 			<dc:creator><![CDATA[admin]]></dc:creator>
 			<guid isPermaLink="false">https://sandbox.lndo.site/?page_id=2025</guid>
 			<description></description>
-			<content:encoded><![CDATA[<!-- wp:simple-user-listing/directory-block {"columns":3,"showAllUsers":false,"roles":"subscriber","usersPerPage":9,"className":"is-style-grid"} /-->]]></content:encoded>
+			<content:encoded><![CDATA[<!-- wp:simple-user-listing/directory-block {"columns":3,"roles":"subscriber","usersPerPage":9,"className":"is-style-grid"} /-->]]></content:encoded>
 			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 			<wp:post_id>2025</wp:post_id>
 			<wp:post_date><![CDATA[2024-02-20 16:27:07]]></wp:post_date>
