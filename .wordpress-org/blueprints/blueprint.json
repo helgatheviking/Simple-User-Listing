@@ -1,73 +1,85 @@
 {
     "$schema": "https://playground.wordpress.net/blueprint-schema.json",
     "landingPage": "/wp-admin/post.php?post=2025&action=edit",
-    "preferredVersions": {
-      "php": "8.2",
-      "wp": "latest"
+    "preferredVersions":
+    {
+        "php": "8.2",
+        "wp": "latest"
     },
-    "features": {
-      "networking": true
+    "features":
+    {
+        "networking": true
     },
-    "steps": [
-      {
-        "step": "login",
-        "username": "admin"
-      },
-      {
-        "step": "installTheme",
-        "themeData": {
-          "resource": "wordpress.org/themes",
-          "slug": "twentytwentyfour"
+    "steps":
+    [
+        {
+            "step": "login",
+            "username": "admin"
         },
-        "options": {
-          "activate": true
-        }
-      },
-      {
-        "step": "installPlugin",
-        "pluginData": {
-          "resource": "wordpress.org/plugins",
-          "slug": "wordpress-importer"
+        {
+            "step": "installTheme",
+            "themeData":
+            {
+                "resource": "wordpress.org/themes",
+                "slug": "twentytwentyfour"
+            },
+            "options":
+            {
+                "activate": true
+            }
         },
-        "options": {
-          "activate": true
-        }
-      },
-      {
-        "step": "installPlugin",
-        "pluginData": {
-          "resource": "wordpress.org/plugins",
-          "slug": "simple-user-listing"
+        {
+            "step": "installPlugin",
+            "pluginData":
+            {
+                "resource": "wordpress.org/plugins",
+                "slug": "wordpress-importer"
+            },
+            "options":
+            {
+                "activate": true
+            }
         },
-        "options": {
-          "activate": true
-        }
-      },
-      {
-        "step": "installPlugin",
-        "pluginData": {
-          "resource": "wordpress.org/plugins",
-          "slug": "leira-letter-avatar"
+        {
+            "step": "installPlugin",
+            "pluginData":
+            {
+                "resource": "wordpress.org/plugins",
+                "slug": "simple-user-listing"
+            },
+            "options":
+            {
+                "activate": true
+            }
         },
-        "options": {
-          "activate": true
+        {
+            "step": "installPlugin",
+            "pluginData":
+            {
+                "resource": "wordpress.org/plugins",
+                "slug": "leira-letter-avatar"
+            },
+            "options":
+            {
+                "activate": true
+            }
+        },
+        {
+            "step": "setSiteOptions",
+            "options":
+            {
+                "blogname": "Simple User Listing Demo",
+                "blogdescription": "A user directory example",
+                "avatar_default": "leira_letter_avatar"
+            }
+        },
+        {
+            "step": "importWxr",
+            "file":
+            {
+                "resource": "url",
+                "url": "https://raw.githubusercontent.com/helgatheviking/Simple-User-Listing/refs/heads/trunk/demo-content/demo-content.xml"
+            }
         }
-      },
-      {
-        "step": "setSiteOptions",
-        "options": {
-          "blogname": "Simple User Listing Demo",
-          "blogdescription": "A user directory example",
-          "avatar_default": "leira_letter_avatar"
-        }
-      },
-      {
-        "step": "importWxr",
-        "file": {
-          "resource": "url",
-          "url": "https://raw.githubusercontent.com/helgatheviking/Simple-User-Listing/refs/heads/trunk/demo-content/demo-content.xml"
-        }
-      }
     ]
-  }
-  
+}
