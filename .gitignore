@@ -7,3 +7,4 @@ build/
 *.sublime-workspace
 dist/
 demo-content/avatars
+package-lock.json
