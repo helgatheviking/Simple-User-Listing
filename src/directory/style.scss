@@ -29,6 +29,10 @@
 		&.columns-4 .user-list-wrap {
 			grid-template-columns: repeat(4, 1fr);
 		}
+		
+		@media only screen and (max-width: 767px){
+			grid-template-columns: repeat(1,1fr)!important
+		}
 
 	}
 
