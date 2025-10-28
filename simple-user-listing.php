@@ -74,7 +74,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.8.0
 		 */
 		public function __clone() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning this object is forbidden.', 'simple-user-listing' ) );
+			_doing_it_wrong( __METHOD__, esc_html__( 'Cloning this object is forbidden.', 'simple-user-listing' ), '1.8.0' );
 		}
 
 		/**
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 		 * @since 1.8.0
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'simple-user-listing' ) );
+			_doing_it_wrong( __METHOD__, esc_html__( 'Unserializing instances of this class is forbidden.', 'simple-user-listing' ), '1.8.0' );
 		}
 
 		/**
