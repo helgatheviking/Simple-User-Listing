@@ -78,7 +78,7 @@ jobs:
       - name: "Setup NodeJS."
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: "Get NPM cache directory."
         id: npm-cache-dir
@@ -131,7 +131,7 @@ jobs:
           npm run deploy
 
       - name: "Add package to GitHub releases."
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: ./deploy/${{ env.release_name }}-${{ env.release_tag }}.zip
         env:
