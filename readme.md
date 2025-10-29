@@ -88,8 +88,17 @@ As of version 1.4.2 you can now include and exclude users with a comma separated
 	[userlist exclude="1,2,3"]
 
 
-The full list of supported parameters (shown with default value) is:
+As of version 2.1.0 you can now build more complicated meta queries. You can use comma separation to indicate multiple values for the same meta key and pipe separation to indicate multiple meta keys. You can also set the relation between multiple meta queries.
 
+Example 1: Get users with last name of "anderson" or "swift"
+
+	[userlist meta_key="last_name" meta_value="anderson,swift" relation="OR"]
+
+Example 2: Get users with last name of "anderson" and first name of "anja"
+
+	[userlist meta_key="last_name|" meta_value="anderson|anja"]
+
+The full list of supported parameters (shown with default value) is:
 
 	'query_id' => 'simple_user_listing', // This allows for targeted filtering of pre_get_user which allows for very custom queries.
 	'role' => '', // Multiple roles can be defined in a comma separated list [userlist role="infield,outfield"]

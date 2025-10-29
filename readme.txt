@@ -90,6 +90,17 @@ As of version 1.4.2 you can now include and exclude users with a comma separated
 [userlist exclude="1,2,3"]
 `
 
+As of version 2.1.0 you can now build more complicated meta queries. You can use comma separation to indicate multiple values for the same meta key and pipe separation to indicate multiple meta keys. You can also set the relation between multiple meta queries.
+
+Example 1: Get users with last name of "anderson" or "swift"
+`
+[userlist meta_key="last_name" meta_value="anderson,swift" meta_relation="OR"]
+`
+
+Example 2: Get users with last name of "anderson" and first name of "anja"
+
+[userlist meta_key="last_name|" meta_value="anderson|anja"]
+
 The full list of supported parameters (shown with default value) is:
 
 `
@@ -107,6 +118,7 @@ The full list of supported parameters (shown with default value) is:
 'meta_value' => '',
 'meta_compare' => '=',
 'meta_type' => 'CHAR',
+'meta_relation' => 'AND', // Used when multiple meta keys are defined.
 'count_total' => true,
 'template' => 'author' // Corresponds to content-author.php template, can accept different templates per shortcode.
 `

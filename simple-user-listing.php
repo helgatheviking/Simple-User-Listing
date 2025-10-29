@@ -291,6 +291,7 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 
 			$defaults = array(
 				'query_id' => 'simple_user_listing',
+				'meta_relation' => 'AND',
 				'role' => '',
 				'role__in' => '',
 				'role__not_in'=> '',
@@ -378,14 +379,77 @@ if ( ! class_exists( 'Simple_User_Listing' ) ) {
 			
 			// If meta search parameters are defined.
 			if ( $atts['meta_key'] && $atts['meta_value'] ) {
+
 				$args['meta_query'] = array(
-												array(
-													'key'       => $atts['meta_key'],
-													'value'     => $atts['meta_value'],
-													'compare'   => $atts['meta_compare'],
-													'type'      => $atts['meta_type'],
-												),
-											);
+					'relation' => $atts['meta_relation']
+				);
+
+				// Check if we have multiple keys/values (pipe-separated)
+				if ( strpos( $atts['meta_key'], '|' ) !== false || strpos( $atts['meta_value'], '|' ) !== false ) {
+
+					$meta_keys = explode( '|', $atts['meta_key'] );
+					$meta_values = explode( '|', $atts['meta_value'] );
+					
+					// Parse meta_compare if it has multiple values
+					$meta_compares = array();
+					if ( strpos( $atts['meta_compare'], '|' ) !== false ) {
+						$meta_compares = explode( '|', $atts['meta_compare'] );
+					}
+					
+					// Parse meta_type if it has multiple values.
+					$meta_types = array();
+					if ( strpos( $atts['meta_type'], '|' ) !== false ) {
+						$meta_types = explode( '|', $atts['meta_type'] );
+					}					
+					
+					foreach ( $meta_keys as $index => $key ) {
+						$value   = isset( $meta_values[$index] ) ? $meta_values[$index]    : '';
+						$compare = isset( $meta_compares[$index] ) ? $meta_compares[$index]: $atts['meta_compare'];
+						$type    = isset( $meta_types[$index] ) ? $meta_types[$index]      : $atts['meta_type'];
+
+						// Check if value contains commas (array of values).
+						if ( strpos( $value, ',' ) !== false ) {
+							$value = array_map( 'trim', explode( ',', $value ) );
+						} else {
+							$value = trim( $value );
+						}
+						
+						$args['meta_query'][] = array(
+							'key'     => trim( $key ),
+							'value'   => trim( $value ),
+							'compare' => trim( $compare ),
+							'type'    => trim( $type ),
+						);
+					}
+					
+				} else {
+					// Single key/value pair.
+					$value = $atts['meta_value'];			
+
+					// Check if value contains commas (array of values).
+					if ( strpos( $value, ',' ) !== false ) {
+						$values = array_map( 'trim', explode( ',', $value ) );
+						
+						foreach ( $values as $single_value ) {
+							$args['meta_query'][] = array(
+								'key'     => $atts['meta_key'],
+								'value'   => $single_value,
+								'compare' => $atts['meta_compare'],
+								'type'    => $atts['meta_type'],
+							);
+						}
+						
+					} else {
+						$args['meta_query'] = array(
+							array(
+								'key'       => $atts['meta_key'],
+								'value'     => trim( $value ),
+								'compare'   => $atts['meta_compare'],
+								'type'      => $atts['meta_type'],
+							),
+						);
+					}
+				}
 			} elseif( $atts['meta_key'] ) {
 				$args['meta_key'] = $atts['meta_key'];
 			}
