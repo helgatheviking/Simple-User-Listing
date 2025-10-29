@@ -5,7 +5,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
- .wp-block-simple-user-listing-directory-block {
+.wp-block-simple-user-listing-directory-block {
 
 	.author-search {
 		margin-bottom: 2em;
@@ -19,7 +19,7 @@
 		}
 
 		&.columns-2 .user-list-wrap {
-			grid-template-columns: repeat(2, 1fr);		
+			grid-template-columns: repeat(2, 1fr);
 		}
 
 		&.columns-3 .user-list-wrap {
@@ -30,6 +30,14 @@
 			grid-template-columns: repeat(4, 1fr);
 		}
 
+		// Responsive adjustment for smaller screens.
+		@media only screen and (max-width: 600px) {
+			&.columns-2 .user-list-wrap,
+			&.columns-3 .user-list-wrap,
+			&.columns-4 .user-list-wrap {
+				grid-template-columns: 1fr;
+			}
+		}
 	}
 
 	&.is-style-list .user-list-wrap {
@@ -41,16 +49,26 @@
 				float: left;
 				margin-right: 1em;
 			}
-	
+
 			.author-name {
 				clear: none;
 			}
-	
+
 			.author-description {
 				clear: both;
 			}
 		}
 
-	}
+		// Optional responsive styling for list layout.
+		@media only screen and (max-width: 600px) {
+			flex-direction: column;
 
+			.author-block {
+				.avatar {
+					float: none;
+					margin: 0 0 1em 0;
+				}
+			}
+		}
+	}
 }
